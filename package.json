@@ -1,0 +1,6 @@
+{
+  "private": "true",
+  "devDependencies": {
+    "ts-standardx": "0.7.4"
+  }
+}
