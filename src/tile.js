@@ -22,10 +22,6 @@ class Tile {
    * @param {number} h2 sHeight
    */
   isContaining(x2, y2, w2, h2) {
-    if (this.isWall) {
-      return false
-    }
-
     const { dx: x1, dy: y1 } = this.position
     const { sWidth: w1, sHeight: h1 } = this.imageSize
 

@@ -42,7 +42,15 @@ class Charactor {
     const { dx, dy } = this.position
     const { sWidth, sHeight } = this.imageSize
 
-    return this.tiles.filter(tile => tile.isContaining(dx, dy, sWidth, sHeight))
+    return this.tiles.filter(tile => {
+      if (
+        tile.isWall &&
+        tile.position.dy + tile.imageSize.sHeight === CANVAS_SIZE
+      ) {
+        return tile.isContaining(dx, dy, sWidth, sHeight - 4 + TILE_SIZE)
+      }
+      return !tile.isWall && tile.isContaining(dx, dy, sWidth, sHeight)
+    })
   }
 
   getNextFrameImagePosition() {
@@ -105,19 +113,9 @@ class Charactor {
 
   draw() {
     const { sWidth, sHeight } = this.imageSize
-    g.ctx.clearRect(this.position.dx, this.position.dy, sWidth, sHeight)
 
-    const bottomWalls = this.tiles.filter(
-      tile =>
-        tile.isWall &&
-        tile.position.dy + tile.imageSize.sHeight === CANVAS_SIZE &&
-        this.surroundingTiles.some(
-          surroundingTile =>
-            surroundingTile.position.dx === tile.position.dx &&
-            surroundingTile.position.dy + TILE_SIZE - 4 === tile.position.dy
-        )
-    )
-    this.surroundingTiles.concat(bottomWalls).forEach(tile => {
+    g.ctx.clearRect(this.position.dx, this.position.dy, sWidth, sHeight)
+    this.surroundingTiles.forEach(tile => {
       tile.draw()
     })
 
