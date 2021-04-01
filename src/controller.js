@@ -1,6 +1,6 @@
 const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 
-class Controller {
+export class Controller {
   constructor(game, view) {
     this.keyboard = new Map()
 
@@ -37,5 +37,3 @@ class Controller {
     }
   }
 }
-
-export default Controller

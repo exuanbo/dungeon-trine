@@ -1,7 +1,7 @@
 import { Floor, Wall } from './tile.js'
 import { WIDTH, HEIGHT, TILE_SIZE } from './globals.js'
 
-class Map {
+export class Map {
   static getTiles() {
     const tiles = []
 
@@ -73,5 +73,3 @@ class Map {
     })
   }
 }
-
-export default Map

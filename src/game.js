@@ -1,7 +1,7 @@
-import Map from './map.js'
+import { Map } from './map.js'
 import { Player } from './charactor.js'
 
-class Game {
+export class Game {
   constructor() {
     this.isMapInitialized = false
 
@@ -18,5 +18,3 @@ class Game {
     this.player.draw()
   }
 }
-
-export default Game

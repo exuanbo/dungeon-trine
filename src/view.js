@@ -3,7 +3,7 @@ import { SPRITE } from './globals.js'
 const FPS = 60
 const FPS_INTERVAL = 1000 / FPS
 
-class View {
+export class View {
   draw(game) {
     window.requestAnimationFrame(() => this.draw(game))
 
@@ -19,5 +19,3 @@ class View {
     game.draw()
   }
 }
-
-export default View
