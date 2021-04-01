@@ -57,8 +57,10 @@ class Tile {
 
 export class Floor extends Tile {
   constructor({ position }) {
-    // floor_1
-    super({ imagePosition: { sx: 16, sy: 64 }, position })
+    super({
+      imagePosition: { sx: 16, sy: 64 }, // floor_1
+      position
+    })
   }
 }
 
