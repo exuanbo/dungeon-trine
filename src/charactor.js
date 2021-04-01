@@ -7,9 +7,7 @@ class Charactor {
     for (let i = 0; i < Infinity; i++) {
       if (i % 10 === 0) {
         frameIndex++
-        if (frameIndex >= frameCount) {
-          frameIndex = 0
-        }
+        frameIndex %= frameCount
       }
 
       yield frameIndex
