@@ -8,53 +8,58 @@ export class Map {
     const tilesPerSide = CANVAS_SIZE / TILE_SIZE
 
     for (let col = 0; col < tilesPerSide; col++) {
-      const columnOfTiles = Array(tilesPerSide)
-        .fill(undefined)
-        .map((_, row) => {
-          const position = { dx: col * TILE_SIZE, dy: row * TILE_SIZE }
+      const columnOfTiles = []
 
-          // left or right
-          if (col === 0 || col === tilesPerSide - 1) {
-            const sx = col === 0 ? 0 : 16
+      for (let row = 0; row < tilesPerSide; row++) {
+        let tile
+        const position = { dx: col * TILE_SIZE, dy: row * TILE_SIZE }
 
-            if (row === 0) {
-              return new Wall({
-                imagePosition: { sx, sy: 112 }, // wall_side_top_left || wall_side_top_right
-                position
-              })
-            }
-            if (row === tilesPerSide - 1) {
-              return new Wall({
-                imagePosition: { sx, sy: 144 }, // wall_side_front_left || wall_side_front_right
-                position
-              })
-            }
+        // left or right side wall
+        if (col === 0 || col === tilesPerSide - 1) {
+          const sx = col === 0 ? 0 : 16
 
-            return new Wall({
+          if (row === 0) {
+            tile = new Wall({
+              imagePosition: { sx, sy: 112 }, // wall_side_top_left || wall_side_top_right
+              position
+            })
+          } else if (row === tilesPerSide - 1) {
+            tile = new Wall({
+              imagePosition: { sx, sy: 144 }, // wall_side_front_left || wall_side_front_right
+              position
+            })
+          } else {
+            tile = new Wall({
               imagePosition: { sx, sy: 128 }, // wall_side_mid_left || wall_side_mid_left
               position
             })
           }
+        }
 
-          // top
-          if (row === 0 || row === 1) {
-            return new Wall({
-              imagePosition: { sx: 32, sy: row === 0 ? 0 : 16 }, // wall_top_mid || wall_mid
-              position
-            })
-          }
+        // top side wall
+        else if (row === 0 || row === 1) {
+          tile = new Wall({
+            imagePosition: { sx: 32, sy: row === 0 ? 0 : 16 }, // wall_top_mid || wall_mid
+            position
+          })
+        }
 
-          // bottom
-          if (row === tilesPerSide - 1) {
-            return new Wall({
-              imagePosition: { sx: 32, sy: 12 },
-              imageSize: { sWidth: TILE_SIZE, sHeight: TILE_SIZE + 4 },
-              position: { dx: position.dx, dy: position.dy - 4 }
-            })
-          }
+        // bottom side wall
+        else if (row === tilesPerSide - 1) {
+          tile = new Wall({
+            imagePosition: { sx: 32, sy: 12 },
+            imageSize: { sWidth: TILE_SIZE, sHeight: TILE_SIZE + 4 },
+            position: { dx: position.dx, dy: position.dy - 4 }
+          })
+        }
 
-          return new Floor({ position })
-        })
+        // floor
+        else {
+          tile = new Floor({ position })
+        }
+
+        columnOfTiles.push(tile)
+      }
 
       tiles.push(...columnOfTiles)
     }
