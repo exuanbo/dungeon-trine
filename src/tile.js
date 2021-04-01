@@ -16,6 +16,10 @@ class Tile {
   }
 
   isContaining({ position, imageSize }) {
+    if (this.isWall) {
+      return false
+    }
+
     const { dx: x1, dy: y1 } = this.position
     const { sWidth: w1, sHeight: h1 } = this.imageSize
 
