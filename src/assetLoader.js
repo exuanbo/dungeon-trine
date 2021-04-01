@@ -19,12 +19,12 @@ export class AssetLoader {
   }
 
   async load() {
-    const download = []
+    const loading = []
 
     this.assetsList.forEach(asset => {
       switch (asset.type) {
         case 'image': {
-          download.push(
+          loading.push(
             new Promise(resolve => {
               const image = new Image()
               image.src = asset.src
@@ -38,6 +38,6 @@ export class AssetLoader {
       }
     })
 
-    await Promise.all(download)
+    await Promise.all(loading)
   }
 }
