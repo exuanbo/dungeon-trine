@@ -1,4 +1,4 @@
-import { CTX, SPRITE, TILE_SIZE } from './globals.js'
+import g, { TILE_SIZE } from './globals.js'
 
 class Tile {
   constructor({
@@ -6,6 +6,8 @@ class Tile {
     imageSize = { sWidth: TILE_SIZE, sHeight: TILE_SIZE },
     position
   }) {
+    this.sprite = g.assets.image.dungeonTileSet.element
+
     this.isWall = false
 
     this.imagePosition = imagePosition
@@ -31,8 +33,18 @@ class Tile {
     const { sWidth, sHeight } = this.imageSize
     const { dx, dy } = this.position
 
-    CTX.clearRect(dx, dy, sWidth, sHeight)
-    CTX.drawImage(SPRITE, sx, sy, sWidth, sHeight, dx, dy, sWidth, sHeight)
+    g.ctx.clearRect(dx, dy, sWidth, sHeight)
+    g.ctx.drawImage(
+      this.sprite,
+      sx,
+      sy,
+      sWidth,
+      sHeight,
+      dx,
+      dy,
+      sWidth,
+      sHeight
+    )
   }
 }
 

@@ -1,5 +1,3 @@
-import { SPRITE } from './globals.js'
-
 const FPS = 60
 const FPS_INTERVAL = 1000 / FPS
 
@@ -9,7 +7,7 @@ export class View {
 
     const currentTime = performance.now()
     const elapsed = currentTime - this.lastDrawTime
-    if (!SPRITE.complete || elapsed <= FPS_INTERVAL) {
+    if (elapsed <= FPS_INTERVAL) {
       return
     }
     this.lastDrawTime = isNaN(elapsed)

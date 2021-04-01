@@ -1,14 +1,20 @@
+import { AssetLoader } from './assetLoader.js'
+import { Game } from './game.js'
+import { View } from './view.js'
+
 const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 
 export class Controller {
-  constructor(game, view) {
+  constructor() {
+    this.assetLoader = new AssetLoader()
     this.keyboard = new Map()
-
-    this.game = game
-    this.view = view
   }
 
-  init() {
+  async init() {
+    await this.assetLoader.load()
+
+    this.game = new Game()
+    this.view = new View()
     this.view.draw(this.game)
 
     window.addEventListener('keydown', e => this.handleKey(e), false)
