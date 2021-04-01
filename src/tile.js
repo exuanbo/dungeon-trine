@@ -15,16 +15,19 @@ class Tile {
     this.position = position
   }
 
-  isContaining({ position, imageSize }) {
+  /**
+   * @param {number} x2 dx
+   * @param {number} y2 dy
+   * @param {number} w2 sWidth
+   * @param {number} h2 sHeight
+   */
+  isContaining(x2, y2, w2, h2) {
     if (this.isWall) {
       return false
     }
 
     const { dx: x1, dy: y1 } = this.position
     const { sWidth: w1, sHeight: h1 } = this.imageSize
-
-    const { dx: x2, dy: y2 } = position
-    const { sWidth: w2, sHeight: h2 } = imageSize
 
     return (
       ((x2 < x1 && x2 + w2 > x1) || (x2 > x1 && x2 < x1 + w1) || x2 === x1) &&

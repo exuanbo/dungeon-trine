@@ -39,7 +39,10 @@ class Charactor {
   }
 
   getSurroundingTiles() {
-    return this.tiles.filter(tile => tile.isContaining(this))
+    const { dx, dy } = this.position
+    const { sWidth, sHeight } = this.imageSize
+
+    return this.tiles.filter(tile => tile.isContaining(dx, dy, sWidth, sHeight))
   }
 
   getNextFrameImagePosition() {
