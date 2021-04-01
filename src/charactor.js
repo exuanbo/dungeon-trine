@@ -15,7 +15,7 @@ class Charactor {
   }
 
   constructor({ frames, imageSize, position, tiles }) {
-    this.sprite = g.assets.image.dungeonTileSet.element
+    this.sprite = g.assets.image.dungeonTileSet
 
     this.speed = 2
     this.face = 'right'

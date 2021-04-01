@@ -6,7 +6,7 @@ class Tile {
     imageSize = { sWidth: TILE_SIZE, sHeight: TILE_SIZE },
     position
   }) {
-    this.sprite = g.assets.image.dungeonTileSet.element
+    this.sprite = g.assets.image.dungeonTileSet
 
     this.isWall = false
 

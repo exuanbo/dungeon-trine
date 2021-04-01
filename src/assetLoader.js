@@ -2,7 +2,7 @@ import g from './globals.js'
 
 export class AssetLoader {
   constructor() {
-    const assetsList = [
+    this.assetsList = [
       {
         name: 'dungeonTileSet',
         type: 'image',
@@ -10,44 +10,33 @@ export class AssetLoader {
       }
     ]
 
-    assetsList.forEach(asset => {
+    this.assetsList.forEach(asset => {
       if (g.assets[asset.type] === undefined) {
         g.assets[asset.type] = {}
       }
-      g.assets[asset.type][asset.name] = {
-        src: asset.src,
-        element: null,
-        isLoaded: false
-      }
+      g.assets[asset.type][asset.name] = null
     })
   }
 
   async load() {
     const download = []
 
-    for (const assetType in g.assets) {
-      const assets = g.assets[assetType]
-
-      switch (assetType) {
+    this.assetsList.forEach(asset => {
+      switch (asset.type) {
         case 'image': {
-          for (const assetName in assets) {
-            const asset = assets[assetName]
-
-            download.push(
-              new Promise(resolve => {
-                const image = new Image()
-                image.src = asset.src
-                image.onload = () => {
-                  asset.element = image
-                  asset.isLoaded = true
-                  resolve()
-                }
-              })
-            )
-          }
+          download.push(
+            new Promise(resolve => {
+              const image = new Image()
+              image.src = asset.src
+              image.onload = () => {
+                g.assets.image[asset.name] = image
+                resolve()
+              }
+            })
+          )
         }
       }
-    }
+    })
 
     await Promise.all(download)
   }
