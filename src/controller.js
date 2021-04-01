@@ -7,7 +7,7 @@ const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 export class Controller {
   constructor() {
     this.assetLoader = new AssetLoader()
-    this.keyboard = new Map()
+    this.keyboardMap = new Map()
   }
 
   async init() {
@@ -23,9 +23,9 @@ export class Controller {
 
   handleKey(e) {
     const isKeydown = e.type === 'keydown'
-    this.keyboard.set(e.code, isKeydown)
+    this.keyboardMap.set(e.code, isKeydown)
 
-    for (const [k, v] of this.keyboard) {
+    for (const [k, v] of this.keyboardMap) {
       if (ARROW_KEY_CODES.includes(k)) {
         const direction = k.slice(5).toLowerCase()
         this.game.player.directions[direction] = v
@@ -33,7 +33,7 @@ export class Controller {
     }
 
     if (!isKeydown) {
-      for (const v of this.keyboard.values()) {
+      for (const v of this.keyboardMap.values()) {
         if (v) {
           return
         }
