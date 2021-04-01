@@ -1,3 +1,5 @@
+import { SPRITE } from './globals.js'
+
 const FPS = 60
 const FPS_INTERVAL = 1000 / FPS
 
@@ -10,7 +12,7 @@ class View {
     window.requestAnimationFrame(() => this.draw(game))
     const currentTime = performance.now()
     const elapsed = currentTime - this.lastDrawTime
-    if (elapsed <= FPS_INTERVAL) {
+    if (!SPRITE.complete || elapsed <= FPS_INTERVAL) {
       return
     }
     this.lastDrawTime = currentTime - (elapsed % FPS_INTERVAL)
