@@ -136,6 +136,10 @@ class Charactor {
     }
 
     if (this.face === 'left') {
+      /**
+       * {@link https://stackoverflow.com/a/37388113/13346012
+       * |How to flip images horizontally with HTML5}
+       */
       this.ctx.save()
       this.ctx.translate(
         this.position.dx + sWidth / 2,
