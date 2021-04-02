@@ -14,6 +14,7 @@ export class Controller {
     await this.assetLoader.load()
 
     this.game = new Game()
+    this.player = this.game.scene.layers.game.player
     this.view = new View()
     this.view.render(this.game)
 
@@ -21,6 +22,9 @@ export class Controller {
     window.addEventListener('keyup', e => this.handleKey(e), false)
   }
 
+  /**
+   * @param {KeyboardEvent} e
+   */
   handleKey(e) {
     const isKeydown = e.type === 'keydown'
     this.keyboardMap.set(e.code, isKeydown)
@@ -28,7 +32,7 @@ export class Controller {
     for (const [k, v] of this.keyboardMap) {
       if (ARROW_KEY_CODES.includes(k)) {
         const direction = k.slice(5).toLowerCase()
-        this.game.player.directions[direction] = v
+        this.player.directions[direction] = v
       }
     }
 
@@ -39,7 +43,7 @@ export class Controller {
         }
       }
 
-      this.game.player.stopAction()
+      this.player.stopAction()
     }
   }
 }

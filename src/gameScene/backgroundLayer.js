@@ -1,7 +1,8 @@
-import { Floor, Wall } from './tile.js'
-import { CANVAS_SIZE, TILE_SIZE } from './globals.js'
+import { Layer } from '../layer.js'
+import { Floor, Wall } from '../tile.js'
+import { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
 
-export class Map {
+export class BackgroundLayer extends Layer {
   static getTiles() {
     const tiles = []
 
@@ -68,12 +69,34 @@ export class Map {
   }
 
   constructor() {
-    this.tiles = Map.getTiles()
+    super()
+    this.isRendered = false
+    this.tiles = BackgroundLayer.getTiles()
   }
 
   render() {
-    this.tiles.forEach(tiles => {
-      tiles.render()
+    if (this.isRendered) {
+      return
+    }
+
+    this.tiles.forEach(tile => {
+      const { sx, sy } = tile.imagePosition
+      const { sWidth, sHeight } = tile.imageSize
+      const { dx, dy } = tile.position
+
+      this.ctx.clearRect(dx, dy, sWidth, sHeight)
+      this.ctx.drawImage(
+        tile.sprite,
+        sx,
+        sy,
+        sWidth,
+        sHeight,
+        dx,
+        dy,
+        sWidth,
+        sHeight
+      )
     })
+    this.isRendered = true
   }
 }

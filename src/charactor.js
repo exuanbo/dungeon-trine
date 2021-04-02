@@ -1,11 +1,14 @@
 import g, { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
 class Charactor {
+  /**
+   * @param {number} frameCount
+   */
   static *makeFrameIndexIterator(frameCount) {
     let frameIndex = 0
 
     for (let i = 0; i < Infinity; i++) {
-      if (i % 10 === 0) {
+      if (i % 12 === 0) {
         frameIndex++
         frameIndex %= frameCount
       }
@@ -14,7 +17,24 @@ class Charactor {
     }
   }
 
-  constructor({ frames, imageSize, position, tiles }) {
+  /**
+   * @typedef {Object} Frame
+   * @property {{ sx: number, sy: number }} Frame.imageStartPosition
+   * @property {number} Frame.count
+   */
+
+  /**
+   * @typedef {Object} CharactorMeta
+   * @property {Object.<string, Frame>} CharactorMeta.frames
+   * @property {{ sWidth: number, sHeight: number }} CharactorMeta.imageSize
+   * @property {{ dx: number, dy: number }} CharactorMeta.position
+   * @property {CanvasRenderingContext2D} ctx
+   */
+
+  /**
+   * @param {CharactorMeta} charactorMeta
+   */
+  constructor({ frames, imageSize, position, ctx }) {
     this.sprite = g.assets.image.dungeonTileSet
 
     this.speed = 2
@@ -28,8 +48,7 @@ class Charactor {
 
     this.imageSize = imageSize
     this.position = position
-    this.tiles = tiles
-    this.surroundingTiles = this.getSurroundingTiles()
+    this.ctx = ctx
   }
 
   setFrameIndexIterator() {
@@ -38,23 +57,8 @@ class Charactor {
     )
   }
 
-  getSurroundingTiles() {
-    const { dx, dy } = this.position
-    const { sWidth, sHeight } = this.imageSize
-
-    return this.tiles.filter(tile => {
-      if (
-        tile.isWall &&
-        tile.position.dy + tile.imageSize.sHeight === CANVAS_SIZE
-      ) {
-        return tile.isContaining(dx, dy, sWidth, sHeight - 4 + TILE_SIZE)
-      }
-      return !tile.isWall && tile.isContaining(dx, dy, sWidth, sHeight)
-    })
-  }
-
   getNextFrameImagePosition() {
-    const { sx, sy } = this.frames[this.lastAction].startImagePosition
+    const { sx, sy } = this.frames[this.lastAction].imageStartPosition
     const nextFrameIndex = this.frameIndexIterator.next().value
 
     return {
@@ -99,10 +103,7 @@ class Charactor {
         this.position.dy + this.imageSize.sHeight >= CANVAS_SIZE - TILE_SIZE - 4
       ) {
         this.position = originalPosition
-        return
       }
-
-      this.surroundingTiles = this.getSurroundingTiles()
     }
   }
 
@@ -114,17 +115,14 @@ class Charactor {
   render() {
     const { sWidth, sHeight } = this.imageSize
 
-    g.ctx.clearRect(this.position.dx, this.position.dy, sWidth, sHeight)
-    this.surroundingTiles.forEach(tile => {
-      tile.render()
-    })
+    this.ctx.clearRect(this.position.dx, this.position.dy, sWidth, sHeight)
 
     this.act()
 
     const { sx, sy } = this.getNextFrameImagePosition()
 
     const drawImage = (dx, dy) => {
-      g.ctx.drawImage(
+      this.ctx.drawImage(
         this.sprite,
         sx,
         sy,
@@ -138,14 +136,14 @@ class Charactor {
     }
 
     if (this.face === 'left') {
-      g.ctx.save()
-      g.ctx.translate(
+      this.ctx.save()
+      this.ctx.translate(
         this.position.dx + sWidth / 2,
         this.position.dy + sHeight / 2
       )
-      g.ctx.scale(-1, 1)
+      this.ctx.scale(-1, 1)
       drawImage(-sWidth / 2, -sHeight / 2)
-      g.ctx.restore()
+      this.ctx.restore()
     } else {
       drawImage(this.position.dx, this.position.dy)
     }
@@ -153,24 +151,24 @@ class Charactor {
 }
 
 export class Player extends Charactor {
-  constructor({
-    position = {
-      dx: CANVAS_SIZE / 2 - TILE_SIZE / 2,
-      dy: CANVAS_SIZE / 2 - TILE_SIZE / 2
-    },
-    tiles
-  }) {
+  constructor(ctx) {
     const frames = {
       idle: {
-        startImagePosition: { sx: 128, sy: 100 },
+        imageStartPosition: { sx: 128, sy: 100 },
         count: 4
       },
       move: {
-        startImagePosition: { sx: 192, sy: 100 },
+        imageStartPosition: { sx: 192, sy: 100 },
         count: 4
       }
     }
-    super({ frames, imageSize: { sWidth: 16, sHeight: 28 }, position, tiles })
+    const centerPosition = CANVAS_SIZE / 2 - TILE_SIZE / 2
+    super({
+      frames,
+      imageSize: { sWidth: 16, sHeight: 28 },
+      position: { dx: centerPosition, dy: centerPosition },
+      ctx
+    })
   }
 
   act() {
