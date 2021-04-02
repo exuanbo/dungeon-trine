@@ -5,6 +5,12 @@ class Charactor {
    * @param {number} frameCount
    */
   static *makeFrameIndexIterator(frameCount) {
+    if (frameCount === 1) {
+      while (true) {
+        yield 0
+      }
+    }
+
     let frameIndex = 0
 
     for (let i = 0; i < Infinity; i++) {
