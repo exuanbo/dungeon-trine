@@ -15,7 +15,7 @@ export class Controller {
 
     this.game = new Game()
     this.view = new View()
-    this.view.draw(this.game)
+    this.view.render(this.game)
 
     window.addEventListener('keydown', e => this.handleKey(e), false)
     window.addEventListener('keyup', e => this.handleKey(e), false)

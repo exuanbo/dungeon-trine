@@ -111,12 +111,12 @@ class Charactor {
     this.setFrameIndexIterator()
   }
 
-  draw() {
+  render() {
     const { sWidth, sHeight } = this.imageSize
 
     g.ctx.clearRect(this.position.dx, this.position.dy, sWidth, sHeight)
     this.surroundingTiles.forEach(tile => {
-      tile.draw()
+      tile.render()
     })
 
     this.act()

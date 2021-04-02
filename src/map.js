@@ -71,9 +71,9 @@ export class Map {
     this.tiles = Map.getTiles()
   }
 
-  draw() {
+  render() {
     this.tiles.forEach(tiles => {
-      tiles.draw()
+      tiles.render()
     })
   }
 }

@@ -9,12 +9,12 @@ export class Game {
     this.player = new Player({ tiles: this.map.tiles })
   }
 
-  draw() {
+  render() {
     if (!this.isMapInitialized) {
-      this.map.draw()
+      this.map.render()
       this.isMapInitialized = true
     }
 
-    this.player.draw()
+    this.player.render()
   }
 }

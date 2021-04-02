@@ -31,7 +31,7 @@ class Tile {
     )
   }
 
-  draw() {
+  render() {
     const { sx, sy } = this.imagePosition
     const { sWidth, sHeight } = this.imageSize
     const { dx, dy } = this.position
