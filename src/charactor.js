@@ -41,7 +41,7 @@ class Charactor {
     this.face = 'right'
     this.directions = { up: false, right: false, down: false, left: false }
 
-    this.lastAction = 'idle'
+    this.action = 'idle'
 
     this.frames = frames
     this.setFrameIndexIterator()
@@ -52,7 +52,7 @@ class Charactor {
 
   setFrameIndexIterator() {
     this.frameIndexIterator = Charactor.makeFrameIndexIterator(
-      this.frames[this.lastAction].count
+      this.frames[this.action].count
     )
   }
 
@@ -96,12 +96,12 @@ class Charactor {
         }
       }
 
-      if (this.lastAction !== 'move') {
-        this.lastAction = 'move'
+      if (this.action !== 'move') {
+        this.action = 'move'
         this.setFrameIndexIterator()
       }
 
-      const { imageSize } = this.frames[this.lastAction]
+      const { imageSize } = this.frames[this.action]
 
       if (
         this.position.dx <= TILE_SIZE ||
@@ -115,12 +115,12 @@ class Charactor {
   }
 
   stopAction() {
-    this.lastAction = 'idle'
+    this.action = 'idle'
     this.setFrameIndexIterator()
   }
 
   render() {
-    const currentFrame = this.frames[this.lastAction]
+    const currentFrame = this.frames[this.action]
 
     this.ctx.clearRect(
       this.position.dx,
