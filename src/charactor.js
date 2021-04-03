@@ -1,3 +1,5 @@
+import { Sprite } from './sprite.js'
+import { vector } from './vector.js'
 import g, { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
 class Charactor {
@@ -14,7 +16,7 @@ class Charactor {
     let frameIndex = 0
 
     for (let i = 0; i < Infinity; i++) {
-      if (i % 12 === 0) {
+      if (i % 9 === 0) {
         frameIndex++
         frameIndex %= frameCount
       }
@@ -24,58 +26,47 @@ class Charactor {
   }
 
   /**
-   * @typedef {Object} Frame
-   * @property {{ sx: number, sy: number }} Frame.imagePosition
-   * @property {{ sWidth: number, sHeight: number }} Frame.imageSize
-   * @property {number} Frame.count
-   */
-
-  /**
    * @typedef {Object} CharactorMeta
-   * @property {Object.<string, Frame>} CharactorMeta.frames
-   * @property {{ dx: number, dy: number }} CharactorMeta.position
+   * @property {import('./vector').Vector} CharactorMeta.position
+   * @property {Object<string, Sprite[]>} CharactorMeta.frames
    * @property {CanvasRenderingContext2D} ctx
    */
 
   /**
    * @param {CharactorMeta} charactorMeta
    */
-  constructor({ frames, position, ctx }) {
-    this.sprite = g.assets.image.dungeonTileSet
-
+  constructor({ position, frames, ctx }) {
     this.speed = 2
     this.face = 'right'
     this.directions = { up: false, right: false, down: false, left: false }
 
+    this.spriteSheet = g.assets.image.dungeonTileSet
     this.action = 'idle'
+
+    this.position = position
 
     this.frames = frames
     this.setFrameIndexIterator()
 
-    this.position = position
     this.ctx = ctx
   }
 
   setFrameIndexIterator() {
+    this.currentFrameIndex = 0
     this.frameIndexIterator = Charactor.makeFrameIndexIterator(
-      this.frames[this.action].count
+      this.frames[this.action].length
     )
   }
 
-  /**
-   * @param {Frame} currentFrame
-   */
-  getNextFrame(currentFrame) {
-    const { imagePosition, imageSize } = currentFrame
-    const nextFrameIndex = this.frameIndexIterator.next().value
+  getCurrentFrame() {
+    return this.frames[this.action][this.currentFrameIndex]
+  }
 
-    return {
-      imagePosition: {
-        sx: imagePosition.sx + nextFrameIndex * imageSize.sWidth,
-        sy: imagePosition.sy
-      },
-      imageSize
-    }
+  getNextFrame() {
+    /** @type {number} */
+    const nextFrameIndex = this.frameIndexIterator.next().value
+    this.currentFrameIndex = nextFrameIndex
+    return this.frames[this.action][nextFrameIndex]
   }
 
   act() {
@@ -84,19 +75,19 @@ class Charactor {
       const originalPosition = { ...this.position }
 
       if (up) {
-        this.position.dy -= this.speed
+        this.position.y -= this.speed
       }
       if (right) {
-        this.position.dx += this.speed
+        this.position.x += this.speed
         if (!left) {
           this.face = 'right'
         }
       }
       if (down) {
-        this.position.dy += this.speed
+        this.position.y += this.speed
       }
       if (left) {
-        this.position.dx -= this.speed
+        this.position.x -= this.speed
         if (!right) {
           this.face = 'left'
         }
@@ -107,13 +98,13 @@ class Charactor {
         this.setFrameIndexIterator()
       }
 
-      const { imageSize } = this.frames[this.action]
+      const currentFrame = this.getCurrentFrame()
 
       if (
-        this.position.dx <= TILE_SIZE ||
-        this.position.dx + imageSize.sWidth >= CANVAS_SIZE - TILE_SIZE ||
-        this.position.dy <= TILE_SIZE ||
-        this.position.dy + imageSize.sHeight >= CANVAS_SIZE - TILE_SIZE - 4
+        this.position.x <= TILE_SIZE ||
+        this.position.x + currentFrame.width >= CANVAS_SIZE - TILE_SIZE ||
+        this.position.y <= TILE_SIZE ||
+        this.position.y + currentFrame.height >= CANVAS_SIZE - TILE_SIZE - 4
       ) {
         this.position = originalPosition
       }
@@ -126,30 +117,30 @@ class Charactor {
   }
 
   render() {
-    const currentFrame = this.frames[this.action]
+    const currentFrame = this.getCurrentFrame()
 
     this.ctx.clearRect(
-      this.position.dx,
-      this.position.dy,
-      currentFrame.imageSize.sWidth,
-      currentFrame.imageSize.sHeight
+      this.position.x,
+      this.position.y,
+      currentFrame.width,
+      currentFrame.height
     )
 
     this.act()
 
-    const { imagePosition, imageSize } = this.getNextFrame(currentFrame)
+    const nextFrame = this.getNextFrame()
 
     const drawImage = (dx, dy) => {
       this.ctx.drawImage(
-        this.sprite,
-        imagePosition.sx,
-        imagePosition.sy,
-        imageSize.sWidth,
-        imageSize.sHeight,
+        this.spriteSheet,
+        nextFrame.position.x,
+        nextFrame.position.y,
+        nextFrame.width,
+        nextFrame.height,
         dx,
         dy,
-        imageSize.sWidth,
-        imageSize.sHeight
+        nextFrame.width,
+        nextFrame.height
       )
     }
 
@@ -160,39 +151,26 @@ class Charactor {
        */
       this.ctx.save()
       this.ctx.translate(
-        this.position.dx + imageSize.sWidth / 2,
-        this.position.dy + imageSize.sHeight / 2
+        this.position.x + nextFrame.width / 2,
+        this.position.y + nextFrame.height / 2
       )
       this.ctx.scale(-1, 1)
-      drawImage(-imageSize.sWidth / 2, -imageSize.sHeight / 2)
+      drawImage(-nextFrame.width / 2, -nextFrame.height / 2)
       this.ctx.restore()
     } else {
-      drawImage(this.position.dx, this.position.dy)
+      drawImage(this.position.x, this.position.y)
     }
   }
 }
 
 export class Player extends Charactor {
   constructor(ctx) {
-    const imageSize = { sWidth: 16, sHeight: 28 }
-    const frames = {
-      idle: {
-        imagePosition: { sx: 128, sy: 100 },
-        imageSize,
-        count: 4
-      },
-      move: {
-        imagePosition: { sx: 192, sy: 100 },
-        imageSize,
-        count: 4
-      }
-    }
-    const centerPosition = CANVAS_SIZE / 2 - TILE_SIZE / 2
-    super({
-      frames,
-      position: { dx: centerPosition, dy: centerPosition },
-      ctx
-    })
+    const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
+    const frames = Sprite.makeFrames([
+      ['idle', 128, 100, 16, 28, 4],
+      ['move', 192, 100, 16, 28, 4]
+    ])
+    super({ position, frames, ctx })
   }
 
   act() {
