@@ -7,7 +7,7 @@ export class Layer {
    * @param {number} [height]
    */
   constructor(zIndex, width, height) {
-    this.ctx = View.createLayerCanvasContext(zIndex, width, height)
+    this.ctx = View.makeLayerCanvasContext(zIndex, width, height)
   }
 
   render() {

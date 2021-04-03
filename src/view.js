@@ -18,7 +18,7 @@ export class View {
     return offscreenCanvas
   }
 
-  static createLayerCanvasContext(
+  static makeLayerCanvasContext(
     zIndex = 0,
     width = CANVAS_SIZE,
     height = CANVAS_SIZE
