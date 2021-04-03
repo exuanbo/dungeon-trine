@@ -14,8 +14,9 @@ export class Scene {
       View.initScene(this)
       this.isInitialized = true
     }
-    Object.values(this.layers).forEach(layer => {
-      layer.render()
-    })
+
+    for (const layerName in this.layers) {
+      this.layers[layerName].render()
+    }
   }
 }

@@ -45,9 +45,10 @@ export class View {
     gameContainer.innerHTML = ''
     gameContainer.style.height = gameContainer.style.width = CANVAS_SIZE
 
-    Object.values(scene.layers).forEach(layer => {
-      gameContainer.appendChild(layer.ctx.canvas)
-    })
+    const { layers } = scene
+    for (const layerName in layers) {
+      gameContainer.appendChild(layers[layerName].ctx.canvas)
+    }
   }
 
   /**
