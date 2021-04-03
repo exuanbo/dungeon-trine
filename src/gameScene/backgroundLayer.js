@@ -80,10 +80,10 @@ export class BackgroundLayer extends Layer {
 
     this.ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
     this.tiles.forEach(tile => {
-      const { spriteSheet, sprite, position } = tile
+      const { sprite, position } = tile
 
       this.ctx.drawImage(
-        spriteSheet,
+        sprite.spriteSheet,
         sprite.position.x,
         sprite.position.y,
         sprite.width,

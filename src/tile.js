@@ -12,9 +12,8 @@ export class Tile {
    * @param {number} dy
    */
   constructor(sx, sy, sWidth, sHeight, dx, dy) {
-    this.spriteSheet = g.assets.image.dungeonTileSet
-
-    this.sprite = new Sprite(sx, sy, sWidth, sHeight)
+    const spriteSheet = g.assets.image.dungeonTileSet
+    this.sprite = new Sprite(spriteSheet, sx, sy, sWidth, sHeight)
     this.position = vector(dx, dy)
   }
 }

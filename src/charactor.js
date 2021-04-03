@@ -36,12 +36,10 @@ class Charactor {
    * @param {CharactorMeta} charactorMeta
    */
   constructor({ position, frames, ctx }) {
+    this.action = 'idle'
+    this.directions = { up: false, right: false, down: false, left: false }
     this.speed = 2
     this.face = 'right'
-    this.directions = { up: false, right: false, down: false, left: false }
-
-    this.spriteSheet = g.assets.image.dungeonTileSet
-    this.action = 'idle'
 
     this.position = position
 
@@ -132,7 +130,7 @@ class Charactor {
 
     const drawImage = (dx, dy) => {
       this.ctx.drawImage(
-        this.spriteSheet,
+        currentFrame.spriteSheet,
         nextFrame.position.x,
         nextFrame.position.y,
         nextFrame.width,
@@ -166,10 +164,13 @@ class Charactor {
 export class Player extends Charactor {
   constructor(ctx) {
     const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
-    const frames = Sprite.makeFrames([
+
+    const spriteSheet = g.assets.image.dungeonTileSet
+    const frames = Sprite.makeFrames(spriteSheet, [
       ['idle', 128, 100, 16, 28, 4],
       ['move', 192, 100, 16, 28, 4]
     ])
+
     super({ position, frames, ctx })
   }
 
