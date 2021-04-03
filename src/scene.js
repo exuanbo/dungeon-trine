@@ -2,7 +2,7 @@ import { View } from './view.js'
 
 export class Scene {
   /**
-   * @param {Object.<string, import('./layer').Layer>} layers
+   * @param {Object<string, import('./layer').Layer>} layers
    */
   constructor(layers) {
     this.isInitialized = false
