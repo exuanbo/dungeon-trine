@@ -1,3 +1,4 @@
+import { View } from './view.js'
 import g from './globals.js'
 
 export class AssetLoader {
@@ -29,15 +30,7 @@ export class AssetLoader {
               const image = new Image()
               image.src = asset.src
               image.onload = () => {
-                /**
-                 * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#pre-render_similar_primitives_or_repeating_objects_on_an_offscreen_canvas
-                 * |Pre-render similar primitives or repeating objects on an offscreen canvas}
-                 */
-                const offscreenCanvas = document.createElement('canvas')
-                offscreenCanvas.width = image.width
-                offscreenCanvas.height = image.height
-                offscreenCanvas.getContext('2d').drawImage(image, 0, 0)
-                g.assets.image[asset.name] = offscreenCanvas
+                g.assets.image[asset.name] = View.makeOffscreenCanvas(image)
                 image.onload = null
                 resolve()
               }

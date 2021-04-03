@@ -4,6 +4,20 @@ const FPS = 60
 const FPS_INTERVAL = 1000 / FPS
 
 export class View {
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#pre-render_similar_primitives_or_repeating_objects_on_an_offscreen_canvas
+   * |Pre-render similar primitives or repeating objects on an offscreen canvas}
+   *
+   * @param {HTMLImageElement} image
+   */
+  static makeOffscreenCanvas(image) {
+    const offscreenCanvas = document.createElement('canvas')
+    offscreenCanvas.width = image.width
+    offscreenCanvas.height = image.height
+    offscreenCanvas.getContext('2d').drawImage(image, 0, 0)
+    return offscreenCanvas
+  }
+
   static createLayerCanvasContext(
     zIndex = 0,
     width = CANVAS_SIZE,
