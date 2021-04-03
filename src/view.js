@@ -43,14 +43,13 @@ export class View {
     window.requestAnimationFrame(() => this.render(game))
 
     const currentTime = performance.now()
-    const elapsed = currentTime - this.lastDrawTime
-    if (elapsed <= FPS_INTERVAL) {
+    const elapsed = currentTime - this.lastRenderTime
+
+    if (elapsed < FPS_INTERVAL) {
       return
     }
-    this.lastDrawTime = isNaN(elapsed)
-      ? currentTime
-      : currentTime - (elapsed % FPS_INTERVAL)
 
+    this.lastRenderTime = currentTime - (elapsed || 0 % FPS_INTERVAL)
     game.render()
   }
 }
