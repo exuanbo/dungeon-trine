@@ -67,45 +67,57 @@ class Charactor {
     return this.frames[this.action][nextFrameIndex]
   }
 
+  hasDirection() {
+    for (const directionName in this.directions) {
+      if (this.directions[directionName]) {
+        return true
+      }
+    }
+    return false
+  }
+
+  move() {
+    if (this.action !== 'move') {
+      this.action = 'move'
+      this.setFrameIndexIterator()
+    }
+
+    const originalPosition = { ...this.position }
+
+    if (this.directions.up) {
+      this.position.y -= this.speed
+    }
+    if (this.directions.right) {
+      this.position.x += this.speed
+      if (!this.directions.left) {
+        this.face = 'right'
+      }
+    }
+    if (this.directions.down) {
+      this.position.y += this.speed
+    }
+    if (this.directions.left) {
+      this.position.x -= this.speed
+      if (!this.directions.right) {
+        this.face = 'left'
+      }
+    }
+
+    const currentFrame = this.getCurrentFrame()
+
+    if (
+      this.position.x <= TILE_SIZE ||
+      this.position.x + currentFrame.width >= CANVAS_SIZE - TILE_SIZE ||
+      this.position.y <= TILE_SIZE ||
+      this.position.y + currentFrame.height >= CANVAS_SIZE - TILE_SIZE - 4
+    ) {
+      this.position = originalPosition
+    }
+  }
+
   act() {
-    const { up, right, down, left } = this.directions
-    if (up || right || down || left) {
-      const originalPosition = { ...this.position }
-
-      if (up) {
-        this.position.y -= this.speed
-      }
-      if (right) {
-        this.position.x += this.speed
-        if (!left) {
-          this.face = 'right'
-        }
-      }
-      if (down) {
-        this.position.y += this.speed
-      }
-      if (left) {
-        this.position.x -= this.speed
-        if (!right) {
-          this.face = 'left'
-        }
-      }
-
-      if (this.action !== 'move') {
-        this.action = 'move'
-        this.setFrameIndexIterator()
-      }
-
-      const currentFrame = this.getCurrentFrame()
-
-      if (
-        this.position.x <= TILE_SIZE ||
-        this.position.x + currentFrame.width >= CANVAS_SIZE - TILE_SIZE ||
-        this.position.y <= TILE_SIZE ||
-        this.position.y + currentFrame.height >= CANVAS_SIZE - TILE_SIZE - 4
-      ) {
-        this.position = originalPosition
-      }
+    if (this.hasDirection()) {
+      this.move()
     }
   }
 
