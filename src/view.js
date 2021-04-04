@@ -5,8 +5,13 @@ const FPS_INTERVAL = 1000 / FPS
 
 export class View {
   /**
+   * Create offscreen canvas for pre-rendering.
+   *
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#pre-render_similar_primitives_or_repeating_objects_on_an_offscreen_canvas
    * |Pre-render similar primitives or repeating objects on an offscreen canvas}
+   *
+   * @public
+   * @static
    *
    * @param {HTMLImageElement} image
    */
@@ -18,6 +23,12 @@ export class View {
     return offscreenCanvas
   }
 
+  /**
+   * Create canvas for `Layer`.
+   *
+   * @public
+   * @static
+   */
   static makeLayerCanvasContext(
     zIndex = 0,
     width = CANVAS_SIZE,
@@ -37,6 +48,11 @@ export class View {
   }
 
   /**
+   * Initialize `Scene` by appending the canvas elements of its layers to `#game`.
+   *
+   * @public
+   * @static
+   *
    * @param {import('./scene').Scene} scene
    */
   static initScene(scene) {
@@ -51,7 +67,18 @@ export class View {
     }
   }
 
+  constructor() {
+    /**
+     * @private
+     *
+     * @type {number}
+     */
+    this.lastRenderTime = undefined
+  }
+
   /**
+   * Render `Game`.
+   *
    * @param {import('./game').Game} game
    */
   render(game) {

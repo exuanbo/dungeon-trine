@@ -13,11 +13,22 @@ export class Tile {
    */
   constructor(sx, sy, sWidth, sHeight, dx, dy) {
     const spriteSheet = g.assets.image.dungeonTileSet
+
+    /**
+     * @public
+     */
     this.sprite = new Sprite(spriteSheet, sx, sy, sWidth, sHeight)
+
+    /**
+     * @public
+     */
     this.position = vector(dx, dy)
   }
 }
 
+/**
+ * Tile with given sprite.
+ */
 export class Floor extends Tile {
   /**
    * @param {number} dx

@@ -3,6 +3,11 @@ import g from './globals.js'
 
 export class AssetLoader {
   constructor() {
+    /**
+     * Assets to load.
+     *
+     * @private
+     */
     this.assetsList = [
       {
         name: 'dungeonTileSet',
@@ -19,6 +24,11 @@ export class AssetLoader {
     })
   }
 
+  /**
+   * Load assets in `assetsList` and add them to global `assets`.
+   *
+   * @public
+   */
   async load() {
     const loading = []
 

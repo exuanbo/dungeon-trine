@@ -6,10 +6,30 @@ const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 
 export class Controller {
   constructor() {
+    /**
+     * Initialize a new asset laoder.
+     *
+     * @private
+     */
     this.assetLoader = new AssetLoader()
+
+    /**
+     * Keyboard key map. For handling multiple `keydown`.
+     *
+     * @private
+     *
+     * @type {Map<string, boolean>}
+     */
     this.keyboardMap = new Map()
   }
 
+  /**
+   * Initialize controller.
+   *
+   * Load assets then render the game and listen to keyboard.
+   *
+   * @public
+   */
   async init() {
     await this.assetLoader.load()
 
@@ -23,6 +43,10 @@ export class Controller {
   }
 
   /**
+   * Handle `keydown` and `keyup` event.
+   *
+   * @private
+   *
    * @param {KeyboardEvent} e
    */
   handleKey(e) {

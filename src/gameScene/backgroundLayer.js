@@ -3,6 +3,12 @@ import { Tile, Floor } from '../tile.js'
 import { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
 
 export class BackgroundLayer extends Layer {
+  /**
+   * Generate an array of `Tile`.
+   *
+   * @public
+   * @static
+   */
   static getTiles() {
     const tiles = []
 
@@ -69,10 +75,29 @@ export class BackgroundLayer extends Layer {
 
   constructor() {
     super()
+
+    /**
+     * If the layer has rendered once.
+     *
+     * @private
+     */
     this.isRendered = false
+
+    /**
+     * The generated tiles.
+     *
+     * @private
+     */
     this.tiles = BackgroundLayer.getTiles()
   }
 
+  /**
+   * The implemented `Layer.render` method.
+   *
+   * Render tiles to the layer once.
+   *
+   * @public
+   */
   render() {
     if (this.isRendered) {
       return
