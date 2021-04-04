@@ -179,8 +179,8 @@ export class Player extends Charactor {
 
     const spriteSheet = g.assets.image.dungeonTileSet
     const frames = Sprite.makeFrames(spriteSheet, [
-      ['idle', 128, 100, 16, 28, 4],
-      ['move', 192, 100, 16, 28, 4]
+      ['idle', 128, 106, 16, 22, 4],
+      ['move', 192, 106, 16, 22, 4]
     ])
 
     super({ position, frames, ctx })
