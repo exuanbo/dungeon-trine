@@ -34,6 +34,9 @@ export class Controller {
         const direction = k.slice(5).toLowerCase()
         this.player.directions[direction] = v
       }
+      if (k === 'KeyX') {
+        this.player.willAttack = v
+      }
     }
 
     if (!isKeydown) {
@@ -43,7 +46,7 @@ export class Controller {
         }
       }
 
-      this.player.stopAction()
+      this.player.willStop = true
     }
   }
 }
