@@ -40,7 +40,9 @@ class Charactor {
     this.currentFrameIndex = undefined
 
     /**
-     * If the current sprite frame has lasted enough.
+     * If the current sprite frame has lasted enough time according to `Frames.duration`.
+     *
+     * If true, `currentFrameIndex` would change at next render.
      *
      * @private
      *
