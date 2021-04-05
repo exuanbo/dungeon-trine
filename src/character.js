@@ -130,7 +130,7 @@ class Character {
      *
      * @protected
      */
-    this.actualFramesPast = 0
+    this.renderedTimes = 0
 
     /**
      * The provided frames map.
@@ -346,7 +346,7 @@ class Character {
   /**
    * Render the character to the current layer.
    *
-   * Increase `actualFramesPast` by 1 at the end.
+   * Increase `renderedTimes` by 1 at the end.
    *
    * @public
    */
@@ -399,7 +399,7 @@ class Character {
       drawImage(this.position.x, this.position.y)
     }
 
-    this.actualFramesPast++
+    this.renderedTimes++
   }
 }
 
@@ -434,14 +434,14 @@ export class AttackerCharacter extends Character {
     this.hasAttacked = false
 
     /**
-     * Default attack interval. Use `actualFramesPast`.
+     * Default attack interval. The unit is rendered times.
      *
      * @private
      */
     this.attackInterval = 36
 
     /**
-     * Last time the character attacked. Use `actualFramesPast`.
+     * Last time the character attacked. Use `renderedTimes`.
      *
      * @private
      *
@@ -454,7 +454,7 @@ export class AttackerCharacter extends Character {
    * Attack action.
    *
    * Return in advance if the character has already attacted before `stop`
-   * or the difference of two attack times is less than `attackInterval`.
+   * or the interval between two attacks is less than `attackInterval`.
    *
    * Change `hasAttacked` to `true`.
    *
@@ -466,13 +466,13 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    if (this.actualFramesPast - this.lastAttack < this.attackInterval) {
+    if (this.renderedTimes - this.lastAttack < this.attackInterval) {
       return
     }
 
     this.setAction('attack')
     this.hasAttacked = true
-    this.lastAttack = this.actualFramesPast
+    this.lastAttack = this.renderedTimes
   }
 
   /**
