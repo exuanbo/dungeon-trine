@@ -18,6 +18,20 @@ export class Vector {
      */
     this.y = y
   }
+
+  /**
+   * Set the coordinate to the given value.
+   *
+   * @public
+   *
+   * @param {number} x
+   * @param {number} y
+   */
+  set(x, y) {
+    this.x = x
+    this.y = y
+    return this
+  }
 }
 
 /**
