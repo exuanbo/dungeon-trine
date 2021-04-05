@@ -60,13 +60,6 @@ class Character {
     this.frameIndexIterator = undefined
 
     /**
-     * The actual action name. Default is `idle`.
-     *
-     * @private
-     */
-    this._action = 'idle'
-
-    /**
      * If the character will stop to `idle` at next render.
      *
      * Set back to false in `stop`.
@@ -74,6 +67,27 @@ class Character {
      * @public
      */
     this.willStop = false
+
+    /**
+     * All the actions to take.
+     *
+     * An array of tuple `[predicate, action]`.
+     *
+     * @private
+     *
+     * @type {Array<[predicate: (() => boolean), action: (() => void)]>}
+     */
+    this._actions = []
+
+    // Add `move` to `_actions` by default.
+    this.addAction([this.willMove, this.move])
+
+    /**
+     * The actual action name. Default is `idle`.
+     *
+     * @private
+     */
+    this._action = 'idle'
 
     /**
      * Action name in it will be prioritized if other action has been set.
@@ -101,7 +115,7 @@ class Character {
     this.speed = 2
 
     /**
-     * Which side is the character facing.
+     * Which side is the character facing. Sprite would be flipped if facing left.
      *
      * Chanaged by `move`.
      *
@@ -140,6 +154,17 @@ class Character {
      * @private
      */
     this.ctx = ctx
+  }
+
+  /**
+   * Add action predicate and action function to `allActions`.
+   *
+   * @protected
+   *
+   * @param {[predicate: (() => boolean), action: (() => void)]} fns
+   */
+  addAction(fns) {
+    this._actions.unshift(fns.map(fn => fn.bind(this)))
   }
 
   /**
@@ -194,6 +219,36 @@ class Character {
   }
 
   /**
+   * Stop action.
+   *
+   * Change `willStop` back to `false` if successfully set action to `idle`.
+   *
+   * @protected
+   */
+  stop() {
+    if (this.action !== 'idle') {
+      const isSet = this.setAction('idle')
+      if (!isSet) {
+        return
+      }
+    }
+    this.willStop = false
+  }
+
+  /**
+   * Perform actions if the predicates are fulfilled.
+   *
+   * @private
+   */
+  act() {
+    this._actions.forEach(([predicate, action]) => {
+      if (predicate()) {
+        action()
+      }
+    })
+  }
+
+  /**
    * Action setter.
    *
    * Set the given action if the character has no other actions.
@@ -202,7 +257,7 @@ class Character {
    *
    * Return whether the action has been successfully set.
    *
-   * @protected
+   * @private
    *
    * @param {string} actionName
    * @returns {boolean} isSet
@@ -289,39 +344,11 @@ class Character {
   }
 
   /**
-   * Stop action.
-   *
-   * Change `willStop` back to `false` if successfully set action to `idle`.
-   *
-   * @protected
-   */
-  stop() {
-    if (this.action !== 'idle') {
-      const isSet = this.setAction('idle')
-      if (!isSet) {
-        return
-      }
-    }
-    this.willStop = false
-  }
-
-  /**
-   * Perform actions if the predicates are fulfilled.
-   *
-   * @protected
-   */
-  act() {
-    if (this.willMove()) {
-      this.move()
-    }
-  }
-
-  /**
    * Render the character to the current layer.
    *
    * Increase `actualFramesPast` by 1 at the end.
    *
-   * @protected
+   * @public
    */
   render() {
     const currentFrameSprite = this.getCurrentFrameSprite()
@@ -385,6 +412,8 @@ export class AttackerCharacter extends Character {
    */
   constructor(characterMeta) {
     super(characterMeta)
+
+    this.addAction([() => this.willAttack, this.attack])
 
     this.prioritizedActions.push('attack')
 
@@ -457,20 +486,5 @@ export class AttackerCharacter extends Character {
   stop() {
     super.stop()
     this.hasAttacked = false
-  }
-
-  /**
-   * Override `Character.act`.
-   *
-   * Perform actions if the predicates are fulfilled.
-   *
-   * @override
-   * @protected
-   */
-  act() {
-    if (this.willAttack) {
-      this.attack()
-    }
-    super.act()
   }
 }
