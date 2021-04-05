@@ -313,7 +313,7 @@ class Character {
       }
     }
 
-    const originalPosition = { ...this.position }
+    const { x: originalX, y: originalY } = this.position
 
     if (this.directions.up) {
       this.position.y -= this.speed
@@ -344,7 +344,7 @@ class Character {
       this.position.y + currentAnimationFrame.height >=
         CANVAS_SIZE - TILE_SIZE - 4
     ) {
-      this.position = originalPosition
+      this.position.set(originalX, originalY)
     }
   }
 
