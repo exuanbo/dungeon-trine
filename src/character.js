@@ -2,7 +2,7 @@ import { Sprite } from './sprite.js'
 import { vector } from './vector.js'
 import g, { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
-class Charactor {
+class Character {
   /**
    * @param {{
    *    framesMap: import('./sprite').FramesMap,
@@ -65,7 +65,7 @@ class Charactor {
     this._action = 'idle'
 
     /**
-     * If the charactor will stop to `idle` at next render.
+     * If the character will stop to `idle` at next render.
      *
      * Set back to false in `stop`.
      *
@@ -88,7 +88,7 @@ class Charactor {
     this.speed = 2
 
     /**
-     * Which side is the charactor facing.
+     * Which side is the character facing.
      *
      * Chanaged by `move`.
      *
@@ -183,7 +183,7 @@ class Charactor {
   /**
    * Action setter.
    *
-   * Set the given action if the charactor has no other actions.
+   * Set the given action if the character has no other actions.
    *
    * `idle` will be interrupted and `attack` will be prioritized.
    *
@@ -209,7 +209,7 @@ class Charactor {
   }
 
   /**
-   * If the charactor will move at next render.
+   * If the character will move at next render.
    *
    * Decide by checking whether exists true value in `directions`.
    *
@@ -304,7 +304,7 @@ class Charactor {
   }
 
   /**
-   * Render the charactor to the current layer.
+   * Render the character to the current layer.
    *
    * Increase `actualFramesPast` by 1 at the end.
    *
@@ -364,9 +364,9 @@ class Charactor {
 }
 
 /**
- * User controlled charactor.
+ * User controlled character.
  */
-export class Player extends Charactor {
+export class Player extends Character {
   /**
    * @param {CanvasRenderingContext2D} ctx
    */
@@ -383,14 +383,14 @@ export class Player extends Charactor {
     super({ framesMap, position, ctx })
 
     /**
-     * If the charactor will attack at next render.
+     * If the character will attack at next render.
      *
      * @public
      */
     this.willAttack = false
 
     /**
-     * If the charactor has already attacked once.
+     * If the character has already attacked once.
      *
      * `attack` sets it to `true` and `stop` sets it back to `false`.
      *
@@ -406,7 +406,7 @@ export class Player extends Charactor {
     this.attackInterval = 36
 
     /**
-     * Last time the charactor attacked. Use `actualFramesPast`.
+     * Last time the character attacked. Use `actualFramesPast`.
      *
      * @private
      *
@@ -418,7 +418,7 @@ export class Player extends Charactor {
   /**
    * Attack action.
    *
-   * Return in advance if the charactor has already attacted before `stop`
+   * Return in advance if the character has already attacted before `stop`
    * or the difference of two attack times is less than `attackInterval`.
    *
    * Change `hasAttacked` to `true`.
@@ -441,7 +441,7 @@ export class Player extends Charactor {
   }
 
   /**
-   * Override `Charactor.stop`.
+   * Override `Character.stop`.
    *
    * Change `hasAttacked` back to false.
    *
@@ -454,7 +454,7 @@ export class Player extends Charactor {
   }
 
   /**
-   * Override `Charactor.act`.
+   * Override `Character.act`.
    *
    * Perform actions if the predicates are fulfilled.
    *
