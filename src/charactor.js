@@ -427,9 +427,7 @@ export class Player extends Charactor {
    */
   attack() {
     if (this.hasAttacked) {
-      if (!this.willStop) {
-        this.willStop = true
-      }
+      this.willStop = true
       return
     }
 
