@@ -12,15 +12,6 @@ class Charactor {
    */
   constructor({ framesMap, position, ctx }) {
     /**
-     * The actual rendered times. Used for controlling actions interval.
-     *
-     * Increased by `render`.
-     *
-     * @protected
-     */
-    this.actualFramesPast = 0
-
-    /**
      * Sprite Frames for the current action.
      *
      * Set by `setCurrentFrames`.
@@ -67,7 +58,7 @@ class Charactor {
     this.frameIndexIterator = undefined
 
     /**
-     * The actual action name
+     * The actual action name. Default is `idle`.
      *
      * @private
      */
@@ -92,7 +83,7 @@ class Charactor {
     /**
      * Default moving speed. Pixels per render.
      *
-     * @private
+     * @protected
      */
     this.speed = 2
 
@@ -106,6 +97,15 @@ class Charactor {
     this.face = 'right'
 
     /**
+     * The actual rendered times. Used for controlling actions interval.
+     *
+     * Increased by `render`.
+     *
+     * @protected
+     */
+    this.actualFramesPast = 0
+
+    /**
      * The provided frames map.
      *
      * @private
@@ -117,7 +117,7 @@ class Charactor {
     /**
      * Current position in the layer. Default value is set by argument.
      *
-     * @private
+     * @protected
      */
     this.position = position
 
