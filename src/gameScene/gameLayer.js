@@ -18,6 +18,7 @@ export class GameLayer extends Layer {
    *
    * Render charactors, effects and items in the layer.
    *
+   * @override
    * @public
    */
   render() {

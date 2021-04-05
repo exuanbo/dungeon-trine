@@ -79,6 +79,8 @@ export class View {
   /**
    * Render `Game`.
    *
+   * @public
+   *
    * @param {import('./game').Game} game
    */
   render(game) {

@@ -96,6 +96,7 @@ export class BackgroundLayer extends Layer {
    *
    * Render tiles to the layer once.
    *
+   * @override
    * @public
    */
   render() {

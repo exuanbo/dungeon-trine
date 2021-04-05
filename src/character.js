@@ -236,7 +236,7 @@ class Character {
   }
 
   /**
-   * Perform actions if the predicates are fulfilled.
+   * Call the actions if the predicates are fulfilled.
    *
    * @private
    */
