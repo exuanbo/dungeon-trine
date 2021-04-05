@@ -16,7 +16,7 @@ import { vector } from './vector.js'
 
 export class Sprite {
   /**
-   * Create sprite frames map from provided entries.
+   * Create sprite frames map from provided frame entries.
    *
    * @public
    * @static
@@ -30,13 +30,13 @@ export class Sprite {
    *    height: number,
    *    frameCount: number,
    *    duration?: number
-   * ]>} entries
+   * ]>} frameEntries
    */
-  static makeFramesMap(spriteSheet, entries) {
+  static makeFramesMap(spriteSheet, frameEntries) {
     /** @type {FramesMap} */
     const framesMap = {}
 
-    entries.forEach(
+    frameEntries.forEach(
       ([frameName, x, y, width, height, frameCount, duration = 9]) => {
         framesMap[frameName] = {}
         framesMap[frameName].sprites = []
