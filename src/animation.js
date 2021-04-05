@@ -64,7 +64,7 @@ export class Animation {
    * @param {number} frameDuration
    */
   static *makeFrameIndexIterator(frameCount, frameDuration) {
-    let frameIndex = -1
+    let frameIndex = 0
     let isFrameDone = false
 
     for (let i = 1; i < Infinity; i++) {
