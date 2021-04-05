@@ -24,6 +24,6 @@ export class Vector {
  * A simpler way to create `Vector`
  *
  * @param {number} x
- * @param {number} [y]
+ * @param {number=} y
  */
 export const vector = (x, y) => new Vector(x, y === undefined ? x : y)
