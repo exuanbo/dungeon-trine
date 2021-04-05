@@ -311,8 +311,6 @@ class Charactor {
    * @protected
    */
   render() {
-    this.actualFramesPast++
-
     const currentFrameSprite = this.getCurrentFrameSprite()
 
     this.ctx.clearRect(
@@ -360,6 +358,8 @@ class Charactor {
     } else {
       drawImage(this.position.x, this.position.y)
     }
+
+    this.actualFramesPast++
   }
 }
 
