@@ -1,5 +1,5 @@
 import { Layer } from '../layer.js'
-import { Player } from '../character.js'
+import { Player } from './player.js'
 
 export class GameLayer extends Layer {
   constructor() {
