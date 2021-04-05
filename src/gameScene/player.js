@@ -1,5 +1,5 @@
 import { AttackerCharacter } from '../character.js'
-import { Sprite } from '../sprite.js'
+import { Animation } from '../animation.js'
 import { vector } from '../vector.js'
 import g, { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
 
@@ -12,7 +12,7 @@ export class Player extends AttackerCharacter {
    */
   constructor(ctx) {
     const spriteSheet = g.assets.image.dungeonTileSet
-    const framesMap = Sprite.makeFramesMap(spriteSheet, [
+    const animationsMap = Animation.fromEntries(spriteSheet, [
       ['idle', 128, 100, 16, 28, 4],
       ['move', 192, 100, 16, 28, 4],
       ['attack', 256, 100, 16, 28, 1, 12]
@@ -20,6 +20,6 @@ export class Player extends AttackerCharacter {
 
     const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
 
-    super({ framesMap, position, ctx })
+    super({ animationsMap, position, ctx })
   }
 }
