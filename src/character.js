@@ -74,6 +74,17 @@ class Character {
     this.willStop = false
 
     /**
+     * Action name in it will be prioritized if other action has been set.
+     *
+     * Default value is an empty array.
+     *
+     * @protected
+     *
+     * @type {string[]}
+     */
+    this.prioritizedActions = []
+
+    /**
      * Moving directions.
      *
      * @public
@@ -185,7 +196,7 @@ class Character {
    *
    * Set the given action if the character has no other actions.
    *
-   * `idle` will be interrupted and `attack` will be prioritized.
+   * `idle` will be interrupted and action in `prioritizedActions` will be prioritized.
    *
    * Return whether the action has been successfully set.
    *
@@ -198,7 +209,7 @@ class Character {
     if (
       !this.isCurrentFrameDone &&
       this.action !== 'idle' &&
-      actionName !== 'attack'
+      !this.prioritizedActions.includes(actionName)
     ) {
       return false
     }
@@ -381,6 +392,8 @@ export class Player extends Character {
     const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
 
     super({ framesMap, position, ctx })
+
+    this.prioritizedActions.push('attack')
 
     /**
      * If the character will attack at next render.
