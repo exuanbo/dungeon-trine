@@ -62,7 +62,7 @@ export class Sprite {
    * @param {number} duration
    */
   static *makeFrameIndexIterator(framesCount, duration) {
-    let frameIndex = 0
+    let frameIndex = -1
     let isFrameDone = false
 
     for (let i = 1; i < Infinity; i++) {
