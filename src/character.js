@@ -2,13 +2,16 @@ import { Sprite } from './sprite.js'
 import { vector } from './vector.js'
 import g, { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
+/**
+ * @typedef {Object} CharacterMeta
+ * @property {import('./sprite').FramesMap} CharacterMeta.framesMap
+ * @property {import('./vector').Vector} CharacterMeta.position
+ * @property {CanvasRenderingContext2D} ctx
+ */
+
 class Character {
   /**
-   * @param {{
-   *    framesMap: import('./sprite').FramesMap,
-   *    position: import('./vector').Vector,
-   *    ctx: CanvasRenderingContext2D
-   * }}
+   * @param {CharacterMeta} characterMeta
    */
   constructor({ framesMap, position, ctx }) {
     /**
