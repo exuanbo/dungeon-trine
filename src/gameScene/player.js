@@ -17,6 +17,6 @@ export class Player extends AttackerCharacter {
       ['attack', 0, 56, 48, 28, 2]
     ])
 
-    super(animationsMap, layer)
+    super({ animationsMap, layer })
   }
 }
