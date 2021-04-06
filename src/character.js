@@ -1,12 +1,17 @@
+import { vector } from './math/vector.js'
 import { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
 class Character {
   /**
    * @param {import('./animation').AnimationsMap} animationsMap
-   * @param {import('./math/vector').Vector} position
    * @param {import('./layer').Layer} layer
+   * @param {import('./math/vector').Vector=} position
    */
-  constructor(animationsMap, position, layer) {
+  constructor(
+    animationsMap,
+    layer,
+    position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
+  ) {
     /**
      * Animation for the current action.
      *
@@ -322,11 +327,11 @@ class Character {
 export class AttackerCharacter extends Character {
   /**
    * @param {import('./animation').AnimationsMap} animationsMap
-   * @param {import('./math/vector').Vector} position
    * @param {import('./layer').Layer} layer
+   * @param {import('./math/vector').Vector=} position
    */
-  constructor(animationsMap, position, layer) {
-    super(animationsMap, position, layer)
+  constructor(animationsMap, layer, position) {
+    super(animationsMap, layer, position)
 
     this.addAction([() => this.willAttack, this.attack])
 

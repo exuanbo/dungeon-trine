@@ -1,7 +1,6 @@
 import { AttackerCharacter } from '../character.js'
 import { Animation } from '../animation.js'
-import { vector } from '../math/vector.js'
-import g, { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
+import g from '../globals.js'
 
 /**
  * User controlled character.
@@ -18,8 +17,6 @@ export class Player extends AttackerCharacter {
       ['attack', 0, 56, 48, 28, 2]
     ])
 
-    const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
-
-    super(animationsMap, position, layer)
+    super(animationsMap, layer)
   }
 }
