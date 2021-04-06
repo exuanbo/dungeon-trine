@@ -1,5 +1,5 @@
 import { AttackerCharacter } from '../character.js'
-import { Animation } from '../animation.js'
+import { makeAnimationsMap } from '../animation.js'
 import g from '../globals.js'
 
 /**
@@ -11,7 +11,7 @@ export class Player extends AttackerCharacter {
    */
   constructor(layer) {
     const spriteSheet = g.assets.image.knight
-    const animationsMap = Animation.fromEntries(spriteSheet, [
+    const animationsMap = makeAnimationsMap(spriteSheet, [
       ['idle', 0, 0, 48, 28, 4],
       ['move', 0, 28, 48, 28, 4],
       ['attack', 0, 56, 48, 28, 2]

@@ -6,56 +6,45 @@ import { Sprite } from './sprite.js'
  * @typedef {Object<string, Animation>} AnimationsMap
  */
 
-export class Animation {
-  /**
-   * Create `<animationName, Animation>` map from provided entries.
-   *
-   * @public
-   * @static
-   *
-   * @param {HTMLImageElement|HTMLCanvasElement} spriteSheet
-   * @param {Array<[
-   *    animationName: string,
-   *    sx: number,
-   *    sy: number,
-   *    width: number,
-   *    height: number,
-   *    frameCount: number,
-   *    frameDuration?: number
-   * ]>} animationEntries
-   */
-  static fromEntries(spriteSheet, animationEntries) {
-    /** @type {AnimationsMap} */
-    const animationsMap = {}
+/**
+ * Create `<animationName, Animation>` map from provided entries.
+ *
+ * @param {HTMLImageElement|HTMLCanvasElement} spriteSheet
+ * @param {Array<[
+ *    animationName: string,
+ *    sx: number,
+ *    sy: number,
+ *    width: number,
+ *    height: number,
+ *    frameCount: number,
+ *    frameDuration?: number
+ * ]>} animationEntries
+ */
+export const makeAnimationsMap = (spriteSheet, animationEntries) => {
+  /** @type {AnimationsMap} */
+  const animationsMap = {}
 
-    animationEntries.forEach(
-      ([
-        animationName,
-        sx,
-        sy,
-        width,
-        height,
-        frameCount,
-        frameDuration = 9
-      ]) => {
-        const animationFrames = []
+  animationEntries.forEach(
+    ([animationName, sx, sy, width, height, frameCount, frameDuration = 9]) => {
+      const animationFrames = []
 
-        for (let i = 0; i < frameCount; i++) {
-          animationFrames.push(
-            new Sprite(spriteSheet, sx + i * width, sy, width, height)
-          )
-        }
-
-        animationsMap[animationName] = new Animation(
-          animationFrames,
-          frameDuration
+      for (let i = 0; i < frameCount; i++) {
+        animationFrames.push(
+          new Sprite(spriteSheet, sx + i * width, sy, width, height)
         )
       }
-    )
 
-    return animationsMap
-  }
+      animationsMap[animationName] = new Animation(
+        animationFrames,
+        frameDuration
+      )
+    }
+  )
 
+  return animationsMap
+}
+
+export class Animation {
   /**
    * Generator function to create an iterator for animation frame index.
    *
