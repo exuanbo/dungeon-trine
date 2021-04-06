@@ -10,7 +10,7 @@ export class GameLayer extends Layer {
      *
      * @public
      */
-    this.player = new Player(this.ctx)
+    this.player = new Player()
   }
 
   /**
@@ -22,6 +22,6 @@ export class GameLayer extends Layer {
    * @public
    */
   render() {
-    this.player.render()
+    this.player.render(this.ctx)
   }
 }

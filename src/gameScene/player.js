@@ -7,10 +7,7 @@ import g, { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
  * User controlled character.
  */
 export class Player extends AttackerCharacter {
-  /**
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  constructor(ctx) {
+  constructor() {
     const spriteSheet = g.assets.image.knight
     const animationsMap = Animation.fromEntries(spriteSheet, [
       ['idle', 0, 0, 48, 28, 4],
@@ -20,6 +17,6 @@ export class Player extends AttackerCharacter {
 
     const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
 
-    super({ animationsMap, position, ctx })
+    super(animationsMap, position)
   }
 }

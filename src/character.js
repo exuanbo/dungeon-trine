@@ -1,17 +1,11 @@
 import { CANVAS_SIZE, TILE_SIZE } from './globals.js'
 
-/**
- * @typedef {Object} CharacterMeta
- * @property {import('./animation').AnimationsMap} CharacterMeta.animationsMap
- * @property {import('./vector').Vector} CharacterMeta.position
- * @property {CanvasRenderingContext2D} ctx
- */
-
 class Character {
   /**
-   * @param {CharacterMeta} characterMeta
+   * @param {import('./animation').AnimationsMap} animationsMap
+   * @param {import('./math/vector').Vector} position
    */
-  constructor({ animationsMap, position, ctx }) {
+  constructor(animationsMap, position) {
     /**
      * Animation for the current action.
      *
@@ -111,13 +105,6 @@ class Character {
      * @protected
      */
     this.position = position
-
-    /**
-     * Canvas context for rendering.
-     *
-     * @private
-     */
-    this.ctx = ctx
   }
 
   /**
@@ -279,16 +266,18 @@ class Character {
   }
 
   /**
-   * Render the character to the current layer.
+   * Draw the character with the provided canvas context.
    *
    * Increase `renderedTimes` by 1 at the end.
    *
    * @public
+   *
+   * @param {CanvasRenderingContext2D} ctx
    */
-  render() {
+  render(ctx) {
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 
-    this.ctx.clearRect(
+    ctx.clearRect(
       this.position.x,
       this.position.y,
       currentAnimationFrame.width,
@@ -303,35 +292,10 @@ class Character {
 
     const nextAnimationFrame = this.currentAnimation.getNextFrame()
 
-    const drawImage = (dx, dy) => {
-      this.ctx.drawImage(
-        nextAnimationFrame.spriteSheet,
-        nextAnimationFrame.position.x,
-        nextAnimationFrame.position.y,
-        nextAnimationFrame.width,
-        nextAnimationFrame.height,
-        dx,
-        dy,
-        nextAnimationFrame.width,
-        nextAnimationFrame.height
-      )
-    }
-
     if (this.face === 'left') {
-      /**
-       * {@link https://stackoverflow.com/a/37388113/13346012
-       * |How to flip images horizontally with HTML5}
-       */
-      this.ctx.save()
-      this.ctx.translate(
-        this.position.x + nextAnimationFrame.width / 2,
-        this.position.y + nextAnimationFrame.height / 2
-      )
-      this.ctx.scale(-1, 1)
-      drawImage(-nextAnimationFrame.width / 2, -nextAnimationFrame.height / 2)
-      this.ctx.restore()
+      nextAnimationFrame.renderFlipped(ctx, this.position.x, this.position.y)
     } else {
-      drawImage(this.position.x, this.position.y)
+      nextAnimationFrame.render(ctx, this.position.x, this.position.y)
     }
 
     this.renderedTimes++
@@ -343,10 +307,11 @@ class Character {
  */
 export class AttackerCharacter extends Character {
   /**
-   * @param {CharacterMeta} characterMeta
+   * @param {import('./animation').AnimationsMap} animationsMap
+   * @param {import('./math/vector').Vector} position
    */
-  constructor(characterMeta) {
-    super(characterMeta)
+  constructor(animationsMap, position) {
+    super(animationsMap, position)
 
     this.addAction([() => this.willAttack, this.attack])
 
