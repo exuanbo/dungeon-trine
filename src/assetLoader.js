@@ -12,7 +12,7 @@ export class AssetLoader {
       {
         name: 'dungeonTileSet',
         type: 'image',
-        src: 'src/assets/0x72_DungeonTilesetII_v1.3.png'
+        src: 'assets/0x72_DungeonTilesetII_v1.3.png'
       }
     ]
 
