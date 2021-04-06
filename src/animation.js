@@ -38,16 +38,18 @@ export class Animation {
         frameCount,
         frameDuration = 9
       ]) => {
-        animationsMap[animationName] = {}
-        animationsMap[animationName].frames = []
+        const animationFrames = []
 
         for (let i = 0; i < frameCount; i++) {
-          animationsMap[animationName].frames.push(
+          animationFrames.push(
             new Sprite(spriteSheet, sx + i * width, sy, width, height)
           )
         }
 
-        animationsMap[animationName].frameDuration = frameDuration
+        animationsMap[animationName] = new Animation(
+          animationFrames,
+          frameDuration
+        )
       }
     )
 
