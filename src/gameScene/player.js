@@ -11,11 +11,11 @@ export class Player extends AttackerCharacter {
    * @param {CanvasRenderingContext2D} ctx
    */
   constructor(ctx) {
-    const spriteSheet = g.assets.image.dungeonTileSet
+    const spriteSheet = g.assets.image.knight
     const animationsMap = Animation.fromEntries(spriteSheet, [
-      ['idle', 128, 100, 16, 28, 4],
-      ['move', 192, 100, 16, 28, 4],
-      ['attack', 256, 100, 16, 28, 1, 12]
+      ['idle', 0, 0, 48, 28, 4],
+      ['move', 0, 28, 48, 28, 4],
+      ['attack', 0, 56, 48, 28, 2]
     ])
 
     const position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)

@@ -13,6 +13,11 @@ export class AssetLoader {
         name: 'dungeonTileSet',
         type: 'image',
         src: 'assets/0x72_DungeonTilesetII_v1.3.png'
+      },
+      {
+        name: 'knight',
+        type: 'image',
+        src: 'assets/knight.png'
       }
     ]
 
