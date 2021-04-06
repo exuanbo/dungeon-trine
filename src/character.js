@@ -4,8 +4,9 @@ class Character {
   /**
    * @param {import('./animation').AnimationsMap} animationsMap
    * @param {import('./math/vector').Vector} position
+   * @param {import('./layer').Layer} layer
    */
-  constructor(animationsMap, position) {
+  constructor(animationsMap, position, layer) {
     /**
      * Animation for the current action.
      *
@@ -105,6 +106,13 @@ class Character {
      * @protected
      */
     this.position = position
+
+    /**
+     * Reference to the current layer.
+     *
+     * @public
+     */
+    this.layer = layer
   }
 
   /**
@@ -266,18 +274,16 @@ class Character {
   }
 
   /**
-   * Draw the character with the provided canvas context.
+   * Render the character to the current layer.
    *
    * Increase `renderedTimes` by 1 at the end.
    *
    * @public
-   *
-   * @param {CanvasRenderingContext2D} ctx
    */
-  render(ctx) {
+  render() {
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 
-    ctx.clearRect(
+    this.layer.ctx.clearRect(
       this.position.x,
       this.position.y,
       currentAnimationFrame.width,
@@ -293,9 +299,17 @@ class Character {
     const nextAnimationFrame = this.currentAnimation.getNextFrame()
 
     if (this.face === 'left') {
-      nextAnimationFrame.renderFlipped(ctx, this.position.x, this.position.y)
+      nextAnimationFrame.renderFlipped(
+        this.layer.ctx,
+        this.position.x,
+        this.position.y
+      )
     } else {
-      nextAnimationFrame.render(ctx, this.position.x, this.position.y)
+      nextAnimationFrame.render(
+        this.layer.ctx,
+        this.position.x,
+        this.position.y
+      )
     }
 
     this.renderedTimes++
@@ -309,9 +323,10 @@ export class AttackerCharacter extends Character {
   /**
    * @param {import('./animation').AnimationsMap} animationsMap
    * @param {import('./math/vector').Vector} position
+   * @param {import('./layer').Layer} layer
    */
-  constructor(animationsMap, position) {
-    super(animationsMap, position)
+  constructor(animationsMap, position, layer) {
+    super(animationsMap, position, layer)
 
     this.addAction([() => this.willAttack, this.attack])
 
