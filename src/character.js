@@ -24,7 +24,7 @@ class Character {
      *
      * @private
      *
-     * @type {Animation}
+     * @type {import('./animation').Animation}
      */
     this.currentAnimation = undefined
 
