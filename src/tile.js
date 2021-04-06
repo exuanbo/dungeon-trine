@@ -1,5 +1,5 @@
 import { Sprite } from './sprite.js'
-import { vector } from './vector.js'
+import { vector } from './math/vector.js'
 import g, { TILE_SIZE } from './globals.js'
 
 export class Tile {

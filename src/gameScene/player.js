@@ -1,6 +1,6 @@
 import { AttackerCharacter } from '../character.js'
 import { Animation } from '../animation.js'
-import { vector } from '../vector.js'
+import { vector } from '../math/vector.js'
 import g, { CANVAS_SIZE, TILE_SIZE } from '../globals.js'
 
 /**
