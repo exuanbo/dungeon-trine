@@ -118,7 +118,7 @@ export class Character {
     /**
      * Reference to the current layer.
      *
-     * @public
+     * @protected
      */
     this.layer = layer
   }
@@ -337,6 +337,16 @@ export class Character {
     }
 
     this.renderedTimes++
+  }
+
+  /**
+   * Delete the reference to the current layer.
+   *
+   * @public
+   */
+  destroy() {
+    this._actions = null
+    this.layer = null
   }
 }
 

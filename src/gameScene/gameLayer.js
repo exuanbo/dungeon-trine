@@ -27,4 +27,16 @@ export class GameLayer extends Layer {
   render() {
     this.player.render()
   }
+
+  /**
+   * Override `Layer.destroy`.
+   *
+   * @override
+   * @public
+   */
+  destroy() {
+    this.player.destroy()
+    this.player = null
+    super.destroy()
+  }
 }

@@ -47,4 +47,14 @@ export class Layer {
   render() {
     throw new Error('Not implemented.')
   }
+
+  /**
+   * Delete the reference to the current scene.
+   *
+   * @public
+   */
+  destroy() {
+    this.scene = null
+    this.ctx = null
+  }
 }

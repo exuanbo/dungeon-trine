@@ -46,4 +46,16 @@ export class Scene {
       this.layers[layerName].render()
     }
   }
+
+  /**
+   * Delete the reference to the layers.
+   *
+   * @public
+   */
+  destroy() {
+    for (const layerName in this.layers) {
+      this.layers[layerName].destroy()
+    }
+    this.layers = null
+  }
 }
