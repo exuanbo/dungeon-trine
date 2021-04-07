@@ -3,9 +3,8 @@ import { View } from './view.js'
 export class Scene {
   /**
    * @param {string} sceneName
-   * @param {Object<string, import('./layer').Layer>} layers
    */
-  constructor(sceneName, layers) {
+  constructor(sceneName) {
     /**
      * If the layers has been appended to DOM by `View.initScene`
      *
@@ -24,8 +23,10 @@ export class Scene {
      * The layers of the scene.
      *
      * @public
+     *
+     * @type {Object<string, import('./layer').Layer>}
      */
-    this.layers = layers
+    this.layers = {}
   }
 
   /**

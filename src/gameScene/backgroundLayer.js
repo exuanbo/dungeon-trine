@@ -75,8 +75,11 @@ export class BackgroundLayer extends Layer {
     return tiles
   }
 
-  constructor() {
-    super()
+  /**
+   * @param {import('../scene').Scene} scene
+   */
+  constructor(scene) {
+    super(scene)
 
     /**
      * The generated tiles.

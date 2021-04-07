@@ -2,8 +2,11 @@ import { Layer } from '../layer.js'
 import { Knight } from './player.js'
 
 export class GameLayer extends Layer {
-  constructor() {
-    super(/* zIndex */ 1)
+  /**
+   * @param {import('../scene').Scene} scene
+   */
+  constructor(scene) {
+    super(scene, /* zIndex */ 1)
 
     /**
      * User controlled character. Default is `Knight`.

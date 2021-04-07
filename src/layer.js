@@ -6,11 +6,12 @@ import { View } from './view.js'
  */
 export class Layer {
   /**
+   * @param {import('./scene').Scene} scene
    * @param {number=} zIndex
    * @param {number=} width
    * @param {number=} height
    */
-  constructor(zIndex, width, height) {
+  constructor(scene, zIndex, width, height) {
     /**
      * If the layer has changed state.
      *
@@ -19,6 +20,13 @@ export class Layer {
      * @default true
      */
     this.isDirty = true
+
+    /**
+     * Reference to the current scene.
+     *
+     * @protected
+     */
+    this.scene = scene
 
     /**
      * The canvas context for this layer.
