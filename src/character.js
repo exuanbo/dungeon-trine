@@ -38,9 +38,7 @@ class Character {
     this.willStop = false
 
     /**
-     * All the actions to take at each render.
-     *
-     * An array of tuple `[predicate, action]`.
+     * {@link Character#actions}
      *
      * @private
      *
@@ -126,6 +124,18 @@ class Character {
   }
 
   /**
+   * All the actions to take at each render.
+   *
+   * An array of tuple `[predicate, action]`.
+   *
+   * @protected
+   * @readonly
+   */
+  get actions() {
+    return this._actions
+  }
+
+  /**
    * The actual action name. Default value is `idle`.
    *
    * @protected
@@ -191,7 +201,7 @@ class Character {
   }
 
   /**
-   * Add a tuple of action predicate and action function to the start of `_actions`.
+   * Add a tuple `[predicate, action]` to the start of `actions`.
    *
    * @protected
    *
@@ -207,7 +217,7 @@ class Character {
    * @private
    */
   act() {
-    this._actions.forEach(([predicate, action]) => {
+    this.actions.forEach(([predicate, action]) => {
       if (predicate()) {
         action()
       }
