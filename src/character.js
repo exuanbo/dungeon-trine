@@ -42,9 +42,9 @@ export class Character {
      *
      * @private
      *
-     * @type {Array<[predicate: (() => boolean), action: (() => void)]>}
+     * @type {Set<[predicate: (() => boolean), action: (() => void)]>}
      */
-    this._actions = []
+    this._actions = new Set()
 
     // Add `move` to `_actions` by default.
     this.addAction([this.willMove, this.move])
@@ -201,14 +201,14 @@ export class Character {
   }
 
   /**
-   * Add a tuple `[predicate, action]` to the start of `actions`.
+   * Add a pair of `[predicate, action]` to `actions`.
    *
    * @protected
    *
-   * @param {[predicate: (() => boolean), action: (() => void)]} fns
+   * @param {[(() => boolean), (() => void)]} predicateActionPair
    */
-  addAction(fns) {
-    this._actions.unshift(fns.map(fn => fn.bind(this)))
+  addAction(predicateActionPair) {
+    this._actions.add(predicateActionPair.map(fn => fn.bind(this)))
   }
 
   /**
@@ -217,11 +217,13 @@ export class Character {
    * @private
    */
   act() {
-    this.actions.forEach(([predicate, action]) => {
-      if (predicate()) {
-        action()
-      }
-    })
+    Array.from(this.actions)
+      .reverse()
+      .forEach(([predicate, action]) => {
+        if (predicate()) {
+          action()
+        }
+      })
   }
 
   /**
@@ -345,7 +347,7 @@ export class Character {
    * @public
    */
   destroy() {
-    this._actions = null
+    this._actions.clear()
     this.layer = null
   }
 }
