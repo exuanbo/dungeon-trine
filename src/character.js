@@ -68,11 +68,16 @@ export class Character {
     this.prioritizedActions = []
 
     /**
-     * Moving directions.
+     * Four directions `up`, `right`, `down`, `left`.
      *
      * @public
      */
-    this.directions = { up: false, right: false, down: false, left: false }
+    this.directions = new Map([
+      ['up', false],
+      ['right', false],
+      ['down', false],
+      ['left', false]
+    ])
 
     /**
      * Default moving speed. Pixels per render.
@@ -234,13 +239,7 @@ export class Character {
    * @private
    */
   willMove() {
-    for (const directionName in this.directions) {
-      if (this.directions[directionName]) {
-        return true
-      }
-    }
-
-    return false
+    return [...this.directions.values()].some(Boolean)
   }
 
   /**
@@ -262,24 +261,29 @@ export class Character {
 
     const { x: originalX, y: originalY } = this.position
 
-    if (this.directions.up) {
-      this.position.y -= this.speed
-    }
-    if (this.directions.right) {
-      this.position.x += this.speed
-      if (!this.directions.left) {
-        this.face = 'right'
+    this.directions.forEach((isDirection, direction) => {
+      if (isDirection) {
+        switch (direction) {
+          case 'up':
+            this.position.y -= this.speed
+            break
+          case 'right':
+            this.position.x += this.speed
+            if (!this.directions.get('left')) {
+              this.face = 'right'
+            }
+            break
+          case 'down':
+            this.position.y += this.speed
+            break
+          case 'left':
+            this.position.x -= this.speed
+            if (!this.directions.get('right')) {
+              this.face = 'left'
+            }
+        }
       }
-    }
-    if (this.directions.down) {
-      this.position.y += this.speed
-    }
-    if (this.directions.left) {
-      this.position.x -= this.speed
-      if (!this.directions.right) {
-        this.face = 'left'
-      }
-    }
+    })
 
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 

@@ -60,7 +60,7 @@ export class Controller {
         for (const [k, v] of this.keyboardMap) {
           if (ARROW_KEY_CODES.includes(k)) {
             const direction = k.slice(5).toLowerCase()
-            gameLayer.player.directions[direction] = v
+            gameLayer.player.directions.set(direction, v)
           }
           if (k === 'KeyX') {
             gameLayer.player.willAttack = v
