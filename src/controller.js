@@ -34,7 +34,6 @@ export class Controller {
     await this.dataLoader.loadAll()
 
     this.game = new Game()
-    this.player = this.game.scene.layers.game.player
     this.view = new View()
     this.view.render(this.game)
 
@@ -53,24 +52,31 @@ export class Controller {
     const isKeydown = e.type === 'keydown'
     this.keyboardMap.set(e.code, isKeydown)
 
-    for (const [k, v] of this.keyboardMap) {
-      if (ARROW_KEY_CODES.includes(k)) {
-        const direction = k.slice(5).toLowerCase()
-        this.player.directions[direction] = v
-      }
-      if (k === 'KeyX') {
-        this.player.willAttack = v
-      }
-    }
+    switch (this.game.scene.name) {
+      case 'game': {
+        /** @type {import('./gameScene/gameLayer').GameLayer} */
+        const gameLayer = this.game.scene.layers.game
 
-    if (!isKeydown) {
-      for (const v of this.keyboardMap.values()) {
-        if (v) {
-          return
+        for (const [k, v] of this.keyboardMap) {
+          if (ARROW_KEY_CODES.includes(k)) {
+            const direction = k.slice(5).toLowerCase()
+            gameLayer.player.directions[direction] = v
+          }
+          if (k === 'KeyX') {
+            gameLayer.player.willAttack = v
+          }
+        }
+
+        if (!isKeydown) {
+          for (const v of this.keyboardMap.values()) {
+            if (v) {
+              return
+            }
+          }
+
+          gameLayer.player.willStop = true
         }
       }
-
-      this.player.willStop = true
     }
   }
 }

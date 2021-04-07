@@ -4,7 +4,7 @@ import { GameLayer } from './gameLayer.js'
 
 export class GameScene extends Scene {
   constructor() {
-    super({
+    super('game', {
       background: new BackgroundLayer(),
       game: new GameLayer()
     })
