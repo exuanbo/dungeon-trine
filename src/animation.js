@@ -1,4 +1,6 @@
 import { Sprite } from './sprite.js'
+import { Box } from './math/box.js'
+import { data } from './data.js'
 
 /**
  * Animations with their name.
@@ -7,41 +9,62 @@ import { Sprite } from './sprite.js'
  */
 
 /**
- * Create `<animationName, Animation>` map from provided entries.
+ * Create `<animationName, Animation>` map from provided animation entries.
  *
- * @param {HTMLImageElement|HTMLCanvasElement} spriteSheet
- * @param {Array<[
- *    animationName: string,
- *    sx: number,
- *    sy: number,
- *    width: number,
- *    height: number,
- *    frameCount: number,
- *    frameDuration?: number
- * ]>} animationEntries
+ * @param {import('./data').AnimationEntries} animationEntries
  */
-export const makeAnimationsMap = (spriteSheet, animationEntries) => {
+export const makeAnimationsMap = animationEntries => {
   /** @type {AnimationsMap} */
   const animationsMap = {}
 
-  animationEntries.forEach(
-    ([animationName, sx, sy, width, height, frameCount, frameDuration = 9]) => {
-      const animationFrames = []
+  for (const animationName in animationEntries) {
+    const animationEntry = animationEntries[animationName]
 
-      for (let i = 0; i < frameCount; i++) {
-        animationFrames.push(
-          new Sprite(spriteSheet, sx + i * width, sy, width, height)
+    const spriteSheet = data.assets.spriteSheets[animationEntry.spriteSheet]
+
+    const animationFrames = animationEntry.frames.map(
+      frame =>
+        new AnimationFrame(
+          new Sprite(spriteSheet, ...frame.sprite),
+          new Box(...frame.hitbox),
+          frame.duration
         )
-      }
+    )
 
-      animationsMap[animationName] = new Animation(
-        animationFrames,
-        frameDuration
-      )
-    }
-  )
+    animationsMap[animationName] = new Animation(animationFrames)
+  }
 
   return animationsMap
+}
+
+export class AnimationFrame {
+  /**
+   * @param {Sprite} sprite
+   * @param {Box} hitbox
+   * @param {number} duration
+   */
+  constructor(sprite, hitbox, duration) {
+    /**
+     * The sprite of the animation frame.
+     *
+     * @public
+     */
+    this.sprite = sprite
+
+    /**
+     * The hitbox of the animation frame.
+     *
+     * @public
+     */
+    this.hitbox = hitbox
+
+    /**
+     * The duration of the animation frame. The unit is render time.
+     *
+     * @public
+     */
+    this.duration = duration
+  }
 }
 
 export class Animation {
@@ -52,14 +75,14 @@ export class Animation {
    * @static
    *
    * @param {number} frameCount
-   * @param {number} frameDuration
+   * @param {number[]} frameDurations An array of number. Each element is the `duration` of the frame corresponding to its index.
    */
-  static *makeFrameIndexIterator(frameCount, frameDuration) {
+  static *makeFrameIndexIterator(frameCount, frameDurations) {
     let frameIndex = 0
     let isFrameDone = false
 
     for (let i = 1; i < Infinity; i++) {
-      if (i % frameDuration === 0) {
+      if (i % frameDurations[frameIndex] === 0) {
         frameIndex++
         frameIndex %= frameCount
         isFrameDone = true
@@ -72,10 +95,9 @@ export class Animation {
   }
 
   /**
-   * @param {Sprite[]} frames
-   * @param {number} frameDuration
+   * @param {AnimationFrame[]} animationFrames
    */
-  constructor(frames, frameDuration) {
+  constructor(animationFrames) {
     /**
      * Current frame index.
      *
@@ -108,18 +130,11 @@ export class Animation {
     this._isCurrentFrameDone = undefined
 
     /**
-     * An array of sprites representing the frames of the animation.
+     * An array of `AnimationFrame` representing the frames of the animation.
      *
      * @private
      */
-    this.frames = frames
-
-    /**
-     * Duration per frame. The unit is the rendered time.
-     *
-     * @private
-     */
-    this.frameDuration = frameDuration
+    this.frames = animationFrames
 
     this.reset()
   }
@@ -145,7 +160,7 @@ export class Animation {
     this.currentFrameIndex = 0
     this.frameIndexIterator = Animation.makeFrameIndexIterator(
       this.frames.length,
-      this.frameDuration
+      this.frames.map(frame => frame.duration)
     )
     this._isCurrentFrameDone = false
   }

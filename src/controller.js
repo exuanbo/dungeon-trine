@@ -1,4 +1,4 @@
-import { AssetLoader } from './assetLoader.js'
+import { data, DataLoader } from './data.js'
 import { Game } from './game.js'
 import { View } from './view.js'
 
@@ -7,11 +7,11 @@ const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 export class Controller {
   constructor() {
     /**
-     * Initialize a new asset laoder.
+     * Initialize a new data laoder.
      *
      * @private
      */
-    this.assetLoader = new AssetLoader()
+    this.dataLoader = new DataLoader(data)
 
     /**
      * Keyboard key map. For handling multiple `keydown`.
@@ -31,7 +31,7 @@ export class Controller {
    * @public
    */
   async init() {
-    await this.assetLoader.load()
+    await this.dataLoader.loadAll()
 
     this.game = new Game()
     this.player = this.game.scene.layers.game.player

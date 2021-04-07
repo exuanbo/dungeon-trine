@@ -1,4 +1,4 @@
-import { CANVAS_SIZE } from './globals.js'
+import { data } from './data.js'
 
 const FPS = 60
 const FPS_INTERVAL = 1000 / FPS
@@ -31,8 +31,8 @@ export class View {
    */
   static makeLayerCanvasContext(
     zIndex = 0,
-    width = CANVAS_SIZE,
-    height = CANVAS_SIZE
+    width = data.config.canvasSize,
+    height = data.config.canvasSize
   ) {
     const canvas = document.createElement('canvas')
     canvas.style.zIndex = zIndex
@@ -59,7 +59,8 @@ export class View {
     const gameContainer = document.getElementById('game')
 
     gameContainer.innerHTML = ''
-    gameContainer.style.height = gameContainer.style.width = CANVAS_SIZE
+    gameContainer.style.height = gameContainer.style.width =
+      data.config.canvasSize
 
     const { layers } = scene
     for (const layerName in layers) {

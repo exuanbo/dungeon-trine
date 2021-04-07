@@ -1,0 +1,71 @@
+{
+  "characters": {
+    "knight": {
+      "idle": {
+        "spriteSheet": "knight",
+        "frames": [
+          {
+            "sprite": [0, 0, 48, 28],
+            "hitbox": [18, 12, 12, 16],
+            "duration": 9
+          },
+          {
+            "sprite": [48, 0, 48, 28],
+            "hitbox": [18, 13, 12, 15],
+            "duration": 9
+          },
+          {
+            "sprite": [96, 0, 48, 28],
+            "hitbox": [18, 14, 12, 16],
+            "duration": 9
+          },
+          {
+            "sprite": [144, 0, 48, 28],
+            "hitbox": [18, 13, 12, 15],
+            "duration": 9
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "knight",
+        "frames": [
+          {
+            "sprite": [0, 28, 48, 28],
+            "hitbox": [18, 11, 12, 16],
+            "duration": 9
+          },
+          {
+            "sprite": [48, 28, 48, 28],
+            "hitbox": [18, 10, 12, 16],
+            "duration": 9
+          },
+          {
+            "sprite": [96, 28, 48, 28],
+            "hitbox": [18, 11, 12, 16],
+            "duration": 9
+          },
+          {
+            "sprite": [144, 28, 48, 28],
+            "hitbox": [18, 12, 12, 16],
+            "duration": 9
+          }
+        ]
+      },
+      "attack": {
+        "spriteSheet": "knight",
+        "frames": [
+          {
+            "sprite": [0, 56, 48, 28],
+            "hitbox": [18, 13, 12, 15],
+            "duration": 9
+          },
+          {
+            "sprite": [48, 56, 48, 28],
+            "hitbox": [18, 13, 12, 15],
+            "duration": 9
+          }
+        ]
+      }
+    }
+  }
+}

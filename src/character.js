@@ -1,5 +1,5 @@
 import { vector } from './math/vector.js'
-import { CANVAS_SIZE, TILE_SIZE } from './globals.js'
+import { data } from './data.js'
 
 /**
  * @typedef {Object} CharacterMeta
@@ -8,14 +8,14 @@ import { CANVAS_SIZE, TILE_SIZE } from './globals.js'
  * @property {import('./math/vector').Vector=} CharacterMeta.position
  */
 
-class Character {
+export class Character {
   /**
    * @param {CharacterMeta} characterMeta
    */
   constructor({
     animationsMap,
     layer,
-    position = vector(CANVAS_SIZE / 2 - TILE_SIZE / 2)
+    position = vector(data.config.canvasSize / 2 - data.config.tileSize / 2)
   }) {
     /**
      * Animation for the current action.
@@ -281,13 +281,17 @@ class Character {
 
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 
+    const { canvasSize, tileSize } = data.config
+
     if (
-      this.position.x <= TILE_SIZE ||
-      this.position.x + currentAnimationFrame.width >=
-        CANVAS_SIZE - TILE_SIZE ||
-      this.position.y <= TILE_SIZE ||
-      this.position.y + currentAnimationFrame.height >=
-        CANVAS_SIZE - TILE_SIZE - 4
+      this.position.x + currentAnimationFrame.hitbox.position.x <= tileSize ||
+      this.position.x +
+        currentAnimationFrame.hitbox.position.x +
+        currentAnimationFrame.hitbox.width >=
+        canvasSize - tileSize ||
+      this.position.y <= tileSize ||
+      this.position.y + currentAnimationFrame.sprite.height >=
+        canvasSize - tileSize - 4
     ) {
       this.position.set(originalX, originalY)
     }
@@ -306,8 +310,8 @@ class Character {
     this.layer.ctx.clearRect(
       this.position.x,
       this.position.y,
-      currentAnimationFrame.width,
-      currentAnimationFrame.height
+      currentAnimationFrame.sprite.width,
+      currentAnimationFrame.sprite.height
     )
 
     if (this.willStop) {
@@ -319,13 +323,13 @@ class Character {
     const nextAnimationFrame = this.currentAnimation.getNextFrame()
 
     if (this.face === 'left') {
-      nextAnimationFrame.renderFlipped(
+      nextAnimationFrame.sprite.renderFlipped(
         this.layer.ctx,
         this.position.x,
         this.position.y
       )
     } else {
-      nextAnimationFrame.render(
+      nextAnimationFrame.sprite.render(
         this.layer.ctx,
         this.position.x,
         this.position.y

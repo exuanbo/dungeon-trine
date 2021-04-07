@@ -1,6 +1,6 @@
 import { Sprite } from './sprite.js'
 import { vector } from './math/vector.js'
-import g, { TILE_SIZE } from './globals.js'
+import { data } from './data.js'
 
 export class Tile {
   /**
@@ -12,7 +12,7 @@ export class Tile {
    * @param {number} dy
    */
   constructor(sx, sy, sWidth, sHeight, dx, dy) {
-    const spriteSheet = g.assets.image.dungeonTileSet
+    const spriteSheet = data.assets.spriteSheets['0x72_DungeonTilesetII_v1.3']
 
     /**
      * @public
@@ -35,6 +35,8 @@ export class Floor extends Tile {
    * @param {number} dy
    */
   constructor(dx, dy) {
-    super(/* sx */ 16, /* sy */ 64, TILE_SIZE, TILE_SIZE, dx, dy) // floor_1
+    const { tileSize } = data.config
+
+    super(/* sx */ 16, /* sy */ 64, tileSize, tileSize, dx, dy) // floor_1
   }
 }
