@@ -1,16 +1,16 @@
 import { Layer } from '../layer.js'
-import { Player } from './player.js'
+import { Knight } from './player.js'
 
 export class GameLayer extends Layer {
   constructor() {
     super(/* zIndex */ 1)
 
     /**
-     * User controlled character.
+     * User controlled character. Default is `Knight`.
      *
      * @public
      */
-    this.player = new Player(this)
+    this.player = new Knight(this)
   }
 
   /**

@@ -2,10 +2,7 @@ import { AttackerCharacter } from '../character.js'
 import { makeAnimationsMap } from '../animation.js'
 import { data } from '../data.js'
 
-/**
- * User controlled character.
- */
-export class Player extends AttackerCharacter {
+export class Knight extends AttackerCharacter {
   /**
    * @param {import('./gameLayer').GameLayer} layer
    */
