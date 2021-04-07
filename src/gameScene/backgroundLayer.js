@@ -79,13 +79,6 @@ export class BackgroundLayer extends Layer {
     super()
 
     /**
-     * If the layer has rendered once.
-     *
-     * @private
-     */
-    this.isRendered = false
-
-    /**
      * The generated tiles.
      *
      * @private
@@ -102,7 +95,7 @@ export class BackgroundLayer extends Layer {
    * @public
    */
   render() {
-    if (this.isRendered) {
+    if (!this.isDirty) {
       return
     }
 
@@ -124,6 +117,6 @@ export class BackgroundLayer extends Layer {
         sprite.height
       )
     })
-    this.isRendered = true
+    this.isDirty = false
   }
 }
