@@ -3,9 +3,9 @@ import { data } from './data.js'
 
 /**
  * @typedef {Object} CharacterMeta
- * @property {import('./animation').AnimationsMap} CharacterMeta.animationsMap
+ * @property {import('./animation').AnimationsMap} animationsMap
  * @property {import('./layer').Layer} layer
- * @property {import('./math/vector').Vector=} CharacterMeta.position
+ * @property {import('./math/vector').Vector=} position
  */
 
 export class Character {
