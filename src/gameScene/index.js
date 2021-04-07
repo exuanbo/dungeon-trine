@@ -6,7 +6,8 @@ export class GameScene extends Scene {
   constructor() {
     super('game')
 
-    this.layers.background = new BackgroundLayer(this)
-    this.layers.game = new GameLayer(this)
+    this.layers
+      .set('background', new BackgroundLayer(this))
+      .set('game', new GameLayer(this))
   }
 }

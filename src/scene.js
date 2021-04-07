@@ -24,9 +24,9 @@ export class Scene {
      *
      * @public
      *
-     * @type {Object<string, import('./layer').Layer>}
+     * @type {Map<string, import('./layer').Layer>}
      */
-    this.layers = {}
+    this.layers = new Map()
   }
 
   /**
@@ -42,8 +42,8 @@ export class Scene {
       this.isInitialized = true
     }
 
-    for (const layerName in this.layers) {
-      this.layers[layerName].render()
+    for (const layer of this.layers.values()) {
+      layer.render()
     }
   }
 
@@ -53,9 +53,9 @@ export class Scene {
    * @public
    */
   destroy() {
-    for (const layerName in this.layers) {
-      this.layers[layerName].destroy()
+    for (const layer of this.layers.values()) {
+      layer.destroy()
     }
-    this.layers = null
+    this.layers.clear()
   }
 }

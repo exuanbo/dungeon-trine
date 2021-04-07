@@ -61,8 +61,8 @@ export class View {
     gameContainer.innerHTML = ''
     gameContainer.style = `width: ${data.config.canvasSize}; height: ${data.config.canvasSize}`
 
-    for (const layerName in scene.layers) {
-      gameContainer.appendChild(scene.layers[layerName].ctx.canvas)
+    for (const layer of scene.layers.values()) {
+      gameContainer.appendChild(layer.ctx.canvas)
     }
   }
 
