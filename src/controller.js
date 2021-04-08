@@ -62,13 +62,11 @@ export class Controller {
           if (ARROW_KEY_CODES.includes(k)) {
             const direction = k.slice(5).toLowerCase()
             gameLayer.player.directions.set(direction, v)
-            return
           }
 
-          switch (k) {
-            // attack
-            case 'KeyX':
-              gameLayer.player.willAttack = v
+          // attack
+          if (k === 'KeyX') {
+            gameLayer.player.willAttack = v
           }
         }
 
