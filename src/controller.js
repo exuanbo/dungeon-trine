@@ -58,16 +58,22 @@ export class Controller {
         const gameLayer = this.game.scene.layers.get('game')
 
         for (const [k, v] of this.keyboardMap) {
+          // move
           if (ARROW_KEY_CODES.includes(k)) {
             const direction = k.slice(5).toLowerCase()
             gameLayer.player.directions.set(direction, v)
+            return
           }
-          if (k === 'KeyX') {
-            gameLayer.player.willAttack = v
+
+          switch (k) {
+            // attack
+            case 'KeyX':
+              gameLayer.player.willAttack = v
           }
         }
 
         if (!isKeydown) {
+          // The player should not stop if exists at least one key down.
           for (const v of this.keyboardMap.values()) {
             if (v) {
               return
