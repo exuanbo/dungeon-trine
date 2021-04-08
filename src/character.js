@@ -73,10 +73,10 @@ export class Character {
      * @public
      */
     this.directions = new Map([
-      ['up', false],
-      ['right', false],
-      ['down', false],
-      ['left', false]
+      ['Up', false],
+      ['Right', false],
+      ['Down', false],
+      ['Left', false]
     ])
 
     /**
@@ -93,7 +93,7 @@ export class Character {
      *
      * @private
      */
-    this.face = 'right'
+    this.face = 'Right'
 
     /**
      * The actual rendered times. Used for controlling actions interval.
@@ -270,22 +270,22 @@ export class Character {
     this.directions.forEach((isDirection, direction) => {
       if (isDirection) {
         switch (direction) {
-          case 'up':
+          case 'Up':
             this.position.y -= this.speed
             break
-          case 'right':
+          case 'Right':
             this.position.x += this.speed
-            if (!this.directions.get('left')) {
-              this.face = 'right'
+            if (!this.directions.get('Left')) {
+              this.face = 'Right'
             }
             break
-          case 'down':
+          case 'Down':
             this.position.y += this.speed
             break
-          case 'left':
+          case 'Left':
             this.position.x -= this.speed
-            if (!this.directions.get('right')) {
-              this.face = 'left'
+            if (!this.directions.get('Right')) {
+              this.face = 'Left'
             }
         }
       }
@@ -334,7 +334,7 @@ export class Character {
 
     const nextAnimationFrame = this.currentAnimation.getNextFrame()
 
-    if (this.face === 'left') {
+    if (this.face === 'Left') {
       nextAnimationFrame.sprite.renderFlipped(
         this.layer.ctx,
         this.position.x,

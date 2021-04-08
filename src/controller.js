@@ -61,10 +61,7 @@ export class Controller {
             case 'ArrowRight':
             case 'ArrowDown':
             case 'ArrowLeft':
-              {
-                const direction = k.slice(5).toLowerCase()
-                gameLayer.player.directions.set(direction, v)
-              }
+              gameLayer.player.directions.set(k.slice(5), v)
               continue
             case 'KeyX':
               gameLayer.player.willAttack = v
