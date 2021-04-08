@@ -239,7 +239,13 @@ export class Character {
    * @private
    */
   willMove() {
-    return [...this.directions.values()].some(Boolean)
+    for (const isDirection of this.directions.values()) {
+      if (isDirection) {
+        return true
+      }
+    }
+
+    return false
   }
 
   /**
