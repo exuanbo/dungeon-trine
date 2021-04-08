@@ -79,19 +79,19 @@ export class Box {
   /**
    * Test if the two boxes collide.
    *
-   * @param {Box} otherBox
+   * @param {Box} other
    *
    * @public
    */
-  isCollidedWith(otherBox) {
-    for (const getOtherVertex of otherBox.vertices.values()) {
+  isCollidedWith(other) {
+    for (const getOtherVertex of other.vertices.values()) {
       if (this.isPointInBox(getOtherVertex())) {
         return true
       }
     }
 
     for (const getVertex of this.vertices.values()) {
-      if (otherBox.isPointInBox(getVertex())) {
+      if (other.isPointInBox(getVertex())) {
         return true
       }
     }
