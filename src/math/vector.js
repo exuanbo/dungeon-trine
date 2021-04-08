@@ -24,12 +24,18 @@ export class Vector {
    *
    * @public
    *
-   * @param {number} x
-   * @param {number} y
+   * @param {number|Vector} x
+   * @param {number=} y
    */
   set(x, y) {
-    this.x = x
-    this.y = y
+    if (x instanceof Vector) {
+      this.x = x.x
+      this.y = x.y
+    } else {
+      this.x = x
+      this.y = y === undefined ? x : y
+    }
+
     return this
   }
 }
