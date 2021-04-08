@@ -113,7 +113,7 @@ export class Animation {
     let isFrameDone = false
 
     for (let i = 1; i < Infinity; i++) {
-      if (i % frameDurations[frameIndex] === 0) {
+      if (i % (frameDurations[frameIndex] + 1) === 0) {
         frameIndex++
         frameIndex %= frameCount
         isFrameDone = true
