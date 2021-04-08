@@ -30,15 +30,15 @@ export class Box {
     this.height = height
 
     /**
-     * The coordinates of the four vertices `tl`, `tr`, `br`, `bl`.
+     * Functions that return coordinates of the corresponding four vertices `tl`, `tr`, `br`, `bl`.
      *
      * @public
      */
     this.vertices = new Map([
-      ['tl', vector(x, y)],
-      ['tr', vector(x + width, y)],
-      ['br', vector(x + width, y + width)],
-      ['bl', vector(x, y + width)]
+      ['tl', () => vector(this.position.x, this.position.y)],
+      ['tr', () => vector(this.position.x + width, this.position.y)],
+      ['br', () => vector(this.position.x + width, this.position.y + width)],
+      ['bl', () => vector(this.position.x, this.position.y + width)]
     ])
   }
 
@@ -64,14 +64,14 @@ export class Box {
    * @public
    */
   isCollidedWith(otherBox) {
-    for (const otherVertex of otherBox.vertices.values()) {
-      if (this.isPointInBox(otherVertex)) {
+    for (const getOtherVertex of otherBox.vertices.values()) {
+      if (this.isPointInBox(getOtherVertex())) {
         return true
       }
     }
 
-    for (const vertex of this.vertices.values()) {
-      if (otherBox.isPointInBox(vertex)) {
+    for (const getVertex of this.vertices.values()) {
+      if (otherBox.isPointInBox(getVertex())) {
         return true
       }
     }
