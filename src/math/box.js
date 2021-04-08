@@ -39,9 +39,11 @@ export class Box {
     this.offset = offset
 
     /**
-     * Functions that return coordinates of the corresponding four vertices `tl`, `tr`, `br`, `bl`.
+     * Functions that return coordinates of the corresponding four vertices.
      *
      * @public
+     *
+     * @type {Map<'tl'|'tr'|'br'|'bl', (() => import('./vector').Vector)>}
      */
     this.vertices = new Map([
       ['tl', () => this.getActualPosition()],

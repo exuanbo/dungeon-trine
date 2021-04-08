@@ -68,9 +68,11 @@ export class Character {
     this.prioritizedActions = []
 
     /**
-     * Four directions `up`, `right`, `down`, `left`.
+     * Four directions to move.
      *
      * @public
+     *
+     * @type {Map<'Up'|'Right'|'Down'|'Left', boolean>}
      */
     this.directions = new Map([
       ['Up', false],
