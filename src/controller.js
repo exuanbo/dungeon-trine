@@ -2,8 +2,6 @@ import { data, DataLoader } from './data.js'
 import { Game } from './game.js'
 import { View } from './view.js'
 
-const ARROW_KEY_CODES = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
-
 export class Controller {
   constructor() {
     /**
@@ -58,15 +56,18 @@ export class Controller {
         const gameLayer = this.game.scene.layers.get('game')
 
         for (const [k, v] of this.keyboardMap) {
-          // move
-          if (ARROW_KEY_CODES.includes(k)) {
-            const direction = k.slice(5).toLowerCase()
-            gameLayer.player.directions.set(direction, v)
-          }
-
-          // attack
-          if (k === 'KeyX') {
-            gameLayer.player.willAttack = v
+          switch (k) {
+            case 'ArrowUp':
+            case 'ArrowRight':
+            case 'ArrowDown':
+            case 'ArrowLeft':
+              {
+                const direction = k.slice(5).toLowerCase()
+                gameLayer.player.directions.set(direction, v)
+              }
+              continue
+            case 'KeyX':
+              gameLayer.player.willAttack = v
           }
         }
 
