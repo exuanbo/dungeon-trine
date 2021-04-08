@@ -78,29 +78,23 @@ export class DataLoader {
    * @param {Object<string, string>} spriteSheets
    */
   async loadSpriteSheets(spriteSheets) {
-    this.data.assets.spriteSheets = {}
+    const { assets } = this.data
+    assets.spriteSheets = {}
 
-    const loading = []
+    const loading = Object.keys(spriteSheets).map(spriteSheetName => {
+      assets.spriteSheets[spriteSheetName] = undefined
 
-    for (const spriteSheetName in spriteSheets) {
-      this.data.assets.spriteSheets[spriteSheetName] = undefined
+      return new Promise(resolve => {
+        const image = new Image()
+        image.src = spriteSheets[spriteSheetName]
 
-      const src = spriteSheets[spriteSheetName]
-
-      loading.push(
-        new Promise(resolve => {
-          const image = new Image()
-          image.src = src
-          image.onload = () => {
-            this.data.assets.spriteSheets[
-              spriteSheetName
-            ] = View.makeOffscreenCanvas(image)
-            image.onload = null
-            resolve()
-          }
-        })
-      )
-    }
+        image.onload = () => {
+          assets.spriteSheets[spriteSheetName] = View.makeOffscreenCanvas(image)
+          image.onload = null
+          resolve()
+        }
+      })
+    })
 
     await Promise.all(loading)
   }
