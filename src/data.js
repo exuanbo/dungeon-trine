@@ -7,8 +7,8 @@ import { View } from './view.js'
  *    spriteSheet: string
  *    frames: Array<{
  *      sprite: [x: number, y: number, width: number, height: number]
- *      hitbox: [offsetX: number, offsetY: number, width: number, height: number]
- *      duration: number
+ *      hitbox?: [offsetX: number, offsetY: number, width: number, height: number]
+ *      duration?: number
  *    }>
  * }>} AnimationEntries
  */

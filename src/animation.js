@@ -1,5 +1,6 @@
 import { Sprite } from './sprite.js'
 import { Box } from './math/box.js'
+import { vector } from './math/vector.js'
 import { data } from './data.js'
 
 /**
@@ -22,14 +23,29 @@ export const makeAnimationsMap = animationEntries => {
 
     const spriteSheet = data.assets.spriteSheets[animationEntry.spriteSheet]
 
-    const animationFrames = animationEntry.frames.map(
-      frame =>
-        new AnimationFrame(
-          new Sprite(spriteSheet, ...frame.sprite),
-          new Box(...frame.hitbox),
-          frame.duration
-        )
-    )
+    const animationFrames = animationEntry.frames.map(frame => {
+      /** @type {Box|undefined} */
+      let hitbox
+
+      if (frame.hitbox !== undefined) {
+        const [
+          hitboxOffsetX,
+          hitboxOffsetY,
+          hitboxWidth,
+          hitboxHeight
+        ] = frame.hitbox
+
+        hitbox = new Box(hitboxWidth, hitboxHeight, {
+          offset: vector(hitboxOffsetX, hitboxOffsetY)
+        })
+      }
+
+      return new AnimationFrame({
+        sprite: new Sprite(spriteSheet, ...frame.sprite),
+        hitbox,
+        duration: frame.duration
+      })
+    })
 
     animationsMap[animationName] = new Animation(animationFrames)
   }
@@ -39,11 +55,13 @@ export const makeAnimationsMap = animationEntries => {
 
 export class AnimationFrame {
   /**
-   * @param {Sprite} sprite
-   * @param {Box} hitbox
-   * @param {number} duration
+   * @param {{
+   *    sprite: Sprite
+   *    hitbox?: Box
+   *    duration?: number
+   * }}
    */
-  constructor(sprite, hitbox, duration) {
+  constructor({ sprite, hitbox, duration = 9 }) {
     /**
      * The sprite of the animation frame.
      *
@@ -54,9 +72,15 @@ export class AnimationFrame {
     /**
      * The hitbox of the animation frame.
      *
-     * @public
+     * {@link AnimationFrame#getHitbox}
+     *
+     * @private
      */
-    this.hitbox = hitbox
+    this._hitbox =
+      hitbox ||
+      new Box(this.sprite.width, this.sprite.height, {
+        offset: this.sprite.position
+      })
 
     /**
      * The duration of the animation frame. The unit is render time.
@@ -64,6 +88,18 @@ export class AnimationFrame {
      * @public
      */
     this.duration = duration
+  }
+
+  /**
+   * Get the hitbox of the frame according to the provided position.
+   *
+   * @public
+   *
+   * @param {import('./math/vector').Vector} pos
+   */
+  getHitbox(pos) {
+    this._hitbox.position.set(pos)
+    return this._hitbox
   }
 }
 

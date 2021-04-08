@@ -293,14 +293,14 @@ export class Character {
 
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 
+    const hitbox = currentAnimationFrame.getHitbox(this.position)
+    const hitboxActualPosition = hitbox.getActualPosition()
+
     const { canvasSize, tileSize } = data.config
 
     if (
-      this.position.x + currentAnimationFrame.hitbox.position.x <= tileSize ||
-      this.position.x +
-        currentAnimationFrame.hitbox.position.x +
-        currentAnimationFrame.hitbox.width >=
-        canvasSize - tileSize ||
+      hitboxActualPosition.x <= tileSize ||
+      hitboxActualPosition.x + hitbox.width >= canvasSize - tileSize ||
       this.position.y <= tileSize ||
       this.position.y + currentAnimationFrame.sprite.height >=
         canvasSize - tileSize - 4

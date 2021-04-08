@@ -2,19 +2,14 @@ import { vector } from './vector.js'
 
 export class Box {
   /**
-   * @param {number} x
-   * @param {number} y
    * @param {number} width
    * @param {number} height
+   * @param {{
+   *    position?: import('./vector').Vector
+   *    offset?: import('./vector').Vector
+   * }=}
    */
-  constructor(x, y, width, height) {
-    /**
-     * The position of the box. Represented as the top-left vertex coordinate.
-     *
-     * @public
-     */
-    this.position = vector(x, y)
-
+  constructor(width, height, { position = vector(), offset = vector() } = {}) {
     /**
      * The width of the box.
      *
@@ -30,16 +25,39 @@ export class Box {
     this.height = height
 
     /**
+     * The position of the box, not counting `offset`.
+     *
+     * @public
+     */
+    this.position = position
+
+    /**
+     * The offset coordinates of the box.
+     *
+     * @public
+     */
+    this.offset = offset
+
+    /**
      * Functions that return coordinates of the corresponding four vertices `tl`, `tr`, `br`, `bl`.
      *
      * @public
      */
     this.vertices = new Map([
-      ['tl', () => vector(this.position.x, this.position.y)],
-      ['tr', () => vector(this.position.x + width, this.position.y)],
-      ['br', () => vector(this.position.x + width, this.position.y + width)],
-      ['bl', () => vector(this.position.x, this.position.y + width)]
+      ['tl', () => this.getActualPosition()],
+      ['tr', () => this.getActualPosition().add(width, 0)],
+      ['br', () => this.getActualPosition().add(width, height)],
+      ['bl', () => this.getActualPosition().add(0, height)]
     ])
+  }
+
+  /**
+   * Get the actual position of the box.
+   *
+   * @public
+   */
+  getActualPosition() {
+    return this.position.add(this.offset)
   }
 
   /**
@@ -50,9 +68,11 @@ export class Box {
    * @public
    */
   isPointInBox(point) {
+    const position = this.getActualPosition()
+
     return (
-      this.position.x <= point.x <= this.position.x + this.width &&
-      this.position.y <= point.y <= this.position.y + this.height
+      position.x <= point.x <= position.x + this.width &&
+      position.y <= point.y <= position.y + this.height
     )
   }
 
