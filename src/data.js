@@ -131,8 +131,10 @@ export class DataLoader {
    * @public
    */
   async loadAll() {
-    await this.loadConfig()
-    await this.loadAssets()
-    await this.loadAnimations()
+    await Promise.all([
+      this.loadConfig(),
+      this.loadAssets(),
+      this.loadAnimations()
+    ])
   }
 }
