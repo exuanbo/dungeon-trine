@@ -25,24 +25,19 @@ export const makeAnimationsMap = animationEntries => {
 
     const animationFrames = animationEntry.frames.map(frame => {
       /** @type {Box|undefined} */
-      let hitbox
+      let box
 
-      if (frame.hitbox !== undefined) {
-        const [
-          hitboxOffsetX,
-          hitboxOffsetY,
-          hitboxWidth,
-          hitboxHeight
-        ] = frame.hitbox
+      if (frame.box !== undefined) {
+        const [boxOffsetX, boxOffsetY, boxWidth, boxHeight] = frame.box
 
-        hitbox = new Box(hitboxWidth, hitboxHeight, {
-          offset: vector(hitboxOffsetX, hitboxOffsetY)
+        box = new Box(boxWidth, boxHeight, {
+          offset: vector(boxOffsetX, boxOffsetY)
         })
       }
 
       return new AnimationFrame({
         sprite: new Sprite(spriteSheet, ...frame.sprite),
-        hitbox,
+        box,
         duration: frame.duration
       })
     })
@@ -57,11 +52,11 @@ export class AnimationFrame {
   /**
    * @param {{
    *    sprite: Sprite
-   *    hitbox?: Box
+   *    box?: Box
    *    duration?: number
    * }}
    */
-  constructor({ sprite, hitbox, duration = 9 }) {
+  constructor({ sprite, box, duration = 9 }) {
     /**
      * The sprite of the animation frame.
      *
@@ -70,14 +65,14 @@ export class AnimationFrame {
     this.sprite = sprite
 
     /**
-     * The hitbox of the animation frame.
+     * The hitbox or hurtbox of the animation frame.
      *
-     * {@link AnimationFrame#getHitbox}
+     * {@link AnimationFrame#getBox}
      *
      * @private
      */
-    this._hitbox =
-      hitbox ||
+    this._box =
+      box ||
       new Box(this.sprite.width, this.sprite.height, {
         offset: this.sprite.position
       })
@@ -91,15 +86,15 @@ export class AnimationFrame {
   }
 
   /**
-   * Get the hitbox of the frame according to the provided position.
+   * Get the hitbox or hurtbox of the frame according to the provided position.
    *
    * @public
    *
    * @param {import('./math/vector').Vector} pos
    */
-  getHitbox(pos) {
-    this._hitbox.position.set(pos)
-    return this._hitbox
+  getBox(pos) {
+    this._box.position.set(pos)
+    return this._box
   }
 }
 

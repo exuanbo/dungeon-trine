@@ -295,7 +295,7 @@ export class Character {
 
     const currentAnimationFrame = this.currentAnimation.getCurrentFrame()
 
-    const hitbox = currentAnimationFrame.getHitbox(this.position)
+    const hitbox = currentAnimationFrame.getBox(this.position)
     const hitboxActualPosition = hitbox.getActualPosition()
 
     const { canvasSize, tileSize } = data.config
