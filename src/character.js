@@ -139,6 +139,17 @@ export class Character {
   }
 
   /**
+   * Add a pair of `[predicate, action]` to `actions`.
+   *
+   * @protected
+   *
+   * @param {[(() => boolean), (() => void)]} predicateActionPair
+   */
+  addAction(predicateActionPair) {
+    this._actions.add(predicateActionPair.map(fn => fn.bind(this)))
+  }
+
+  /**
    * Set animation according to current action.
    *
    * @private
@@ -194,22 +205,16 @@ export class Character {
   }
 
   /**
-   * Add a pair of `[predicate, action]` to `actions`.
-   *
-   * @protected
-   *
-   * @param {[(() => boolean), (() => void)]} predicateActionPair
-   */
-  addAction(predicateActionPair) {
-    this._actions.add(predicateActionPair.map(fn => fn.bind(this)))
-  }
-
-  /**
    * Call the actions if their predicates are fulfilled.
    *
    * @private
    */
   act() {
+    if (this.willStop) {
+      this.stop()
+      return
+    }
+
     Array.from(this.actions)
       .reverse()
       .forEach(([predicate, action]) => {
@@ -312,11 +317,7 @@ export class Character {
       currentAnimationFrame.sprite.height
     )
 
-    if (this.willStop) {
-      this.stop()
-    } else {
-      this.act()
-    }
+    this.act()
 
     const nextAnimationFrame = this.currentAnimation.getNextFrame()
 
