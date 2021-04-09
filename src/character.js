@@ -1,22 +1,17 @@
-import { vector } from './math/vector.js'
 import { data } from './data.js'
 
 /**
  * @typedef {Object} CharacterMeta
  * @property {import('./animation').AnimationsMap} animationsMap
+ * @property {import('./math/vector').Vector} position
  * @property {import('./layer').Layer} layer
- * @property {import('./math/vector').Vector=} position
  */
 
 export class Character {
   /**
    * @param {CharacterMeta} characterMeta
    */
-  constructor({
-    animationsMap,
-    layer,
-    position = vector(data.config.canvasSize / 2 - data.config.tileSize / 2)
-  }) {
+  constructor({ animationsMap, position, layer }) {
     /**
      * Animation for the current action.
      *
