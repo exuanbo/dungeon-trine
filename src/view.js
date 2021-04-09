@@ -35,7 +35,7 @@ export class View {
     height = data.config.canvasSize
   ) {
     const canvas = document.createElement('canvas')
-    canvas.style.zIndex = zIndex
+    canvas.style.zIndex = zIndex.toString()
     canvas.width = width
     canvas.height = height
     const ctx = canvas.getContext('2d')
@@ -59,7 +59,7 @@ export class View {
     const gameContainer = document.getElementById('game')
 
     gameContainer.innerHTML = ''
-    gameContainer.style = `width: ${data.config.canvasSize}; height: ${data.config.canvasSize}`
+    gameContainer.style.cssText = `width: ${data.config.canvasSize}; height: ${data.config.canvasSize}`
 
     for (const layer of scene.layers.values()) {
       gameContainer.appendChild(layer.ctx.canvas)
