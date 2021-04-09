@@ -38,23 +38,28 @@ export class Vector {
   }
 
   /**
-   * Set the coordinates to the given values or copy from other Vector.
+   * Set the coordinates to the passed values.
    *
    * @public
    *
-   * @param {number|Vector} x
+   * @param {number} x
    * @param {number=} y
    */
   set(x, y) {
-    if (x instanceof Vector) {
-      this.x = x.x
-      this.y = x.y
-    } else {
-      this.x = x
-      this.y = y === undefined ? x : y
-    }
-
+    this.x = x
+    this.y = y === undefined ? x : y
     return this
+  }
+
+  /**
+   * Copy the coordinates of the passed vector.
+   *
+   * @public
+   *
+   * @param {Vector} other
+   */
+  copy(other) {
+    return this.set(other.x, other.y)
   }
 
   /**
@@ -66,7 +71,7 @@ export class Vector {
    * @param {number=} y
    */
   add(x, y) {
-    if (x instanceof Vector) {
+    if (typeof x !== 'number') {
       if (x.isZero()) {
         return this
       }

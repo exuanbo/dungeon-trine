@@ -93,7 +93,7 @@ export class AnimationFrame {
    * @param {import('./math/vector').Vector} pos
    */
   getBox(pos) {
-    this._box.position.set(pos)
+    this._box.position.copy(pos)
     return this._box
   }
 }
