@@ -1,4 +1,4 @@
-import { GameScene } from './gameScene/index.js'
+import { GameScene } from './scenes/gameScene/index.js'
 
 export class Game {
   constructor() {

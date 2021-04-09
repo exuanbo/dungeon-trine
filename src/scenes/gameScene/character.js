@@ -1,5 +1,5 @@
-import { MovableObject } from '../engine/gameObjects/models/movableObject.js'
-import { data } from '../data.js'
+import { MovableObject } from '../../engine/gameObjects/models/movableObject.js'
+import { data } from '../../data.js'
 
 export class Character extends MovableObject {
   /**
@@ -42,9 +42,9 @@ export class Character extends MovableObject {
 export class AttackerCharacter extends Character {
   /**
    * @param {{
-   *    animationsMap: import('../engine/gameObjects/animation').AnimationsMap
-   *    position: import('../engine/math/vector').Vector
-   *    layer: import('../engine/layer').Layer
+   *    animationsMap: import('../../engine/gameObjects/animation').AnimationsMap
+   *    position: import('../../engine/math/vector').Vector
+   *    layer: import('../../engine/layer').Layer
    * }} characterMeta
    */
   constructor(characterMeta) {

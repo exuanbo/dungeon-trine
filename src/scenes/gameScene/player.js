@@ -1,7 +1,7 @@
 import { AttackerCharacter } from './character.js'
-import { createAnimationsMap } from '../engine/gameObjects/animation.js'
-import { vector } from '../engine/math/vector.js'
-import { data } from '../data.js'
+import { createAnimationsMap } from '../../engine/gameObjects/animation.js'
+import { vector } from '../../engine/math/vector.js'
+import { data } from '../../data.js'
 
 export class Knight extends AttackerCharacter {
   /**

@@ -1,6 +1,6 @@
-import { Layer } from '../engine/layer.js'
+import { Layer } from '../../engine/layer.js'
 import { Tile, Floor } from '../tile.js'
-import { data } from '../data.js'
+import { data } from '../../data.js'
 
 export class BackgroundLayer extends Layer {
   /**
@@ -76,7 +76,7 @@ export class BackgroundLayer extends Layer {
   }
 
   /**
-   * @param {import('../engine/scene').Scene} scene
+   * @param {import('../../engine/scene').Scene} scene
    */
   constructor(scene) {
     super(scene)

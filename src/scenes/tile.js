@@ -1,6 +1,6 @@
-import { Sprite } from './engine/gameObjects/sprite.js'
-import { vector } from './engine/math/vector.js'
-import { data } from './data.js'
+import { Sprite } from '../engine/gameObjects/sprite.js'
+import { vector } from '../engine/math/vector.js'
+import { data } from '../data.js'
 
 export class Tile {
   /**
