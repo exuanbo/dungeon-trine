@@ -26,7 +26,9 @@ export const data = {
    *
    * @type {{ spriteSheets: Object<string, HTMLCanvasElement> }}
    */
-  assets: {},
+  assets: {
+    spriteSheets: {}
+  },
 
   /**
    * Game animation entries.
@@ -79,7 +81,6 @@ export class DataLoader {
    */
   async loadSpriteSheets(spriteSheets) {
     const { assets } = this.data
-    assets.spriteSheets = {}
 
     const loading = Object.keys(spriteSheets).map(spriteSheetName => {
       assets.spriteSheets[spriteSheetName] = undefined
