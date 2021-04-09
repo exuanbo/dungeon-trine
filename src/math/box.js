@@ -73,8 +73,10 @@ export class Box {
     const position = this.getActualPosition()
 
     return (
-      position.x <= point.x <= position.x + this.width &&
-      position.y <= point.y <= position.y + this.height
+      position.x <= point.x &&
+      point.x <= position.x + this.width &&
+      position.y <= point.y &&
+      point.y <= position.y + this.height
     )
   }
 
