@@ -24,7 +24,7 @@ export class Layer {
     /**
      * Reference to the current scene.
      *
-     * @protected
+     * @public
      */
     this.scene = scene
 
