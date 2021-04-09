@@ -7,7 +7,7 @@ export class Box {
    * @param {{
    *    position?: import('./vector').Vector
    *    offset?: import('./vector').Vector
-   * }=}
+   * }=} BoxPosition
    */
   constructor(width, height, { position = vector(), offset = vector() } = {}) {
     /**
