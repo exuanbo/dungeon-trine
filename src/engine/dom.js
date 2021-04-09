@@ -38,9 +38,6 @@ export const createLayerCanvasContext = (width, height, zIndex = 0) => {
 /**
  * Initialize `Scene` by appending the canvas elements of its layers to `#game`.
  *
- * @public
- * @static
- *
  * @param {import('./scene').Scene} scene
  */
 export const initScene = scene => {
