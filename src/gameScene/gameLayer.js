@@ -1,9 +1,9 @@
-import { Layer } from '../layer.js'
+import { Layer } from '../engine/layer.js'
 import { Knight } from './player.js'
 
 export class GameLayer extends Layer {
   /**
-   * @param {import('../scene').Scene} scene
+   * @param {import('../engine/scene').Scene} scene
    */
   constructor(scene) {
     super(scene, /* zIndex */ 1)

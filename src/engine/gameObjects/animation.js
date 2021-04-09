@@ -1,7 +1,19 @@
 import { Sprite } from './sprite.js'
-import { Box } from './math/box.js'
-import { vector } from './math/vector.js'
-import { data } from './data.js'
+import { Box } from '../math/box.js'
+import { vector } from '../math/vector.js'
+
+/**
+ * Animation entries object from `data`.
+ *
+ * @typedef {Object<string, {
+ *    spriteSheet: string
+ *    frames: Array<{
+ *      sprite: [x: number, y: number, width: number, height: number]
+ *      box?: [offsetX: number, offsetY: number, width: number, height: number]
+ *      duration?: number
+ *    }>
+ * }>} AnimationEntries
+ */
 
 /**
  * Animations with their name.
@@ -12,16 +24,17 @@ import { data } from './data.js'
 /**
  * Create `<animationName, Animation>` map from provided animation entries.
  *
- * @param {import('./data').AnimationEntries} animationEntries
+ * @param {Object<string, HTMLImageElement|HTMLCanvasElement> } spriteSheets
+ * @param {AnimationEntries} animationEntries
  */
-export const makeAnimationsMap = animationEntries => {
+export const createAnimationsMap = (spriteSheets, animationEntries) => {
   /** @type {AnimationsMap} */
   const animationsMap = {}
 
   for (const animationName in animationEntries) {
     const animationEntry = animationEntries[animationName]
 
-    const spriteSheet = data.assets.spriteSheets[animationEntry.spriteSheet]
+    const spriteSheet = spriteSheets[animationEntry.spriteSheet]
 
     const animationFrames = animationEntry.frames.map(frame => {
       /** @type {Box|undefined} */
@@ -90,7 +103,7 @@ export class AnimationFrame {
    *
    * @public
    *
-   * @param {import('./math/vector').Vector} pos
+   * @param {import('../math/vector').Vector} pos
    */
   getBox(pos) {
     this._box.position.copy(pos)

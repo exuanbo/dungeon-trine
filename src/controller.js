@@ -1,4 +1,5 @@
-import { data, DataLoader } from './data.js'
+import { DataLoader } from './engine/dataLoader.js'
+import { data } from './data.js'
 import { Game } from './game.js'
 import { View } from './view.js'
 
@@ -22,21 +23,22 @@ export class Controller {
   }
 
   /**
-   * Initialize controller.
+   * Load all the game data.
    *
-   * Load assets then render the game and listen to keyboard.
-   *
-   * @public
+   * @private
    */
-  async init() {
-    await this.dataLoader.loadAll()
+  async loadData() {
+    const loadConfig = this.dataLoader.loadFromJson('data/config.json')
+    const loadSpriteSheets = new Promise(resolve => {
+      ;(async () => {
+        const assets = await DataLoader.fetchJson('data/assets.json')
+        await this.dataLoader.loadSpriteSheets(assets.spriteSheets)
+        resolve()
+      })()
+    })
+    const loadAnimations = this.dataLoader.loadFromJson('data/animations.json')
 
-    this.game = new Game()
-    this.view = new View()
-    this.view.render(this.game)
-
-    window.addEventListener('keydown', e => this.handleKey(e), false)
-    window.addEventListener('keyup', e => this.handleKey(e), false)
+    await Promise.all([loadConfig, loadSpriteSheets, loadAnimations])
   }
 
   /**
@@ -80,5 +82,23 @@ export class Controller {
         }
       }
     }
+  }
+
+  /**
+   * Initialize the controller.
+   *
+   * Load assets then render the game and listen to keyboard.
+   *
+   * @public
+   */
+  async init() {
+    await this.loadData()
+
+    this.game = new Game()
+    this.view = new View()
+    this.view.render(this.game)
+
+    window.addEventListener('keydown', e => this.handleKey(e), false)
+    window.addEventListener('keyup', e => this.handleKey(e), false)
   }
 }

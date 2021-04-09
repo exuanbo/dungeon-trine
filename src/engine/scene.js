@@ -1,11 +1,15 @@
-import { View } from './view.js'
 import { Timer } from './timer.js'
+import { initScene } from './dom.js'
 
 export class Scene {
   /**
-   * @param {string} sceneName
+   * @param {{
+   *    sceneName: string
+   *    width: number
+   *    height: number
+   * }} sceneMeta
    */
-  constructor(sceneName) {
+  constructor({ sceneName, width, height }) {
     /**
      * If the layers has been appended to DOM by `View.initScene`
      *
@@ -21,13 +25,6 @@ export class Scene {
     this.timer = new Timer()
 
     /**
-     * The name of the scene.
-     *
-     * @public
-     */
-    this.name = sceneName
-
-    /**
      * The layers of the scene.
      *
      * @public
@@ -35,18 +32,37 @@ export class Scene {
      * @type {Map<string, import('./layer').Layer>}
      */
     this.layers = new Map()
+
+    /**
+     * The name of the scene.
+     *
+     * @public
+     */
+    this.name = sceneName
+
+    /**
+     * The width of the scene.
+     *
+     * @public
+     */
+    this.width = width
+
+    /**
+     * The height of the scene.
+     *
+     * @public
+     */
+    this.height = height
   }
 
   /**
-   * Render the layers.
-   *
-   * Call `View.initScene` if not initialized.
+   * Update `timer` and render the layers.
    *
    * @public
    */
   render() {
     if (!this.isInitialized) {
-      View.initScene(this)
+      initScene(this)
       this.isInitialized = true
     }
 

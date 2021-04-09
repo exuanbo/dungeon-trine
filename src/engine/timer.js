@@ -10,7 +10,7 @@ export class Timer {
    * @param {() => void} cb
    * @param {number} delay
    */
-  static *makeTimeoutTask(cb, delay) {
+  static *createTimeoutTask(cb, delay) {
     for (let i = delay; i > 0; i--) {
       if (i === 0) {
         break
@@ -44,7 +44,7 @@ export class Timer {
    * @param {() => void} cb
    * @param {number} interval
    */
-  static *makeIntervalTask(cb, interval) {
+  static *createIntervalTask(cb, interval) {
     for (let i = 1; i < Infinity; i++) {
       /** @type {'RESET'|'STOP'} */
       let command
@@ -68,13 +68,6 @@ export class Timer {
 
   constructor() {
     /**
-     * {@link Timer#now}
-     *
-     * @private
-     */
-    this._now = 0
-
-    /**
      * The task Map. Every iterator will be called when `update()` is called.
      *
      * @private
@@ -94,15 +87,6 @@ export class Timer {
   }
 
   /**
-   * Get how many times has `update()` been called.
-   *
-   * @public
-   */
-  now() {
-    return this._now
-  }
-
-  /**
    * Update the timer.
    *
    * Increase `_now` by 1 and call every iterator in `tasks`.
@@ -111,7 +95,9 @@ export class Timer {
    * @public
    */
   update() {
-    this._now++
+    if (this.tasks.size === 0) {
+      return
+    }
 
     Array.from(this.tasks.keys()).forEach(taskId => {
       if (this.tasks.get(taskId).next().done) {
@@ -152,7 +138,7 @@ export class Timer {
       cb = () => {}
     }
 
-    this.tasks.set(taskId, Timer.makeTimeoutTask(cb, delay))
+    this.tasks.set(taskId, Timer.createTimeoutTask(cb, delay))
     return taskId
   }
 
@@ -211,7 +197,7 @@ export class Timer {
    */
   setInterval(cb, interval) {
     const taskId = ++this.taskId
-    this.tasks.set(taskId, Timer.makeIntervalTask(cb, interval))
+    this.tasks.set(taskId, Timer.createIntervalTask(cb, interval))
     return taskId
   }
 

@@ -1,4 +1,4 @@
-import { View } from './view.js'
+import { createLayerCanvasContext } from './dom.js'
 
 /**
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#use_multiple_layered_canvases_for_complex_scenes
@@ -8,10 +8,8 @@ export class Layer {
   /**
    * @param {import('./scene').Scene} scene
    * @param {number=} zIndex
-   * @param {number=} width
-   * @param {number=} height
    */
-  constructor(scene, zIndex, width, height) {
+  constructor(scene, zIndex) {
     /**
      * If the layer has changed state.
      *
@@ -35,7 +33,7 @@ export class Layer {
      *
      * @public
      */
-    this.ctx = View.makeLayerCanvasContext(zIndex, width, height)
+    this.ctx = createLayerCanvasContext(scene.width, scene.height, zIndex)
   }
 
   /**
