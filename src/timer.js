@@ -12,6 +12,10 @@ export class Timer {
    */
   static *makeTimeoutTask(cb, delay) {
     for (let i = delay; i > 0; i--) {
+      if (i === 0) {
+        break
+      }
+
       /** @type {'RESET'|'STOP'} */
       const command = yield
 
