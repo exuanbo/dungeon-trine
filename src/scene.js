@@ -1,4 +1,5 @@
 import { View } from './view.js'
+import { Timer } from './timer.js'
 
 export class Scene {
   /**
@@ -11,6 +12,13 @@ export class Scene {
      * @private
      */
     this.isInitialized = false
+
+    /**
+     * The timer instance for the scene.
+     *
+     * @public
+     */
+    this.timer = new Timer()
 
     /**
      * The name of the scene.
@@ -42,6 +50,8 @@ export class Scene {
       this.isInitialized = true
     }
 
+    this.timer.update()
+
     for (const layer of this.layers.values()) {
       layer.render()
     }
@@ -53,6 +63,8 @@ export class Scene {
    * @public
    */
   destroy() {
+    this.timer.clearAll()
+
     for (const layer of this.layers.values()) {
       layer.destroy()
     }

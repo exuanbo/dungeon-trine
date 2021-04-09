@@ -98,15 +98,6 @@ export class Character {
     this.face = 'Right'
 
     /**
-     * The actual rendered times. Used for controlling actions interval.
-     *
-     * Increased by `render`.
-     *
-     * @protected
-     */
-    this.renderedTimes = 0
-
-    /**
      * The provided animations map.
      *
      * @private
@@ -314,8 +305,6 @@ export class Character {
   /**
    * Render the character to the current layer.
    *
-   * Increase `renderedTimes` by 1 at the end.
-   *
    * @public
    */
   render() {
@@ -349,8 +338,6 @@ export class Character {
         this.position.y
       )
     }
-
-    this.renderedTimes++
   }
 
   /**
@@ -402,13 +389,14 @@ export class AttackerCharacter extends Character {
     this.attackInterval = 36
 
     /**
-     * Last time the character attacked. Use `renderedTimes`.
+     * The scene timer task id for the last attack.
+     * Used for deciding if enough time had passed since the last attack.
      *
      * @private
      *
      * @type {number}
      */
-    this.lastAttack = undefined
+    this.attackTaskId = undefined
   }
 
   /**
@@ -427,13 +415,14 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    if (this.renderedTimes - this.lastAttack < this.attackInterval) {
+    if (!this.layer.scene.timer.isTaskDone(this.attackTaskId)) {
       return
     }
 
     this.setAction('attack')
+
     this.hasAttacked = true
-    this.lastAttack = this.renderedTimes
+    this.attackTaskId = this.layer.scene.timer.setTimeout(this.attackInterval)
   }
 
   /**
