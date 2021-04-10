@@ -1,7 +1,8 @@
 import { DataLoader } from './engine/dataLoader.js'
 import { data } from './data.js'
-import { Game } from './game.js'
-import { View } from './view.js'
+import { Game } from './engine/game.js'
+import { GameScene } from './scenes/gameScene/index.js'
+import { GameRenderer } from './engine/gameRenderer'
 
 export class Controller {
   constructor() {
@@ -94,9 +95,9 @@ export class Controller {
   async init() {
     await this.loadData()
 
-    this.game = new Game()
-    this.view = new View()
-    this.view.render(this.game)
+    this.game = new Game(new GameScene())
+    this.gameRenderer = new GameRenderer(/* fps */ 60)
+    this.gameRenderer.render(this.game)
 
     window.addEventListener('keydown', e => this.handleKey(e), false)
     window.addEventListener('keyup', e => this.handleKey(e), false)
