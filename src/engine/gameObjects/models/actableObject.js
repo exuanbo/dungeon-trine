@@ -1,5 +1,9 @@
 import { BaseObject } from './basicObject.js'
 
+/**
+ * @typedef {[predicate: () => boolean, action: () => void]} PredicateActionPair
+ */
+
 export class ActableObject extends BaseObject {
   /**
    * @param {{
@@ -25,7 +29,7 @@ export class ActableObject extends BaseObject {
      *
      * @private
      *
-     * @type {Set<[predicate: () => boolean, action: () => void]>}
+     * @type {Set<PredicateActionPair>}
      */
     this._actions = new Set()
 
@@ -84,7 +88,7 @@ export class ActableObject extends BaseObject {
    *
    * @protected
    *
-   * @param {[() => boolean, () => void]} predicateActionPair
+   * @param {PredicateActionPair} predicateActionPair
    */
   addAction(predicateActionPair) {
     this._actions.add(predicateActionPair.map(fn => fn.bind(this)))
