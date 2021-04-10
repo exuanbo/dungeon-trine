@@ -18,10 +18,10 @@ export class BackgroundLayer extends Layer {
 
     for (let col = 0; col < tilesPerSide; col++) {
       const columnOfTiles = []
+      const dx = col * tileSize
 
       for (let row = 0; row < tilesPerSide; row++) {
         let tile
-        const dx = col * tileSize
         const dy = row * tileSize
 
         // left or right side wall
