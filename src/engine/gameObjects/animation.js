@@ -87,11 +87,7 @@ export class AnimationFrame {
      *
      * @private
      */
-    this._box =
-      box ||
-      new Box(this.sprite.width, this.sprite.height, {
-        offset: this.sprite.offset
-      })
+    this._box = box || new Box(this.sprite.width, this.sprite.height)
 
     /**
      * The duration of the animation frame. The unit is render time.
