@@ -5,6 +5,7 @@ export class DataLoader {
    * Helper method using `fetch` API.
    *
    * @public
+   * @static
    *
    * @param {string} url
    */
@@ -34,7 +35,7 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadFromJson('data/config.json')
-   * dataLoader.data // => { config: { canvasSize: 320, tileSize: 16 } }
+   * console.log(data) // => { config: { canvasSize: 320, tileSize: 16 } }
    */
   async loadFromJson(url) {
     const fileName = url.split('/').splice(-1)[0].split('.')[0]
@@ -52,13 +53,12 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadSpriteSheets({ knight: 'assets/knight.png' })
-   * dataLoader.data // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
+   * console.log(data) // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
    */
   async loadSpriteSheets(spriteSheetsMap) {
     if (this.data.assets === undefined) {
-      this.data.assets = {}
-    }
-    if (this.data.assets.spriteSheets === undefined) {
+      this.data.assets = { spriteSheets: {} }
+    } else if (this.data.assets.spriteSheets === undefined) {
       this.data.assets.spriteSheets = {}
     }
     const { assets } = this.data
@@ -67,13 +67,12 @@ export class DataLoader {
       assets.spriteSheets[spriteSheetName] = undefined
 
       return new Promise(resolve => {
-        let image = new Image()
+        const image = new Image()
         image.src = spriteSheetsMap[spriteSheetName]
 
         image.onload = () => {
           assets.spriteSheets[spriteSheetName] = createOffscreenCanvas(image)
           image.onload = null
-          image = null
           resolve()
         }
       })
