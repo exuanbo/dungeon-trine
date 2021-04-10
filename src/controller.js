@@ -1,5 +1,6 @@
 import { DataLoader } from './engine/dataLoader.js'
 import { data } from './data.js'
+import { Keyboard } from './engine/keyboard.js'
 import { Game } from './engine/game.js'
 import { GameScene } from './scenes/gameScene/index.js'
 import { GameRenderer } from './engine/gameRenderer.js'
@@ -7,20 +8,18 @@ import { GameRenderer } from './engine/gameRenderer.js'
 export class Controller {
   constructor() {
     /**
-     * Initialize a new data laoder.
+     * Initialize a new `DataLoader`.
      *
      * @private
      */
     this.dataLoader = new DataLoader(data)
 
     /**
-     * Keyboard key map. For handling multiple `keydown`.
+     * Initialize a new `Keyboard`.
      *
      * @private
-     *
-     * @type {Map<string, boolean>}
      */
-    this.keyboardMap = new Map()
+    this.keyboard = new Keyboard()
   }
 
   /**
@@ -43,49 +42,6 @@ export class Controller {
   }
 
   /**
-   * Handle `keydown` and `keyup` event.
-   *
-   * @private
-   *
-   * @param {KeyboardEvent} e
-   */
-  handleKey(e) {
-    const isKeydown = e.type === 'keydown'
-    this.keyboardMap.set(e.code, isKeydown)
-
-    switch (this.game.scene.name) {
-      case 'game': {
-        /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
-        const gameLayer = this.game.scene.layers.get('game')
-
-        for (const [k, v] of this.keyboardMap) {
-          switch (k) {
-            case 'ArrowUp':
-            case 'ArrowRight':
-            case 'ArrowDown':
-            case 'ArrowLeft':
-              gameLayer.player.directions.set(k.slice(5), v)
-              continue
-            case 'KeyX':
-              gameLayer.player.willAttack = v
-          }
-        }
-
-        if (!isKeydown) {
-          // The player should not stop if exists at least one key down.
-          for (const v of this.keyboardMap.values()) {
-            if (v) {
-              return
-            }
-          }
-
-          gameLayer.player.willStop = true
-        }
-      }
-    }
-  }
-
-  /**
    * Initialize the controller.
    *
    * Load assets then render the game and listen to keyboard.
@@ -99,7 +55,40 @@ export class Controller {
     this.gameRenderer = new GameRenderer(/* fps */ 60)
     this.gameRenderer.render(this.game)
 
-    window.addEventListener('keydown', e => this.handleKey(e), false)
-    window.addEventListener('keyup', e => this.handleKey(e), false)
+    this.keyboard.init()
+
+    const keys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', 'KeyX']
+
+    this.keyboard.listen(keys, 'both', (key, isKeyDown) => {
+      switch (this.game.scene.name) {
+        case 'game': {
+          /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
+          const gameLayer = this.game.scene.layers.get('game')
+
+          switch (key) {
+            case 'ArrowUp':
+            case 'ArrowRight':
+            case 'ArrowDown':
+            case 'ArrowLeft':
+              gameLayer.player.directions.set(key.slice(5), isKeyDown)
+              break
+            case 'KeyX':
+              gameLayer.player.willAttack = isKeyDown
+          }
+        }
+      }
+    })
+
+    this.keyboard.listen(keys, 'keyup', () => {
+      switch (this.game.scene.name) {
+        case 'game':
+          if (!this.keyboard.hasKeyDown()) {
+            /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
+            const gameLayer = this.game.scene.layers.get('game')
+
+            gameLayer.player.willStop = true
+          }
+      }
+    })
   }
 }
