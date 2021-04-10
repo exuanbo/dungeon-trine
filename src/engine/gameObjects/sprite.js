@@ -17,11 +17,11 @@ export class Sprite {
     this.spriteSheet = spriteSheet
 
     /**
-     * Image position on the sprite sheet.
+     * Image offset position on the sprite sheet.
      *
      * @public
      */
-    this.position = vector(x, y)
+    this.offset = vector(x, y)
 
     /**
      * Sprite width.
@@ -50,8 +50,8 @@ export class Sprite {
   render(ctx, dx, dy) {
     ctx.drawImage(
       this.spriteSheet,
-      this.position.x,
-      this.position.y,
+      this.offset.x,
+      this.offset.y,
       this.width,
       this.height,
       dx,

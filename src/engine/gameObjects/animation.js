@@ -90,7 +90,7 @@ export class AnimationFrame {
     this._box =
       box ||
       new Box(this.sprite.width, this.sprite.height, {
-        offset: this.sprite.position
+        offset: this.sprite.offset
       })
 
     /**
