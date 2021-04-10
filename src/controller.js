@@ -52,6 +52,7 @@ export class Controller {
     await this.loadData()
 
     this.game = new Game(new GameScene())
+
     this.gameRenderer = new GameRenderer(/* fps */ 60)
     this.gameRenderer.render(this.game)
 
@@ -74,20 +75,13 @@ export class Controller {
               break
             case 'KeyX':
               gameLayer.player.willAttack = isKeyDown
+              break
           }
-        }
-      }
-    })
 
-    this.keyboard.listen(keys, 'keyup', () => {
-      switch (this.game.scene.name) {
-        case 'game':
           if (!this.keyboard.hasKeyDown()) {
-            /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
-            const gameLayer = this.game.scene.layers.get('game')
-
             gameLayer.player.willStop = true
           }
+        }
       }
     })
   }
