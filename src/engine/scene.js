@@ -11,7 +11,7 @@ export class Scene {
    */
   constructor({ sceneName, width, height }) {
     /**
-     * If the layers has been appended to DOM by `View.initScene`
+     * If the layers has been appended to DOM by `initScene`
      *
      * @private
      */
