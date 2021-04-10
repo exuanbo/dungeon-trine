@@ -2,7 +2,7 @@ import { DataLoader } from './engine/dataLoader.js'
 import { data } from './data.js'
 import { Game } from './engine/game.js'
 import { GameScene } from './scenes/gameScene/index.js'
-import { GameRenderer } from './engine/gameRenderer'
+import { GameRenderer } from './engine/gameRenderer.js'
 
 export class Controller {
   constructor() {
