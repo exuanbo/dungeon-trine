@@ -103,23 +103,12 @@ export class BackgroundLayer extends Layer {
     }
 
     const { canvasSize } = data.config
-
     this.ctx.clearRect(0, 0, canvasSize, canvasSize)
-    this.tiles.forEach(tile => {
-      const { sprite, position } = tile
 
-      this.ctx.drawImage(
-        sprite.spriteSheet,
-        sprite.position.x,
-        sprite.position.y,
-        sprite.width,
-        sprite.height,
-        position.x,
-        position.y,
-        sprite.width,
-        sprite.height
-      )
+    this.tiles.forEach(tile => {
+      tile.sprite.render(this.ctx, tile.position.x, tile.position.y)
     })
+
     this.isDirty = false
   }
 }
