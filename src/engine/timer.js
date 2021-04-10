@@ -1,3 +1,7 @@
+/**
+ * @typedef {'RESET'|'STOP'} TaskCommand
+ */
+
 export class Timer {
   /**
    * Timeout task generator.
@@ -16,7 +20,7 @@ export class Timer {
         break
       }
 
-      /** @type {'RESET'|'STOP'} */
+      /** @type {TaskCommand} */
       const command = yield
 
       switch (command) {
@@ -46,7 +50,7 @@ export class Timer {
    */
   static *createIntervalTask(cb, interval) {
     for (let i = 1; i < Infinity; i++) {
-      /** @type {'RESET'|'STOP'} */
+      /** @type {TaskCommand} */
       let command
 
       if (i % (interval + 1) === 0) {
@@ -72,7 +76,7 @@ export class Timer {
      *
      * @private
      *
-     * @type {Map<number, Iterator<void, void, 'RESET'|'STOP'>>}
+     * @type {Map<number, Iterator<void, void, TaskCommand>>}
      */
     this.tasks = new Map()
 
