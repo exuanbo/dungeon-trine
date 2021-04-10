@@ -25,7 +25,7 @@ export class ActableObject extends BaseObject {
      *
      * @private
      *
-     * @type {Set<[predicate: (() => boolean), action: (() => void)]>}
+     * @type {Set<[predicate: () => boolean, action: () => void]>}
      */
     this._actions = new Set()
 
@@ -84,7 +84,7 @@ export class ActableObject extends BaseObject {
    *
    * @protected
    *
-   * @param {[(() => boolean), (() => void)]} predicateActionPair
+   * @param {[() => boolean, () => void]} predicateActionPair
    */
   addAction(predicateActionPair) {
     this._actions.add(predicateActionPair.map(fn => fn.bind(this)))

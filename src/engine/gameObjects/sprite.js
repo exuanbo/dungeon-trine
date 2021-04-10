@@ -2,7 +2,7 @@ import { vector } from '../math/vector.js'
 
 export class Sprite {
   /**
-   * @param {HTMLImageElement|HTMLCanvasElement} spriteSheet
+   * @param {HTMLImageElement | HTMLCanvasElement} spriteSheet
    * @param {number} x
    * @param {number} y
    * @param {number} width

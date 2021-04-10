@@ -43,7 +43,7 @@ export class Box {
      *
      * @public
      *
-     * @type {Map<'tl'|'tr'|'br'|'bl', (() => import('./vector').Vector)>}
+     * @type {Map<'tl' | 'tr' | 'br' | 'bl', () => import('./vector').Vector>}
      */
     this.vertices = new Map([
       ['tl', () => this.getActualPosition()],

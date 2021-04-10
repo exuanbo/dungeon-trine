@@ -1,5 +1,5 @@
 /**
- * @typedef {'keydown'|'keyup'|'both'} KeyboardEventType
+ * @typedef {'keydown' | 'keyup' | 'both'} KeyboardEventType
  */
 
 export class Keyboard {
@@ -32,7 +32,7 @@ export class Keyboard {
      * @type {Map<
      *    number,
      *    [
-     *      keyboardEventCode: string|string[],
+     *      keyboardEventCode: string | string[],
      *      keyboardEventType: KeyboardEventType,
      *      cb: (key?: string, isKeyDown?: boolean) => void
      *    ]
@@ -109,7 +109,7 @@ export class Keyboard {
    *
    * @public
    *
-   * @param {string|string[]} keyboardEventCode
+   * @param {string | string[]} keyboardEventCode
    * @param {KeyboardEventType} keyboardEventType
    * @param {(key?: string, isKeyDown?: boolean) => void} cb
    */

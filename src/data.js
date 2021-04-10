@@ -5,7 +5,10 @@
  *      spriteSheets: Object<string, HTMLCanvasElement>
  *    }
  *    animations: {
- *      characters: Object<string, import('./engine/gameObjects/animation').AnimationEntries>
+ *      characters: Object<
+ *        string,
+ *        import('./engine/gameObjects/animation').AnimationEntries
+ *      >
  *    }
  * }} Data
  */

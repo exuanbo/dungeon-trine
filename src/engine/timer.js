@@ -1,5 +1,5 @@
 /**
- * @typedef {'RESET'|'STOP'} TaskCommand
+ * @typedef {'RESET' | 'STOP'} TaskControlCommand
  */
 
 export class Timer {
@@ -20,7 +20,7 @@ export class Timer {
         break
       }
 
-      /** @type {TaskCommand} */
+      /** @type {TaskControlCommand} */
       const command = yield
 
       switch (command) {
@@ -50,7 +50,7 @@ export class Timer {
    */
   static *createIntervalTask(cb, interval) {
     for (let i = 1; i < Infinity; i++) {
-      /** @type {TaskCommand} */
+      /** @type {TaskControlCommand} */
       let command
 
       if (i % (interval + 1) === 0) {
@@ -76,7 +76,7 @@ export class Timer {
      *
      * @private
      *
-     * @type {Map<number, Iterator<void, void, TaskCommand>>}
+     * @type {Map<number, Iterator<void, void, TaskControlCommand>>}
      */
     this.tasks = new Map()
 
@@ -131,7 +131,7 @@ export class Timer {
    *
    * @public
    *
-   * @param {(() => void)|number} cb
+   * @param {(() => void) | number} cb
    * @param {number=} delay
    */
   setTimeout(cb, delay) {

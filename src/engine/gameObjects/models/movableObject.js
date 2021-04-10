@@ -18,7 +18,7 @@ export class MovableObject extends ActableObject {
      *
      * @public
      *
-     * @type {Map<'Up'|'Right'|'Down'|'Left', boolean>}
+     * @type {Map<'Up' | 'Right' | 'Down' | 'Left', boolean>}
      */
     this.directions = new Map([
       ['Up', false],

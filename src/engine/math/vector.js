@@ -67,7 +67,7 @@ export class Vector {
    *
    * @public
    *
-   * @param {number|Vector} x
+   * @param {number | Vector} x
    * @param {number=} y
    */
   add(x, y) {
