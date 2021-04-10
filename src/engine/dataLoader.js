@@ -35,7 +35,8 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadFromJson('data/config.json')
-   * console.log(data) // => { config: { canvasSize: 320, tileSize: 16 } }
+   * console.log(data)
+   * // => { config: { canvasSize: 320, tileSize: 16 } }
    */
   async loadFromJson(url) {
     const fileName = url.split('/').splice(-1)[0].split('.')[0]
@@ -53,7 +54,8 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadSpriteSheets({ knight: 'assets/knight.png' })
-   * console.log(data) // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
+   * console.log(data)
+   * // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
    */
   async loadSpriteSheets(spriteSheetsMap) {
     if (this.data.assets === undefined) {
