@@ -54,7 +54,7 @@ export class Controller {
 
     switch (this.game.scene.name) {
       case 'game': {
-        /** @type {import('./gameScene/gameLayer').GameLayer} */
+        /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
         const gameLayer = this.game.scene.layers.get('game')
 
         for (const [k, v] of this.keyboardMap) {
