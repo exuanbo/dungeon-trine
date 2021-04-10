@@ -27,6 +27,13 @@ export class GameRenderer {
      * @private
      */
     this.fps = fps
+
+    /**
+     * FPS interval. How many million seconds between two frames.
+     *
+     * @private
+     */
+    this.fpsInterval = 1000 / this.fps
   }
 
   /**
@@ -44,11 +51,11 @@ export class GameRenderer {
     const currentTime = performance.now()
     const elapsed = currentTime - this.lastRenderTime
 
-    if (elapsed < this.fps) {
+    if (elapsed < this.fpsInterval) {
       return
     }
 
-    this.lastRenderTime = currentTime - ((elapsed || 0) % this.fps)
+    this.lastRenderTime = currentTime - ((elapsed || 0) % this.fpsInterval)
     game.render()
   }
 
