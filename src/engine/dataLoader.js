@@ -15,7 +15,7 @@ export class DataLoader {
   }
 
   /**
-   * @param {(Object<string, any>)=} data
+   * @param {any=} data
    */
   constructor(data = {}) {
     /**
@@ -42,53 +42,57 @@ export class DataLoader {
    * @public
    *
    * @param {string} url
+   * @param {any=} target
    *
    * @example
    * await dataLoader.loadFromJson('data/config.json')
    * console.log(dataLoader.data)
    * // => { config: { canvasSize: 320, tileSize: 16 } }
    */
-  async loadFromJson(url) {
+  async loadFromJson(url, target = this.data) {
     const fileName = url.split('/').splice(-1)[0].split('.json')[0]
 
-    this.data[fileName] = await DataLoader.fetchJson(url)
+    target[fileName] = await DataLoader.fetchJson(url)
   }
 
   /**
-   * Load sprite sheets from `Object<imageName, imageURL>`.
+   * Load one or more images.
    * Create an offscreen canvas element for each of them.
    *
    * @public
    *
-   * @param {Object<string, string>} spriteSheetsMap
+   * @param {string | string[]} src
+   * @param {any=} target
    *
    * @example
-   * await dataLoader.loadSpriteSheets({ knight: 'assets/knight.png' })
+   * await dataLoader.loadSImage('assets/knight.png')
    * console.log(dataLoader.data)
-   * // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
+   * // => { knight: HTMLCanvasElement }
    */
-  async loadSpriteSheets(spriteSheetsMap) {
-    if (this.data.assets === undefined) {
-      this.data.assets = { spriteSheets: {} }
-    } else if (this.data.assets.spriteSheets === undefined) {
-      this.data.assets.spriteSheets = {}
+  async loadImage(src, target = this.data) {
+    if (typeof src === 'string') {
+      src = [src]
     }
-    const { assets } = this.data
 
-    const loading = Object.keys(spriteSheetsMap).map(spriteSheetName => {
-      assets.spriteSheets[spriteSheetName] = undefined
+    const loading = src.map(
+      url =>
+        new Promise(resolve => {
+          const image = new Image()
+          image.src = url
 
-      return new Promise(resolve => {
-        const image = new Image()
-        image.src = spriteSheetsMap[spriteSheetName]
-
-        image.onload = () => {
-          assets.spriteSheets[spriteSheetName] = createOffscreenCanvas(image)
-          image.onload = null
-          resolve()
-        }
-      })
-    })
+          image.onload = () => {
+            const imageName = url
+              .split('/')
+              .slice(-1)[0]
+              .split('.')
+              .slice(0, -1)
+              .join('.')
+            target[imageName] = createOffscreenCanvas(image)
+            image.onload = null
+            resolve()
+          }
+        })
+    )
 
     await Promise.all(loading)
   }

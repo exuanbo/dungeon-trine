@@ -29,13 +29,20 @@ export class Controller {
    */
   async loadData() {
     const loadConfig = this.dataLoader.loadFromJson('data/config.json')
+
+    data.assets = { spriteSheets: {} }
+
     const loadSpriteSheets = new Promise(resolve => {
       ;(async () => {
         const assets = await DataLoader.fetchJson('data/assets.json')
-        await this.dataLoader.loadSpriteSheets(assets.spriteSheets)
+        await this.dataLoader.loadImage(
+          assets.spriteSheets,
+          data.assets.spriteSheets
+        )
         resolve()
       })()
     })
+
     const loadAnimations = this.dataLoader.loadFromJson('data/animations.json')
 
     await Promise.all([loadConfig, loadSpriteSheets, loadAnimations])
