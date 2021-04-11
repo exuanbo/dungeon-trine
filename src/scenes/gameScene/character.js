@@ -52,7 +52,7 @@ export class AttackerCharacter extends Character {
 
     this.addAction([() => this.willAttack, this.attack])
 
-    this.prioritizedActions.add('attack')
+    this.prioritizedAnimationNames.add('attack')
 
     /**
      * If the character will attack at next render.
@@ -108,7 +108,7 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    this.setAction('attack')
+    this.setAnimation('attack')
 
     this.hasAttacked = true
     this.attackTaskId = this.layer.scene.timer.setTimeout(this.attackInterval)

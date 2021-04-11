@@ -64,8 +64,8 @@ export class MovableObject extends ActableObject {
    * @protected
    */
   move() {
-    if (this.action !== 'move') {
-      const isSet = this.setAction('move')
+    if (this.animationName !== 'move') {
+      const isSet = this.setAnimation('move')
       if (!isSet) {
         return
       }

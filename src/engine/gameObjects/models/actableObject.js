@@ -16,40 +16,20 @@ export class ActableObject extends BaseObject {
     super({ animation: undefined, position, layer })
 
     /**
-     * If the game object will stop to `idle` at next render.
-     *
-     * Set back to false in `stop`.
-     *
-     * @public
-     */
-    this.willStop = false
-
-    /**
-     * {@link Character#actions}
-     *
-     * @private
-     *
-     * @type {Set<PredicateActionPair>}
-     */
-    this._actions = new Set()
-
-    /**
-     * {@link Character#action}
+     * {@link Character#animationName}
      *
      * @private
      */
-    this._action = 'idle'
+    this._animationName = 'idle'
 
     /**
      * Action name in it will be prioritized if other action has already been set.
-     *
-     * Default value is an empty `Set`.
      *
      * @protected
      *
      * @type {Set<string>}
      */
-    this.prioritizedActions = new Set()
+    this.prioritizedAnimationNames = new Set()
 
     /**
      * The animations map of the game object.
@@ -58,29 +38,67 @@ export class ActableObject extends BaseObject {
      */
     this.animationsMap = animationsMap
 
-    this.setCurrentAnimation()
+    // Set the animation default to `idle`.
+    this.animation = this.animationsMap.idle
+
+    /**
+     * All the actions to take at each render.
+     *
+     * A `Set` of tuple `[predicate, action]`.
+     *
+     * @private
+     *
+     * @type {Set<PredicateActionPair>}
+     */
+    this.actions = new Set()
+
+    /**
+     * If the game object will stop to `idle` at next render.
+     *
+     * Set back to false in `stop`.
+     *
+     * @public
+     */
+    this.willStop = false
   }
 
   /**
-   * All the actions to take at each render.
-   *
-   * A `Set` of tuple `[predicate, action]`.
+   * The current animation name. Default value is `idle`.
    *
    * @protected
    * @readonly
    */
-  get actions() {
-    return this._actions
+  get animationName() {
+    return this._animationName
   }
 
   /**
-   * The actual action name. Default value is `idle`.
+   * Animation setter.
+   *
+   * Set the animation with the passed animation name if the game object has no other running animation.
+   *
+   * `idle` will be interrupted and animation in `prioritizedAnimationNames` will be prioritized.
+   *
+   * Return whether the animation has been successfully set.
    *
    * @protected
-   * @readonly
+   *
+   * @param {string} targetAnimationName
+   * @returns {boolean} isSet
    */
-  get action() {
-    return this._action
+  setAnimation(targetAnimationName) {
+    if (
+      !this.animation.isCurrentFrameDone &&
+      this.animationName !== 'idle' &&
+      !this.prioritizedAnimationNames.has(targetAnimationName)
+    ) {
+      return false
+    }
+
+    this._animationName = targetAnimationName
+    this.animation = this.animationsMap[targetAnimationName]
+    this.animation.reset()
+    return true
   }
 
   /**
@@ -91,50 +109,12 @@ export class ActableObject extends BaseObject {
    * @param {PredicateActionPair} predicateActionPair
    */
   addAction(predicateActionPair) {
-    this._actions.add(
+    this.actions.add(
       /**
        * @type {PredicateActionPair}
        */
       (predicateActionPair.map(fn => fn.bind(this)))
     )
-  }
-
-  /**
-   * Set animation according to current action.
-   *
-   * @private
-   */
-  setCurrentAnimation() {
-    this.animation = this.animationsMap[this.action]
-    this.animation.reset()
-  }
-
-  /**
-   * Action setter.
-   *
-   * Set the given action if the game object has no other actions.
-   *
-   * `idle` will be interrupted and action in `prioritizedActions` will be prioritized.
-   *
-   * Return whether the action has been successfully set.
-   *
-   * @protected
-   *
-   * @param {string} actionName
-   * @returns {boolean} isSet
-   */
-  setAction(actionName) {
-    if (
-      !this.animation.isCurrentFrameDone &&
-      this.action !== 'idle' &&
-      !this.prioritizedActions.has(actionName)
-    ) {
-      return false
-    }
-
-    this._action = actionName
-    this.setCurrentAnimation()
-    return true
   }
 
   /**
@@ -145,8 +125,8 @@ export class ActableObject extends BaseObject {
    * @protected
    */
   stop() {
-    if (this.action !== 'idle') {
-      const isSet = this.setAction('idle')
+    if (this.animationName !== 'idle') {
+      const isSet = this.setAnimation('idle')
       if (!isSet) {
         return
       }
@@ -193,7 +173,7 @@ export class ActableObject extends BaseObject {
    * @public
    */
   destroy() {
-    this._actions.clear()
+    this.actions.clear()
     super.destroy()
   }
 }
