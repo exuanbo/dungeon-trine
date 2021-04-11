@@ -63,15 +63,24 @@ export class Controller {
     this.keyboard.listen(keys, 'both', (key, isKeyDown) => {
       switch (this.game.scene.name) {
         case 'game': {
-          /** @type {import('./scenes/gameScene/gameLayer').GameLayer} */
-          const gameLayer = this.game.scene.layers.get('game')
+          const gameLayer =
+            /**
+             * @type {import('./scenes/gameScene/gameLayer').GameLayer}
+             */
+            (this.game.scene.layers.get('game'))
 
           switch (key) {
             case 'ArrowUp':
             case 'ArrowRight':
             case 'ArrowDown':
             case 'ArrowLeft':
-              gameLayer.player.directions.set(key.slice(5), isKeyDown)
+              gameLayer.player.directions.set(
+                /**
+                 * @type {import('./engine/gameObjects/models/movableObject').Direction}
+                 */
+                (key.slice(5)),
+                isKeyDown
+              )
               break
             case 'KeyX':
               gameLayer.player.willAttack = isKeyDown

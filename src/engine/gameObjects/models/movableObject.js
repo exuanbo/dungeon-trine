@@ -1,5 +1,9 @@
 import { ActableObject } from './actableObject.js'
 
+/**
+ * @typedef {'Up' | 'Right' | 'Down' | 'Left'} Direction
+ */
+
 export class MovableObject extends ActableObject {
   /**
    * @param {{
@@ -18,7 +22,7 @@ export class MovableObject extends ActableObject {
      *
      * @public
      *
-     * @type {Map<'Up' | 'Right' | 'Down' | 'Left', boolean>}
+     * @type {Map<Direction, boolean>}
      */
     this.directions = new Map([
       ['Up', false],

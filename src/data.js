@@ -18,6 +18,5 @@
  *
  * Initialized by `DataLoader`
  *
- * @type {Data}
  */
-export const data = {}
+export const data = /** @type {Data} */ ({})

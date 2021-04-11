@@ -110,6 +110,13 @@ export class AnimationFrame {
   }
 }
 
+/**
+ * @typedef {{
+ *    frameIndex: number,
+ *    isFrameDone: boolean
+ * }} AnimationFrameIndexIteratorResultValue
+ */
+
 export class Animation {
   /**
    * Generator function to create an iterator for animation frame index.
@@ -221,7 +228,11 @@ export class Animation {
    * @public
    */
   getNextFrame() {
-    const { frameIndex, isFrameDone } = this.frameIndexIterator.next().value
+    const { frameIndex, isFrameDone } =
+      /**
+       * @type {AnimationFrameIndexIteratorResultValue}
+       */
+      (this.frameIndexIterator.next().value)
 
     if (isFrameDone) {
       this.currentFrameIndex = frameIndex

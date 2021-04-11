@@ -91,7 +91,12 @@ export class ActableObject extends BaseObject {
    * @param {PredicateActionPair} predicateActionPair
    */
   addAction(predicateActionPair) {
-    this._actions.add(predicateActionPair.map(fn => fn.bind(this)))
+    this._actions.add(
+      /**
+       * @type {PredicateActionPair}
+       */
+      (predicateActionPair.map(fn => fn.bind(this)))
+    )
   }
 
   /**
