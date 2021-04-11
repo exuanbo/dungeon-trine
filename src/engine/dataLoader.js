@@ -15,15 +15,25 @@ export class DataLoader {
   }
 
   /**
-   * @param {Object<string, any>} data
+   * @param {(Object<string, any>)=} data
    */
-  constructor(data) {
+  constructor(data = {}) {
     /**
-     * The global `data` object.
+     * {@link DataLoader#data}
      *
      * @private
      */
-    this.data = data
+    this._data = data
+  }
+
+  /**
+   * The `data` object.
+   *
+   * @public
+   * @readonly
+   */
+  get data() {
+    return this._data
   }
 
   /**
@@ -35,7 +45,7 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadFromJson('data/config.json')
-   * console.log(data)
+   * console.log(dataLoader.data)
    * // => { config: { canvasSize: 320, tileSize: 16 } }
    */
   async loadFromJson(url) {
@@ -54,7 +64,7 @@ export class DataLoader {
    *
    * @example
    * await dataLoader.loadSpriteSheets({ knight: 'assets/knight.png' })
-   * console.log(data)
+   * console.log(dataLoader.data)
    * // => { assets: { spriteSheets: { knight: HTMLCanvasElement } } }
    */
   async loadSpriteSheets(spriteSheetsMap) {
