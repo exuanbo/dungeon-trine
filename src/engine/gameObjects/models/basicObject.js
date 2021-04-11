@@ -42,14 +42,9 @@ export class BaseObject {
    * @protected
    */
   clearSprite() {
-    const currentAnimationFrame = this.animation.getCurrentFrame()
-
-    this.layer.ctx.clearRect(
-      this.position.x,
-      this.position.y,
-      currentAnimationFrame.sprite.width,
-      currentAnimationFrame.sprite.height
-    )
+    this.animation
+      .getCurrentFrame()
+      .sprite.clear(this.layer.ctx, this.position.x, this.position.y)
   }
 
   /**

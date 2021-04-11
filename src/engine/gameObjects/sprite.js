@@ -80,4 +80,17 @@ export class Sprite {
     this.render(ctx, -this.width / 2, -this.height / 2)
     ctx.restore()
   }
+
+  /**
+   * Clear the sprite from the canvas with the passed canvas 2D context and position.
+   *
+   * @public
+   *
+   * @param {CanvasRenderingContext2D} ctx
+   * @param {number} dx
+   * @param {number} dy
+   */
+  clear(ctx, dx, dy) {
+    ctx.clearRect(dx, dy, this.width, this.height)
+  }
 }
