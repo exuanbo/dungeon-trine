@@ -7,7 +7,7 @@
  *    animations: {
  *      characters: Object<
  *        string,
- *        import('./engine/gameObjects/animation').AnimationEntries
+ *        import('./scenes/utils').AnimationEntries
  *      >
  *    }
  * }} Data

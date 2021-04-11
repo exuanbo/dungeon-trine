@@ -1,5 +1,5 @@
 import { AttackerCharacter } from './character.js'
-import { createAnimationsMap } from '../../engine/gameObjects/animation.js'
+import { createAnimationsMap } from '../utils.js'
 import { vector } from '../../engine/math/vector.js'
 import { data } from '../../data.js'
 

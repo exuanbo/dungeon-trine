@@ -1,73 +1,9 @@
-import { Sprite } from './sprite.js'
 import { Box } from '../math/box.js'
-import { vector } from '../math/vector.js'
-
-/**
- * Animation entries object from `data`.
- *
- * @typedef {Object<
- *    string,
- *    {
- *      spriteSheet: string
- *      frames: Array<{
- *        sprite: [x: number, y: number, width: number, height: number]
- *        box?: [offsetX: number, offsetY: number, width: number, height: number]
- *        duration?: number
- *      }>
- *    }
- * >} AnimationEntries
- */
-
-/**
- * Animations with their name.
- *
- * @typedef {Object<string, Animation>} AnimationsMap
- */
-
-/**
- * Create `<animationName, Animation>` map from provided animation entries.
- *
- * @param {Object<string, HTMLImageElement | HTMLCanvasElement> } spriteSheets
- * @param {AnimationEntries} animationEntries
- */
-export const createAnimationsMap = (spriteSheets, animationEntries) => {
-  /** @type {AnimationsMap} */
-  const animationsMap = {}
-
-  for (const animationName in animationEntries) {
-    const animationEntry = animationEntries[animationName]
-
-    const spriteSheet = spriteSheets[animationEntry.spriteSheet]
-
-    const animationFrames = animationEntry.frames.map(frame => {
-      /** @type {Box | undefined} */
-      let box
-
-      if (frame.box !== undefined) {
-        const [boxOffsetX, boxOffsetY, boxWidth, boxHeight] = frame.box
-
-        box = new Box(boxWidth, boxHeight, {
-          offset: vector(boxOffsetX, boxOffsetY)
-        })
-      }
-
-      return new AnimationFrame({
-        sprite: new Sprite(spriteSheet, ...frame.sprite),
-        box,
-        duration: frame.duration
-      })
-    })
-
-    animationsMap[animationName] = new Animation(animationFrames)
-  }
-
-  return animationsMap
-}
 
 export class AnimationFrame {
   /**
    * @param {{
-   *    sprite: Sprite
+   *    sprite: import('./sprite').Sprite
    *    box?: Box
    *    duration?: number
    * }} animationFrameMeta
@@ -111,10 +47,9 @@ export class AnimationFrame {
 }
 
 /**
- * @typedef {{
- *    frameIndex: number,
- *    isFrameDone: boolean
- * }} AnimationFrameIndexIteratorResultValue
+ * Animations with their name.
+ *
+ * @typedef {Object<string, Animation>} AnimationsMap
  */
 
 export class Animation {
@@ -230,7 +165,10 @@ export class Animation {
   getNextFrame() {
     const { frameIndex, isFrameDone } =
       /**
-       * @type {AnimationFrameIndexIteratorResultValue}
+       * @type {{
+       *    frameIndex: number,
+       *    isFrameDone: boolean
+       * }}
        */
       (this.frameIndexGenerator.next().value)
 
