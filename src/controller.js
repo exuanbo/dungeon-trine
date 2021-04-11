@@ -84,6 +84,10 @@ export class Controller {
               gameLayer.player.directions.set(
                 /**
                  * @type {import('./engine/gameObjects/models/movableObject').Direction}
+                 *
+                 * @example
+                 * 'Right'
+                 * // key: 'ArrowRight'
                  */
                 (key.slice(5)),
                 isKeyDown

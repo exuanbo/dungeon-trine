@@ -81,6 +81,11 @@ export class DataLoader {
           image.src = url
 
           image.onload = () => {
+            /**
+             * @example
+             * '0x72_DungeonTilesetII_v1.3'
+             * // url: 'assets/0x72_DungeonTilesetII_v1.3.png'
+             */
             const imageName = url
               .split('/')
               .slice(-1)[0]
