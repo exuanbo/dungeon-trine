@@ -87,6 +87,10 @@ export class ActableObject extends BaseObject {
    * @returns {boolean} isSet
    */
   setAnimation(targetAnimationName) {
+    if (!Object.keys(this.animationsMap).includes(targetAnimationName)) {
+      throw new Error(`Animation name '${targetAnimationName}' does not exist.`)
+    }
+
     if (
       !this.animation.isCurrentFrameDone &&
       this.animationName !== 'idle' &&
