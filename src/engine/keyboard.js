@@ -55,23 +55,27 @@ export class Keyboard {
      * @param {KeyboardEvent} e
      */
     this.handleEvent = e => {
-      this.keysMap.set(e.code, e.type === 'keydown')
+      const isKeydown = e.type === 'keydown'
 
-      for (const [key, isKeyDown] of this.keysMap) {
-        for (const [
-          keyboardEventCode,
-          keyboardEventType,
-          cb
-        ] of this.listeners.values()) {
-          if (
-            (keyboardEventCode === key ||
-              (Array.isArray(keyboardEventCode) &&
-                keyboardEventCode.includes(key))) &&
-            ((keyboardEventType === 'keydown') === isKeyDown ||
-              keyboardEventType === 'both')
-          ) {
-            cb(key, isKeyDown)
-          }
+      if (this.keysMap.get(e.code) === isKeydown) {
+        return
+      }
+
+      this.keysMap.set(e.code, isKeydown)
+
+      for (const [
+        keyboardEventCode,
+        keyboardEventType,
+        cb
+      ] of this.listeners.values()) {
+        if (
+          (keyboardEventCode === e.code ||
+            (Array.isArray(keyboardEventCode) &&
+              keyboardEventCode.includes(e.code))) &&
+          ((keyboardEventType === 'keydown') === isKeydown ||
+            keyboardEventType === 'both')
+        ) {
+          cb(e.code, isKeydown)
         }
       }
     }
