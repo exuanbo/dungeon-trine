@@ -39,7 +39,7 @@ export class DataLoader {
    * // => { config: { canvasSize: 320, tileSize: 16 } }
    */
   async loadFromJson(url) {
-    const fileName = url.split('/').splice(-1)[0].split('.')[0]
+    const fileName = url.split('/').splice(-1)[0].split('.json')[0]
 
     this.data[fileName] = await DataLoader.fetchJson(url)
   }
