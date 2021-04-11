@@ -53,21 +53,15 @@ export class BaseObject {
    * @protected
    */
   renderSprite() {
-    const nextAnimationFrame = this.animation.getNextFrame()
+    const spriteRenderMethod = this.face === 'Left' ? 'renderFlipped' : 'render'
 
-    if (this.face === 'Left') {
-      nextAnimationFrame.sprite.renderFlipped(
+    this.animation
+      .getNextFrame()
+      .sprite[spriteRenderMethod](
         this.layer.ctx,
         this.position.x,
         this.position.y
       )
-    } else {
-      nextAnimationFrame.sprite.render(
-        this.layer.ctx,
-        this.position.x,
-        this.position.y
-      )
-    }
   }
 
   /**
