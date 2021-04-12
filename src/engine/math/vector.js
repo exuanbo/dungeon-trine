@@ -52,11 +52,11 @@ export class Vector {
    * @public
    *
    * @param {number} x
-   * @param {number=} y
+   * @param {number} y
    */
   set(x, y) {
     this.x = x
-    this.y = y === undefined ? x : y
+    this.y = y
     return this
   }
 
