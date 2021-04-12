@@ -47,7 +47,7 @@ export class Vector {
   }
 
   /**
-   * Set the coordinates to the passed values.
+   * Set `x` and `y` to the passed values.
    *
    * @public
    *
@@ -61,7 +61,7 @@ export class Vector {
   }
 
   /**
-   * Copy the coordinates of the passed vector.
+   * Copy `x` and `y` of the passed vector to itself.
    *
    * @public
    *
@@ -94,5 +94,30 @@ export class Vector {
       y = x
     }
     return this.set(this.x + x, this.y + y)
+  }
+
+  /**
+   * Substract the passed values or vector from itself.
+   *
+   * @public
+   *
+   * @param {number | Vector} x
+   * @param {number=} y
+   */
+  substract(x, y) {
+    if (typeof x !== 'number') {
+      if (x.isZero()) {
+        return this
+      }
+      return this.set(this.x - x.x, this.y - x.y)
+    }
+
+    if (y === undefined) {
+      if (x === 0) {
+        return this
+      }
+      y = x
+    }
+    return this.set(this.x - x, this.y - y)
   }
 }
