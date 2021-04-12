@@ -8,19 +8,32 @@ export class ActableObject extends BaseObject {
   /**
    * @param {{
    *    animationsMap: import('../animation').AnimationsMap
+   *    defaultAnimationName?: string
    *    position: import('../../math/vector').Vector
    *    layer: import('../../layer').Layer
    * }} actableObjectMeta
    */
-  constructor({ animationsMap, position, layer }) {
-    super({ animation: undefined, position, layer })
+  constructor({
+    animationsMap,
+    defaultAnimationName = 'idle',
+    position,
+    layer
+  }) {
+    super({ animation: animationsMap[defaultAnimationName], position, layer })
+
+    /**
+     * The animations map of the game object.
+     *
+     * @private
+     */
+    this.animationsMap = animationsMap
 
     /**
      * {@link Character#animationName}
      *
      * @private
      */
-    this._animationName = 'idle'
+    this._animationName = defaultAnimationName
 
     /**
      * Action name in it will be prioritized if other action has already been set.
@@ -30,16 +43,6 @@ export class ActableObject extends BaseObject {
      * @type {Set<string>}
      */
     this.prioritizedAnimationNames = new Set()
-
-    /**
-     * The animations map of the game object.
-     *
-     * @private
-     */
-    this.animationsMap = animationsMap
-
-    // Set the animation default to `idle`.
-    this.animation = this.animationsMap.idle
 
     /**
      * All the actions to take at each render.
@@ -63,7 +66,8 @@ export class ActableObject extends BaseObject {
   }
 
   /**
-   * The current animation name. Default value is `idle`.
+   * The current animation name.
+   * Default value is `idle` if no argument `defaultAnimationName` is passed to constructor.
    *
    * @protected
    * @readonly
