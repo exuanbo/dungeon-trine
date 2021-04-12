@@ -59,7 +59,7 @@ export class Box {
    * @public
    */
   getActualPosition() {
-    return this.position.add(this.offset)
+    return this.position.clone().add(this.offset)
   }
 
   /**

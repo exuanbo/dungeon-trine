@@ -38,6 +38,15 @@ export class Vector {
   }
 
   /**
+   * Create a new `Vector` with the same `x` and `y`.
+   *
+   * @public
+   */
+  clone() {
+    return new Vector(this.x, this.y)
+  }
+
+  /**
    * Set the coordinates to the passed values.
    *
    * @public
@@ -63,7 +72,7 @@ export class Vector {
   }
 
   /**
-   * Add the passed value or vector and return a new `Vector`.
+   * Add the passed values or vector to itself.
    *
    * @public
    *
@@ -75,7 +84,7 @@ export class Vector {
       if (x.isZero()) {
         return this
       }
-      return new Vector(this.x + x.x, this.y + x.y)
+      return this.set(this.x + x.x, this.y + x.y)
     }
 
     if (y === undefined) {
@@ -84,7 +93,6 @@ export class Vector {
       }
       y = x
     }
-
-    return new Vector(this.x + x, this.y + y)
+    return this.set(this.x + x, this.y + y)
   }
 }
