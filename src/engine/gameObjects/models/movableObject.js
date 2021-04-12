@@ -75,19 +75,19 @@ export class MovableObject extends ActableObject {
       if (isDirection) {
         switch (direction) {
           case 'Up':
-            this.position.y -= this.speed
+            this.position.substract(0, this.speed)
             break
           case 'Right':
-            this.position.x += this.speed
+            this.position.add(this.speed, 0)
             if (!this.directions.get('Left')) {
               this.face = 'Right'
             }
             break
           case 'Down':
-            this.position.y += this.speed
+            this.position.add(0, this.speed)
             break
           case 'Left':
-            this.position.x -= this.speed
+            this.position.substract(this.speed, 0)
             if (!this.directions.get('Right')) {
               this.face = 'Left'
             }
