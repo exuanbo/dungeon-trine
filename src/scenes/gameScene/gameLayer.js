@@ -13,7 +13,7 @@ export class GameLayer extends Layer {
      *
      * @public
      */
-    this.player = new Knight(this)
+    this.player = new Knight(/* layer */ this)
   }
 
   /**

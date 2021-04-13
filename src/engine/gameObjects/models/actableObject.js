@@ -56,7 +56,7 @@ export class ActableObject extends BaseObject {
     this.actions = new Set()
 
     /**
-     * If the game object will stop to `idle` at next render.
+     * If the game object will stop to `idle` at next `update`.
      *
      * Set back to false in `stop`.
      *
@@ -121,9 +121,9 @@ export class ActableObject extends BaseObject {
   }
 
   /**
-   * Stop action.
+   * Set `animation` to `idle`.
    *
-   * Change `willStop` back to `false` if successfully set action to `idle`.
+   * Change `willStop` back to `false` if succeed.
    *
    * @protected
    */

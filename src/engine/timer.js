@@ -93,7 +93,7 @@ export class Timer {
   /**
    * Update the timer.
    *
-   * Increase `_now` by 1 and call every iterator in `tasks`.
+   * Call `next` on each iterator in `tasks`.
    * Delete the iterator from `tasks` if it is done.
    *
    * @public
@@ -125,9 +125,9 @@ export class Timer {
   /**
    * Create a timeout task.
    *
-   * If `cb` is omitted, an empty callback function would be called after `delay`.
+   * If `cb` is omitted, an empty callback function would be called after `delay` times' `next`.
    *
-   * Return the task id for cancelling or reset.
+   * Return the task id for cancelling or resetting.
    *
    * @public
    *
@@ -192,7 +192,7 @@ export class Timer {
   /**
    * Creat a repeating task.
    *
-   * Return the task id for cancelling or reset.
+   * Return the task id for cancelling or resetting.
    *
    * @public
    *
@@ -234,7 +234,7 @@ export class Timer {
   }
 
   /**
-   * Cancel all the `setTimeout` and `setInterval` tasks and delete them from `tasks`.
+   * Cancel all `setTimeout` and `setInterval` tasks and delete them from `tasks`.
    *
    * @public
    */

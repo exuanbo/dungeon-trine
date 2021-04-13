@@ -12,7 +12,7 @@ export class GameScene extends Scene {
     })
 
     this.layers
-      .set('background', new BackgroundLayer(this))
-      .set('game', new GameLayer(this))
+      .set('background', new BackgroundLayer(/* scene */ this))
+      .set('game', new GameLayer(/* scene */ this))
   }
 }

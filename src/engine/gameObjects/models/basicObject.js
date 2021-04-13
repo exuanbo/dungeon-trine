@@ -17,7 +17,7 @@ export class BaseObject {
     this.isRendered = false
 
     /**
-     * Which side is the game object facing. Sprite would be flipped if facing left.
+     * Which side is the game object facing. Sprite will be flipped if the value is `Left`.
      *
      * @protected
      */

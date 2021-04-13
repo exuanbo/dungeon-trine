@@ -5,14 +5,14 @@
 export class Keyboard {
   constructor() {
     /**
-     * If the `init` has been called.
+     * If `init` has been called.
      *
      * @private
      */
     this.isInitialized = false
 
     /**
-     * Keys Map.
+     * Keyboard keys `Map`.
      *
      * @private
      *
@@ -25,7 +25,7 @@ export class Keyboard {
     this.keysMap = new Map()
 
     /**
-     * Listeners Map.
+     * Listeners `Map`.
      *
      * @private
      *
@@ -48,7 +48,7 @@ export class Keyboard {
     this.listenerId = 0
 
     /**
-     * Keyboard event handler.
+     * Keyboard event handler function.
      *
      * @private
      *
@@ -94,7 +94,7 @@ export class Keyboard {
   }
 
   /**
-   * Test if there is at least one key is down.
+   * Test if there is at least one keyboard key is down.
    *
    * @public
    */
@@ -108,8 +108,9 @@ export class Keyboard {
   }
 
   /**
-   * Listen to key event.
-   * Return listener ID for `stopListen`.
+   * Listen to key event and return listener ID for `stopListen`.
+   *
+   * Throw an error if `init` has not been called.
    *
    * @public
    *

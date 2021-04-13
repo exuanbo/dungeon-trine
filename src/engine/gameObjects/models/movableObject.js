@@ -32,7 +32,7 @@ export class MovableObject extends ActableObject {
     ])
 
     /**
-     * Default moving speed. Pixels per render.
+     * Default moving speed. Pixels per `update`.
      *
      * @protected
      */
@@ -40,7 +40,7 @@ export class MovableObject extends ActableObject {
   }
 
   /**
-   * If the game object will move at next render.
+   * If the game object will move at next `update`.
    *
    * Decide by checking whether exists true value in `directions`.
    *

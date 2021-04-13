@@ -7,7 +7,7 @@ export class Character extends MovableObject {
    *
    * Change `face` if turns direction from left to right or from right to left.
    *
-   * Stop when will collide with wall.
+   * Stop when about to collide with wall.
    *
    * @override
    * @protected
@@ -55,7 +55,7 @@ export class AttackerCharacter extends Character {
     this.prioritizedAnimationNames.add('attack')
 
     /**
-     * If the character will attack at next render.
+     * If the character will attack at next `update`.
      *
      * @public
      */
@@ -71,7 +71,7 @@ export class AttackerCharacter extends Character {
     this.hasAttacked = false
 
     /**
-     * Default attack interval. The unit is rendered time.
+     * Default attack interval. The unit is how many times `update` is called.
      *
      * @private
      */
@@ -91,7 +91,7 @@ export class AttackerCharacter extends Character {
   /**
    * Attack action.
    *
-   * Return in advance if the character has already attacked before `stop`
+   * Early return if the character has already attacked before `stop`
    * or the frames interval between two attacks is less than `attackInterval`.
    *
    * Change `hasAttacked` to `true`.
@@ -117,7 +117,9 @@ export class AttackerCharacter extends Character {
   /**
    * Override `Character.stop`.
    *
-   * Change `hasAttacked` back to false.
+   * Early return if the animation is not finished.
+   *
+   * Change `hasAttacked` back to `false`.
    *
    * @override
    * @protected

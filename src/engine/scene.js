@@ -11,7 +11,7 @@ export class Scene {
    */
   constructor({ sceneName, width, height }) {
     /**
-     * If the layers has been appended to DOM by `initScene`
+     * If `layers` canvas element has been appended to DOM by `initScene`.
      *
      * @private
      */
@@ -56,7 +56,7 @@ export class Scene {
   }
 
   /**
-   * Update `timer` and layers.
+   * Update `timer` and `layers`.
    *
    * @public
    */
@@ -69,7 +69,7 @@ export class Scene {
   }
 
   /**
-   * Render the layers.
+   * Render `layers`.
    *
    * @public
    */
@@ -85,7 +85,7 @@ export class Scene {
   }
 
   /**
-   * Delete the reference to the layers.
+   * Clear `timer` and delete the reference to the `layers`.
    *
    * @public
    */

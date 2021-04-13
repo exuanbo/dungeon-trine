@@ -32,14 +32,14 @@ export class Box {
     this.position = position
 
     /**
-     * The offset coordinates of the box.
+     * The offset position of the box.
      *
      * @public
      */
     this.offset = offset
 
     /**
-     * Functions that return coordinates of the corresponding four vertices.
+     * Functions that return actual position of the corresponding four vertices.
      *
      * @public
      *
@@ -54,7 +54,7 @@ export class Box {
   }
 
   /**
-   * Get the actual position of the box.
+   * Get the actual position of the box according to `position` and `offset`.
    *
    * @public
    */

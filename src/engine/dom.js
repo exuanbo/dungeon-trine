@@ -1,5 +1,5 @@
 /**
- * Create offscreen canvas for pre-rendering.
+ * Create offscreen canvas element for pre-rendering.
  *
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#pre-render_similar_primitives_or_repeating_objects_on_an_offscreen_canvas
  * |Pre-render similar primitives or repeating objects on an offscreen canvas}
@@ -15,7 +15,7 @@ export const createOffscreenCanvas = image => {
 }
 
 /**
- * Create canvas for `Layer` and return 2D context.
+ * Create canvas element for `Layer` and return the 2D context.
  *
  * @param {number} width
  * @param {number} height

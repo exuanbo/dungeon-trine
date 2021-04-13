@@ -10,7 +10,7 @@ export class Sprite {
    */
   constructor(spriteSheet, x, y, width, height) {
     /**
-     * Sprite sheet for this sprite.
+     * Sprite sheet for the sprite.
      *
      * @public
      */
@@ -39,7 +39,7 @@ export class Sprite {
   }
 
   /**
-   * Draw the sprite using the provided canvas context.
+   * Draw the sprite using the passed canvas 2D context.
    *
    * @public
    *
@@ -62,7 +62,7 @@ export class Sprite {
   }
 
   /**
-   * Draw the flipped sprite using the provided canvas context.
+   * Draw the flipped sprite using the passed canvas 2D context.
    *
    * {@link https://stackoverflow.com/a/37388113/13346012
    * |How to flip images horizontally with HTML5}
@@ -82,7 +82,7 @@ export class Sprite {
   }
 
   /**
-   * Clear the sprite from the canvas with the passed canvas 2D context and position.
+   * Clear the sprite from the canvas with the passed canvas 2D context and position `dx` `dy`.
    *
    * @public
    *

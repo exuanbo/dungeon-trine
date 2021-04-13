@@ -70,7 +70,7 @@ export class Game {
   }
 
   /**
-   * Delete the references to the scenes.
+   * Call `destroy` on each `scene` and delete the references to the scenes.
    *
    * @public
    */
