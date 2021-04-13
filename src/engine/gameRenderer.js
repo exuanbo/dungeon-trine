@@ -1,8 +1,8 @@
 export class GameRenderer {
   /**
-   * @param {number} fps
+   * @param {number=} timeStep
    */
-  constructor(fps) {
+  constructor(timeStep = 10) {
     /**
      * Used in `stop` for cancelling `window.requestAnimationFrame`.
      *
@@ -19,21 +19,14 @@ export class GameRenderer {
      *
      * @type {number}
      */
-    this.lastRenderTimer = undefined
+    this.lastRenderTime = undefined
 
     /**
-     * Frames per second.
+     * Milliseconds between two updates.
      *
      * @private
      */
-    this.fps = fps
-
-    /**
-     * FPS interval. How many million seconds between two frames.
-     *
-     * @private
-     */
-    this.fpsInterval = 1000 / this.fps
+    this.timeStep = timeStep
   }
 
   /**
@@ -48,14 +41,15 @@ export class GameRenderer {
       this.render(game)
     )
 
-    const currentTime = performance.now()
-    const elapsed = currentTime - this.lastRenderTime
-
-    if (elapsed < this.fpsInterval) {
-      return
+    for (
+      let delta = performance.now() - this.lastRenderTime;
+      delta > 0;
+      delta -= this.timeStep
+    ) {
+      game.update()
     }
 
-    this.lastRenderTime = currentTime - ((elapsed || 0) % this.fpsInterval)
+    this.lastRenderTime = performance.now()
     game.render()
   }
 

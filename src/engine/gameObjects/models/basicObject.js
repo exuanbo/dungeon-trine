@@ -8,6 +8,15 @@ export class BaseObject {
    */
   constructor({ animation, position, layer }) {
     /**
+     * If `renderSprite` has been called.
+     *
+     * Changed back to `false` by `clearSprite`.
+     *
+     * @protected
+     */
+    this.isRendered = false
+
+    /**
      * Which side is the game object facing. Sprite would be flipped if facing left.
      *
      * @protected
@@ -22,14 +31,14 @@ export class BaseObject {
     this.animation = animation
 
     /**
-     * The position of the game object on the current layer.
+     * The position of the game object on the layer.
      *
      * @protected
      */
     this.position = position
 
     /**
-     * Reference to the current layer.
+     * Reference to the layer.
      *
      * @protected
      */
@@ -37,7 +46,9 @@ export class BaseObject {
   }
 
   /**
-   * Clear the current animation frame sprite from the current layer.
+   * Clear the current animation frame sprite from the layer.
+   *
+   * Change `isRendered` back to `false`.
    *
    * @protected
    */
@@ -45,10 +56,14 @@ export class BaseObject {
     this.animation
       .getCurrentFrame()
       .sprite.clear(this.layer.ctx, this.position.x, this.position.y)
+
+    this.isRendered = false
   }
 
   /**
-   * Render the next animation frame sprite to the current layer.
+   * Render the current animation frame sprite to the layer.
+   *
+   * Change `isRendered` to `true`.
    *
    * @protected
    */
@@ -56,26 +71,38 @@ export class BaseObject {
     const spriteRenderMethod = this.face === 'Left' ? 'renderFlipped' : 'render'
 
     this.animation
-      .getNextFrame()
+      .getCurrentFrame()
       .sprite[spriteRenderMethod](
         this.layer.ctx,
         this.position.x,
         this.position.y
       )
+
+    this.isRendered = true
   }
 
   /**
-   * Render the game object to the current layer.
+   * Abstract method for updating the properties of the game object.
    *
+   * @abstract
+   * @public
+   */
+  update() {
+    throw new Error('Not implemented.')
+  }
+
+  /**
+   * Abstract method for rendering the game object to the layer canvas.
+   *
+   * @abstract
    * @public
    */
   render() {
-    this.clearSprite()
-    this.renderSprite()
+    throw new Error('Not implemented.')
   }
 
   /**
-   * Delete the reference to the current layer.
+   * Delete the reference to the layer.
    *
    * @public
    */

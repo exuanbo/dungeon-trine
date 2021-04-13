@@ -90,9 +90,13 @@ export class BackgroundLayer extends Layer {
   }
 
   /**
-   * The implemented `Layer.render` method.
-   *
-   * Render tiles to the layer once.
+   * @override
+   * @public
+   */
+  update() {}
+
+  /**
+   * Render tiles to the layer canvas once.
    *
    * @override
    * @public

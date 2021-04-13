@@ -37,7 +37,17 @@ export class Layer {
   }
 
   /**
-   * The abstract render method.
+   * Abstract method for updating the properties of the game objects.
+   *
+   * @abstract
+   * @public
+   */
+  update() {
+    throw new Error('Not implemented.')
+  }
+
+  /**
+   * Abstract method for rendering the game objects to the layer canvas.
    *
    * @abstract
    * @public

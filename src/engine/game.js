@@ -52,6 +52,15 @@ export class Game {
   }
 
   /**
+   * Update the current scene.
+   *
+   * @public
+   */
+  update() {
+    this.scene.update()
+  }
+
+  /**
    * Render the current scene.
    *
    * @public

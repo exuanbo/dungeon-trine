@@ -142,7 +142,7 @@ export class Animation {
   /**
    * If the current frame has lasted enough time according to `frameDuration`.
    *
-   * Changed by `reset` and `getNextFrame`.
+   * Changed by `reset` and `nextFrame`.
    *
    * @public
    * @readonly
@@ -152,20 +152,9 @@ export class Animation {
   }
 
   /**
-   * Reset `currentFrameIndex`, `frameIndexIterator` and `isCurrentFrameDone`.
-   *
-   * @public
-   */
-  reset() {
-    this.currentFrameIndex = 0
-    this.frameIndexGenerator.next(/* isReset */ true)
-    this._isCurrentFrameDone = false
-  }
-
-  /**
    * If the current frame index is set back to `0`.
    *
-   * Changed by `reset` and `getCurrentFrame`.
+   * Changed by `reset` and `nextFrame`.
    *
    * @public
    * @readonly
@@ -184,11 +173,11 @@ export class Animation {
   }
 
   /**
-   * Get next animation frame according to the next frame index returned by `frameIndexIterator`.
+   * Change `currentFrameIndex` to the next frame index returned by `frameIndexIterator`.
    *
    * @public
    */
-  getNextFrame() {
+  nextFrame() {
     const { frameIndex, isFrameDone, isAllFramesDone } =
       /**
        * @type {{
@@ -206,6 +195,14 @@ export class Animation {
     this._isAllFramesDone = isAllFramesDone
   }
 
-    return this.getCurrentFrame()
+  /**
+   * Reset `currentFrameIndex`, `frameIndexIterator` and `isCurrentFrameDone`.
+   *
+   * @public
+   */
+  reset() {
+    this.currentFrameIndex = 0
+    this.frameIndexGenerator.next(/* isReset */ true)
+    this._isCurrentFrameDone = false
   }
 }

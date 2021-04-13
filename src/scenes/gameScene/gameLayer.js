@@ -17,9 +17,17 @@ export class GameLayer extends Layer {
   }
 
   /**
-   * The implemented `Layer.render` method.
+   * Update every game object.
    *
-   * Render charactors, effects and items in the layer.
+   * @override
+   * @public
+   */
+  update() {
+    this.player.update()
+  }
+
+  /**
+   * Render every game object to the layer canvas.
    *
    * @override
    * @public
@@ -29,7 +37,7 @@ export class GameLayer extends Layer {
   }
 
   /**
-   * Override `Layer.destroy`.
+   * Call `destroy` on each game object and delete the reference to the current scene.
    *
    * @override
    * @public

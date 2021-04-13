@@ -56,7 +56,20 @@ export class Scene {
   }
 
   /**
-   * Update `timer` and render the layers.
+   * Update `timer` and layers.
+   *
+   * @public
+   */
+  update() {
+    this.timer.update()
+
+    for (const layer of this.layers.values()) {
+      layer.update()
+    }
+  }
+
+  /**
+   * Render the layers.
    *
    * @public
    */
@@ -65,8 +78,6 @@ export class Scene {
       initScene(this)
       this.isInitialized = true
     }
-
-    this.timer.update()
 
     for (const layer of this.layers.values()) {
       layer.render()

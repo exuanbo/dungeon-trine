@@ -60,7 +60,7 @@ export class Controller {
 
     this.game = new Game(new GameScene())
 
-    this.gameRenderer = new GameRenderer(/* fps */ 60)
+    this.gameRenderer = new GameRenderer()
     this.gameRenderer.render(this.game)
 
     this.keyboard.init()

@@ -143,11 +143,23 @@ export class ActableObject extends BaseObject {
   }
 
   /**
+   * Clear the current animation frame sprite from the current layer
+   * and update the current animation frame index.
+   *
+   * Call `stop` and early return if `willStop` is true.
+   *
    * Call the actions if their predicates are fulfilled.
    *
-   * @private
+   * @override
+   * @public
    */
-  act() {
+  update() {
+    if (this.isRendered) {
+      this.clearSprite()
+    }
+
+    this.animation.nextFrame()
+
     if (this.willStop) {
       this.stop()
       return
@@ -163,14 +175,12 @@ export class ActableObject extends BaseObject {
   }
 
   /**
+   * Render the current animation frame sprite to the current layer.
+   *
    * @override
    * @public
    */
   render() {
-    this.clearSprite()
-
-    this.act()
-
     this.renderSprite()
   }
 

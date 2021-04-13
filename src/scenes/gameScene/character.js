@@ -123,6 +123,10 @@ export class AttackerCharacter extends Character {
    * @protected
    */
   stop() {
+    if (this.hasAttacked && !this.animation.isAllFramesDone) {
+      return
+    }
+
     super.stop()
     this.hasAttacked = false
   }
