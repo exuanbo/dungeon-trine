@@ -36,7 +36,7 @@ export class MovableObject extends ActableObject {
      *
      * @protected
      */
-    this.speed = 2
+    this.speed = 1
   }
 
   /**
