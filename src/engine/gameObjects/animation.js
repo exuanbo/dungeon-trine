@@ -204,5 +204,6 @@ export class Animation {
     this.currentFrameIndex = 0
     this.frameIndexGenerator.next(/* isReset */ true)
     this._isCurrentFrameDone = false
+    this._isAllFramesDone = false
   }
 }
