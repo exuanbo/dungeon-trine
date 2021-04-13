@@ -8,7 +8,7 @@ export class AnimationFrame {
    *    duration?: number
    * }} animationFrameMeta
    */
-  constructor({ sprite, box, duration = 9 }) {
+  constructor({ sprite, box, duration = 15 }) {
     /**
      * The sprite of the animation frame.
      *
