@@ -65,21 +65,28 @@ export class Animation {
   static *createFrameIndexGenerator(frameCount, frameDurations) {
     let frameIndex = 0
     let isFrameDone = false
+    let isAllFramesDone = false
 
     for (let i = 1; i < Infinity; i++) {
       if (i % (frameDurations[frameIndex] + 1) === 0) {
         frameIndex++
         frameIndex %= frameCount
         isFrameDone = true
+
+        if (frameIndex === 0) {
+          isAllFramesDone = true
+        }
       } else {
         isFrameDone = false
+        isAllFramesDone = false
       }
 
       /** @type {boolean} */
-      const isReset = yield { frameIndex, isFrameDone }
+      const isReset = yield { frameIndex, isFrameDone, isAllFramesDone }
       if (isReset) {
         frameIndex = 0
         isFrameDone = false
+        isAllFramesDone = false
         i = 0
       }
     }
@@ -123,6 +130,13 @@ export class Animation {
      * @private
      */
     this._isCurrentFrameDone = false
+
+    /**
+     * {@link Animation#isAllFramesDone}
+     *
+     * @private
+     */
+    this._isAllFramesDone = false
   }
 
   /**
@@ -149,6 +163,18 @@ export class Animation {
   }
 
   /**
+   * If the current frame index is set back to `0`.
+   *
+   * Changed by `reset` and `getCurrentFrame`.
+   *
+   * @public
+   * @readonly
+   */
+  get isAllFramesDone() {
+    return this._isAllFramesDone
+  }
+
+  /**
    * Get current frame according to `currentFrameIndex`.
    *
    * @public
@@ -163,11 +189,12 @@ export class Animation {
    * @public
    */
   getNextFrame() {
-    const { frameIndex, isFrameDone } =
+    const { frameIndex, isFrameDone, isAllFramesDone } =
       /**
        * @type {{
        *    frameIndex: number,
        *    isFrameDone: boolean
+       *    isAllFramesDone: boolean
        * }}
        */
       (this.frameIndexGenerator.next().value)
@@ -176,6 +203,8 @@ export class Animation {
       this.currentFrameIndex = frameIndex
     }
     this._isCurrentFrameDone = isFrameDone
+    this._isAllFramesDone = isAllFramesDone
+  }
 
     return this.getCurrentFrame()
   }
