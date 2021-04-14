@@ -62,14 +62,14 @@ export class DataLoader {
    * @public
    *
    * @param {string | string[]} src
-   * @param {any=} target
+   * @param {{ scale?: number, target?: any }=} options
    *
    * @example
    * await dataLoader.loadSImage('assets/knight.png')
    * console.log(dataLoader.data)
    * // => { knight: HTMLCanvasElement }
    */
-  async loadImage(src, target = this.data) {
+  async loadImage(src, { scale, target = this.data } = {}) {
     if (typeof src === 'string') {
       src = [src]
     }
@@ -92,7 +92,7 @@ export class DataLoader {
               .split('.')
               .slice(0, -1)
               .join('.')
-            target[imageName] = createOffscreenCanvas(image)
+            target[imageName] = createOffscreenCanvas(image, scale)
             image.onload = null
             resolve()
           }

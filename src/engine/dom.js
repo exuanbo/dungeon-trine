@@ -5,12 +5,19 @@
  * |Pre-render similar primitives or repeating objects on an offscreen canvas}
  *
  * @param {HTMLImageElement} image
+ * @param {number=} scale
  */
-export const createOffscreenCanvas = image => {
+export const createOffscreenCanvas = (image, scale = 1) => {
+  const actualWidth = image.width * scale
+  const actualHeight = image.height * scale
+
   const offscreenCanvas = document.createElement('canvas')
-  offscreenCanvas.width = image.width
-  offscreenCanvas.height = image.height
-  offscreenCanvas.getContext('2d').drawImage(image, 0, 0)
+  offscreenCanvas.width = actualWidth
+  offscreenCanvas.height = actualHeight
+  offscreenCanvas
+    .getContext('2d')
+    .drawImage(image, 0, 0, actualWidth, actualHeight)
+
   return offscreenCanvas
 }
 
