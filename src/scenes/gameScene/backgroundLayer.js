@@ -10,54 +10,76 @@ export class BackgroundLayer extends Layer {
    * @static
    */
   static getTiles() {
-    const { canvasSize, tileSize } = data.config
+    const { config } = data
 
     const tiles = []
 
-    const tilesPerSide = canvasSize / tileSize
+    const tilesPerRow = config.width / config.tileSize
+    const tilesPerColumn = config.height / config.tileSize
 
-    for (let col = 0; col < tilesPerSide; col++) {
+    for (let col = 0; col < tilesPerRow; col++) {
       const columnOfTiles = []
-      const dx = col * tileSize
+      const dx = col * config.tileSize
 
-      for (let row = 0; row < tilesPerSide; row++) {
+      for (let row = 0; row < tilesPerColumn; row++) {
         let tile
-        const dy = row * tileSize
+        const dy = row * config.tileSize
 
         // left or right side wall
-        if (col === 0 || col === tilesPerSide - 1) {
-          const sx = col === 0 ? 0 : 16
+        if (col === 0 || col === tilesPerRow - 1) {
+          const sx = col === 0 ? 0 : 32
 
           if (row === 0) {
-            tile = new Tile(sx, /* sy */ 112, tileSize, tileSize, dx, dy) // wall_side_top_left || wall_side_top_right
-          } else if (row === tilesPerSide - 1) {
-            tile = new Tile(sx, /* sy */ 144, tileSize, tileSize, dx, dy) // wall_side_front_left || wall_side_front_right
+            tile = new Tile(
+              sx,
+              /* sy */ 224,
+              config.tileSize,
+              config.tileSize,
+              dx,
+              dy
+            ) // wall_side_top_left || wall_side_top_right
+          } else if (row === tilesPerColumn - 1) {
+            tile = new Tile(
+              sx,
+              /* sy */ 288,
+              config.tileSize,
+              config.tileSize,
+              dx,
+              dy
+            ) // wall_side_front_left || wall_side_front_right
           } else {
-            tile = new Tile(sx, /* sy */ 128, tileSize, tileSize, dx, dy) // wall_side_mid_left || wall_side_mid_left
+            tile = new Tile(
+              sx,
+              /* sy */ 256,
+              config.tileSize,
+              config.tileSize,
+              dx,
+              dy
+            ) // wall_side_mid_left || wall_side_mid_left
           }
         }
 
         // top side wall
         else if (row === 0 || row === 1) {
           tile = new Tile(
-            /* sx */ 32,
-            /* sy */ row === 0 ? 0 : 16,
-            tileSize,
-            tileSize,
+            /* sx */ 64,
+            /* sy */ row === 0 ? 0 : 32,
+            config.tileSize,
+            config.tileSize,
             dx,
             dy
           ) // wall_top_mid || wall_mid
         }
 
         // bottom side wall
-        else if (row === tilesPerSide - 1) {
+        else if (row === tilesPerColumn - 1) {
           tile = new Tile(
-            /* sx */ 32,
-            /* sy */ 12,
-            /* sWidth */ tileSize,
-            /* sHeight */ tileSize + 4,
+            /* sx */ 64,
+            /* sy */ 24,
+            /* sWidth */ config.tileSize,
+            /* sHeight */ config.tileSize + 8,
             dx,
-            dy - 4
+            dy - 8
           )
         }
 
@@ -106,8 +128,7 @@ export class BackgroundLayer extends Layer {
       return
     }
 
-    const { canvasSize } = data.config
-    this.ctx.clearRect(0, 0, canvasSize, canvasSize)
+    this.ctx.clearRect(0, 0, this.scene.width, this.scene.height)
 
     this.tiles.forEach(tile => {
       tile.sprite.render(this.ctx, tile.position.x, tile.position.y)

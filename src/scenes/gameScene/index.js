@@ -5,11 +5,9 @@ import { data } from '../../data.js'
 
 export class GameScene extends Scene {
   constructor() {
-    super({
-      sceneName: 'game',
-      width: data.config.canvasSize,
-      height: data.config.canvasSize
-    })
+    const { width, height } = data.config
+
+    super({ sceneName: 'game', width, height })
 
     this.layers
       .set('background', new BackgroundLayer(/* scene */ this))

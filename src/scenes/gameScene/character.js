@@ -22,14 +22,14 @@ export class Character extends MovableObject {
     const hitbox = currentAnimationFrame.getBox(this.position)
     const hitboxActualPosition = hitbox.getActualPosition()
 
-    const { canvasSize, tileSize } = data.config
+    const { config } = data
 
     if (
-      hitboxActualPosition.x <= tileSize ||
-      hitboxActualPosition.x + hitbox.width >= canvasSize - tileSize ||
-      this.position.y <= tileSize ||
+      hitboxActualPosition.x <= config.tileSize ||
+      hitboxActualPosition.x + hitbox.width >= config.width - config.tileSize ||
+      this.position.y <= config.tileSize ||
       this.position.y + currentAnimationFrame.sprite.height >=
-        canvasSize - tileSize - 4
+        config.height - config.tileSize - 4
     ) {
       this.position.set(originalX, originalY)
     }

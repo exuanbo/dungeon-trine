@@ -36,6 +36,7 @@ export class Controller {
       ;(async () => {
         const assets = await DataLoader.fetchJson('data/assets.json')
         await this.dataLoader.loadImage(assets.images, {
+          scale: 2,
           key: 'images',
           target: data.assets
         })

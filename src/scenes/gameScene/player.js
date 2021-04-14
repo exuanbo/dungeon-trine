@@ -12,8 +12,12 @@ export class Knight extends AttackerCharacter {
       data.assets.images,
       data.animations.characters.knight
     )
+
+    const { width, height, tileSize } = data.config
+
     const position = vector(
-      data.config.canvasSize / 2 - data.config.tileSize / 2
+      /* x */ width / 2 - tileSize / 2,
+      /* y */ height / 2 - tileSize / 2
     )
 
     super({ animationsMap, position, layer })
