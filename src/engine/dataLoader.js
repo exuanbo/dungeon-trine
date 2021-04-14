@@ -42,17 +42,23 @@ export class DataLoader {
    * @public
    *
    * @param {string} url
-   * @param {any=} target
+   * @param {{ key?: string, target?: any }=} options
    *
    * @example
-   * await dataLoader.loadFromJson('data/config.json')
+   * await dataLoader.loadFromJson('data/config.json', { key: 'config' })
    * console.log(dataLoader.data)
    * // => { config: { canvasSize: 320, tileSize: 16 } }
    */
-  async loadFromJson(url, target = this.data) {
-    const fileName = url.split('/').splice(-1)[0].split('.json')[0]
+  async loadFromJson(url, { key, target = this.data } = {}) {
+    const jsonObject = await DataLoader.fetchJson(url)
 
-    target[fileName] = await DataLoader.fetchJson(url)
+    if (key === undefined) {
+      for (const [k, v] of Object.entries(jsonObject)) {
+        target[k] = v
+      }
+    } else {
+      target[key] = jsonObject
+    }
   }
 
   /**
@@ -62,14 +68,14 @@ export class DataLoader {
    * @public
    *
    * @param {string | string[]} src
-   * @param {{ scale?: number, target?: any }=} options
+   * @param {{ scale?: number, key?: string, target?: any }=} options
    *
    * @example
    * await dataLoader.loadSImage('assets/knight.png')
    * console.log(dataLoader.data)
    * // => { knight: HTMLCanvasElement }
    */
-  async loadImage(src, { scale, target = this.data } = {}) {
+  async loadImage(src, { scale, key, target = this.data } = {}) {
     if (typeof src === 'string') {
       src = [src]
     }
@@ -81,6 +87,8 @@ export class DataLoader {
           image.src = url
 
           image.onload = () => {
+            const offscreenCanvas = createOffscreenCanvas(image, scale)
+
             /**
              * @example
              * '0x72_DungeonTilesetII_v1.3'
@@ -92,7 +100,16 @@ export class DataLoader {
               .split('.')
               .slice(0, -1)
               .join('.')
-            target[imageName] = createOffscreenCanvas(image, scale)
+
+            if (key === undefined) {
+              target[imageName] = offscreenCanvas
+            } else {
+              if (target[key] === undefined) {
+                target[key] = {}
+              }
+              target[key][imageName] = offscreenCanvas
+            }
+
             image.onload = null
             resolve()
           }

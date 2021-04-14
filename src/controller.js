@@ -28,21 +28,25 @@ export class Controller {
    * @private
    */
   async loadData() {
-    const loadConfig = this.dataLoader.loadFromJson('data/config.json')
-
-    data.assets = { images: {} }
+    const loadConfig = this.dataLoader.loadFromJson('data/config.json', {
+      key: 'config'
+    })
 
     const loadSpriteSheets = new Promise(resolve => {
       ;(async () => {
         const assets = await DataLoader.fetchJson('data/assets.json')
         await this.dataLoader.loadImage(assets.images, {
-          target: data.assets.images
+          key: 'images',
+          target: data.assets
         })
         resolve()
       })()
     })
 
-    const loadAnimations = this.dataLoader.loadFromJson('data/animations.json')
+    const loadAnimations = this.dataLoader.loadFromJson(
+      'data/animations.json',
+      { key: 'animations' }
+    )
 
     await Promise.all([loadConfig, loadSpriteSheets, loadAnimations])
   }

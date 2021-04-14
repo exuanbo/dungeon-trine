@@ -19,4 +19,8 @@
  * Initialized by `DataLoader`
  *
  */
-export const data = /** @type {Data} */ ({})
+export const data = /** @type {Data} */ ({
+  config: undefined,
+  assets: { images: undefined },
+  animations: undefined
+})
