@@ -33,7 +33,11 @@ export class Layer {
      *
      * @public
      */
-    this.ctx = createLayerCanvasContext(scene.width, scene.height, zIndex)
+    this.ctx = createLayerCanvasContext(
+      /* width */ scene.width,
+      /* height */ scene.height,
+      zIndex
+    )
   }
 
   /**

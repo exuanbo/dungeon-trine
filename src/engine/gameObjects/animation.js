@@ -23,7 +23,9 @@ export class AnimationFrame {
      *
      * @private
      */
-    this._box = box || new Box(this.sprite.width, this.sprite.height)
+    this._box =
+      box ||
+      new Box(/* width */ this.sprite.width, /* height */ this.sprite.height)
 
     /**
      * The duration of the animation frame.
@@ -121,8 +123,8 @@ export class Animation {
      * @private
      */
     this.frameIndexGenerator = Animation.createFrameIndexGenerator(
-      this.frames.length,
-      this.frames.map(frame => frame.duration)
+      /* frameCount */ this.frames.length,
+      /* frameDurations */ this.frames.map(frame => frame.duration)
     )
 
     /**

@@ -50,7 +50,10 @@ export class AttackerCharacter extends Character {
   constructor(characterMeta) {
     super(characterMeta)
 
-    this.addAction([() => this.willAttack, this.attack])
+    this.addAction([
+      /* predicate */ () => this.willAttack,
+      /* action */ this.attack
+    ])
 
     this.prioritizedAnimationNames.add('attack')
 
@@ -104,14 +107,16 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    if (!this.layer.scene.timer.isTaskDone(this.attackTaskId)) {
+    if (!this.layer.scene.timer.isTaskDone(/* taskId */ this.attackTaskId)) {
       return
     }
 
     this.setAnimation('attack')
 
     this.hasAttacked = true
-    this.attackTaskId = this.layer.scene.timer.setTimeout(this.attackInterval)
+    this.attackTaskId = this.layer.scene.timer.setTimeout(
+      /* delay */ this.attackInterval
+    )
   }
 
   /**

@@ -33,8 +33,8 @@ export class BackgroundLayer extends Layer {
             tile = new Tile(
               sx,
               /* sy */ 224,
-              config.tileSize,
-              config.tileSize,
+              /* sWidth */ config.tileSize,
+              /* sHeight */ config.tileSize,
               dx,
               dy
             ) // wall_side_top_left || wall_side_top_right
@@ -42,8 +42,8 @@ export class BackgroundLayer extends Layer {
             tile = new Tile(
               sx,
               /* sy */ 288,
-              config.tileSize,
-              config.tileSize,
+              /* sWidth */ config.tileSize,
+              /* sHeight */ config.tileSize,
               dx,
               dy
             ) // wall_side_front_left || wall_side_front_right
@@ -51,8 +51,8 @@ export class BackgroundLayer extends Layer {
             tile = new Tile(
               sx,
               /* sy */ 256,
-              config.tileSize,
-              config.tileSize,
+              /* sWidth */ config.tileSize,
+              /* sHeight */ config.tileSize,
               dx,
               dy
             ) // wall_side_mid_left || wall_side_mid_left
@@ -64,8 +64,8 @@ export class BackgroundLayer extends Layer {
           tile = new Tile(
             /* sx */ 64,
             /* sy */ row === 0 ? 0 : 32,
-            config.tileSize,
-            config.tileSize,
+            /* sWidth */ config.tileSize,
+            /* sHeight */ config.tileSize,
             dx,
             dy
           ) // wall_top_mid || wall_mid
@@ -128,10 +128,19 @@ export class BackgroundLayer extends Layer {
       return
     }
 
-    this.ctx.clearRect(0, 0, this.scene.width, this.scene.height)
+    this.ctx.clearRect(
+      /* x */ 0,
+      /* y */ 0,
+      /* w */ this.scene.width,
+      /* h */ this.scene.height
+    )
 
     this.tiles.forEach(tile => {
-      tile.sprite.render(this.ctx, tile.position.x, tile.position.y)
+      tile.sprite.render(
+        /* ctx */ this.ctx,
+        /* dx */ tile.position.x,
+        /* dy */ tile.position.y
+      )
     })
 
     this.isDirty = false

@@ -28,25 +28,29 @@ export class Controller {
    * @private
    */
   async loadData() {
-    const loadConfig = this.dataLoader.loadFromJson('data/config.json', {
-      key: 'config'
-    })
+    const loadConfig = this.dataLoader.loadFromJson(
+      /* url */ 'data/config.json',
+      /* options */ { key: 'config' }
+    )
 
     const loadSpriteSheets = new Promise(resolve => {
       ;(async () => {
-        const assets = await DataLoader.fetchJson('data/assets.json')
-        await this.dataLoader.loadImage(assets.images, {
-          scale: 2,
-          key: 'images',
-          target: data.assets
-        })
+        const assets = await DataLoader.fetchJson(/* url */ 'data/assets.json')
+        await this.dataLoader.loadImage(
+          /* src */ assets.images,
+          /* options */ {
+            scale: 2,
+            key: 'images',
+            target: data.assets
+          }
+        )
         resolve()
       })()
     })
 
     const loadAnimations = this.dataLoader.loadFromJson(
-      'data/animations.json',
-      { key: 'animations' }
+      /* url */ 'data/animations.json',
+      /* options */ { key: 'animations' }
     )
 
     await Promise.all([loadConfig, loadSpriteSheets, loadAnimations])
@@ -62,51 +66,55 @@ export class Controller {
   async init() {
     await this.loadData()
 
-    this.game = new Game(new GameScene())
+    this.game = new Game(/* initialScene */ new GameScene())
 
     this.gameRenderer = new GameRenderer()
-    this.gameRenderer.render(this.game)
+    this.gameRenderer.render(/* game */ this.game)
 
     this.keyboard.init()
 
     const keys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', 'KeyX']
 
-    this.keyboard.listen(keys, 'both', (key, isKeyDown) => {
-      switch (this.game.scene.name) {
-        case 'game': {
-          const gameLayer =
-            /**
-             * @type {import('./scenes/gameScene/gameLayer').GameLayer}
-             */
-            (this.game.scene.layers.get('game'))
+    this.keyboard.listen(
+      /* keyboardEventCode */ keys,
+      /* keyboardEventType */ 'both',
+      /* cb */ (key, isKeyDown) => {
+        switch (this.game.scene.name) {
+          case 'game': {
+            const gameLayer =
+              /**
+               * @type {import('./scenes/gameScene/gameLayer').GameLayer}
+               */
+              (this.game.scene.layers.get('game'))
 
-          switch (key) {
-            case 'ArrowUp':
-            case 'ArrowRight':
-            case 'ArrowDown':
-            case 'ArrowLeft':
-              gameLayer.player.directions.set(
-                /**
-                 * @type {import('./engine/gameObjects/models/movableObject').Direction}
-                 *
-                 * @example
-                 * 'Right'
-                 * // key: 'ArrowRight'
-                 */
-                (key.slice(5)),
-                isKeyDown
-              )
-              break
-            case 'KeyX':
-              gameLayer.player.willAttack = isKeyDown
-              break
-          }
+            switch (key) {
+              case 'ArrowUp':
+              case 'ArrowRight':
+              case 'ArrowDown':
+              case 'ArrowLeft':
+                gameLayer.player.directions.set(
+                  /**
+                   * @type {import('./engine/gameObjects/models/movableObject').Direction}
+                   *
+                   * @example
+                   * 'Right'
+                   * // key: 'ArrowRight'
+                   */
+                  (key.slice(5)),
+                  isKeyDown
+                )
+                break
+              case 'KeyX':
+                gameLayer.player.willAttack = isKeyDown
+                break
+            }
 
-          if (!this.keyboard.hasKeyDown()) {
-            gameLayer.player.willStop = true
+            if (!this.keyboard.hasKeyDown()) {
+              gameLayer.player.willStop = true
+            }
           }
         }
       }
-    })
+    )
   }
 }

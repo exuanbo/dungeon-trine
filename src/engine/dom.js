@@ -17,7 +17,13 @@ export const createOffscreenCanvas = (image, scale = 1) => {
 
   const ctx = offscreenCanvas.getContext('2d')
   ctx.imageSmoothingEnabled = false
-  ctx.drawImage(image, 0, 0, actualWidth, actualHeight)
+  ctx.drawImage(
+    image,
+    /* dx */ 0,
+    /* dy */ 0,
+    /* dWidth */ actualWidth,
+    /* dHeight */ actualHeight
+  )
 
   return offscreenCanvas
 }

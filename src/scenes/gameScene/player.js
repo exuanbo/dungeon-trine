@@ -9,8 +9,8 @@ export class Knight extends AttackerCharacter {
    */
   constructor(layer) {
     const animationsMap = createAnimationsMap(
-      data.assets.images,
-      data.animations.characters.knight
+      /* spriteSheets */ data.assets.images,
+      /* animationEntries */ data.animations.characters.knight
     )
 
     const { width, height, tileSize } = data.config
