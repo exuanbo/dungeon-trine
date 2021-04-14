@@ -23,16 +23,10 @@ export const createOffscreenCanvas = image => {
  */
 export const createLayerCanvasContext = (width, height, zIndex = 0) => {
   const canvas = document.createElement('canvas')
-  canvas.style.zIndex = zIndex.toString()
   canvas.width = width
   canvas.height = height
-  const ctx = canvas.getContext('2d')
-  /**
-   * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#controlling_image_scaling_behavior
-   * |Controlling image scaling behavior}
-   */
-  ctx.imageSmoothingEnabled = false
-  return ctx
+  canvas.style.zIndex = zIndex.toString()
+  return canvas.getContext('2d')
 }
 
 /**
