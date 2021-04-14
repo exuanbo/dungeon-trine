@@ -14,9 +14,10 @@ export const createOffscreenCanvas = (image, scale = 1) => {
   const offscreenCanvas = document.createElement('canvas')
   offscreenCanvas.width = actualWidth
   offscreenCanvas.height = actualHeight
-  offscreenCanvas
-    .getContext('2d')
-    .drawImage(image, 0, 0, actualWidth, actualHeight)
+
+  const ctx = offscreenCanvas.getContext('2d')
+  ctx.imageSmoothingEnabled = false
+  ctx.drawImage(image, 0, 0, actualWidth, actualHeight)
 
   return offscreenCanvas
 }
