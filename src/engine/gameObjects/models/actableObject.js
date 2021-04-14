@@ -6,20 +6,24 @@ import { BaseObject } from './basicObject.js'
 
 export class ActableObject extends BaseObject {
   /**
+   * @param {import('../../layer').Layer} layer
    * @param {{
    *    animationsMap: import('../animation').AnimationsMap
    *    defaultAnimationName?: string
    *    position: import('../../math/vector').Vector
-   *    layer: import('../../layer').Layer
-   * }} actableObjectMeta
+   * }} actableObjectConfig
    */
-  constructor({
-    animationsMap,
-    defaultAnimationName = 'idle',
-    position,
-    layer
-  }) {
-    super({ animation: animationsMap[defaultAnimationName], position, layer })
+  constructor(
+    layer,
+    { animationsMap, defaultAnimationName = 'idle', position }
+  ) {
+    super(
+      layer,
+      /* baseObjectConfig */ {
+        animation: animationsMap[defaultAnimationName],
+        position
+      }
+    )
 
     /**
      * The animations map of the game object.

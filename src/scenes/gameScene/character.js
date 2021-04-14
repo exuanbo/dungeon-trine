@@ -41,14 +41,14 @@ export class Character extends MovableObject {
  */
 export class AttackerCharacter extends Character {
   /**
+   * @param {import('../../engine/layer').Layer} layer
    * @param {{
    *    animationsMap: import('../../engine/gameObjects/animation').AnimationsMap
    *    position: import('../../engine/math/vector').Vector
-   *    layer: import('../../engine/layer').Layer
-   * }} characterMeta
+   * }} attackerCharacterConfig
    */
-  constructor(characterMeta) {
-    super(characterMeta)
+  constructor(layer, attackerCharacterConfig) {
+    super(layer, /* actableObjectConfig */ attackerCharacterConfig)
 
     this.addAction([
       /* predicate */ () => this.willAttack,

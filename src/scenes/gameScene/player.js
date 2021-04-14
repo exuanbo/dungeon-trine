@@ -20,7 +20,7 @@ export class Knight extends AttackerCharacter {
       /* y */ height / 2 - tileSize / 2
     )
 
-    super({ animationsMap, position, layer })
+    super(layer, /* attackerCharacterConfig */ { animationsMap, position })
 
     /**
      * @override

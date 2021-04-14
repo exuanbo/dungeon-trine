@@ -6,14 +6,14 @@ import { ActableObject } from './actableObject.js'
 
 export class MovableObject extends ActableObject {
   /**
+   * @param {import('../../layer').Layer} layer
    * @param {{
    *    animationsMap: import('../animation').AnimationsMap
    *    position: import('../../math/vector').Vector
-   *    layer: import('../../layer').Layer
-   * }} movableObjectMeta
+   * }} movableObjectConfig
    */
-  constructor({ animationsMap, position, layer }) {
-    super({ animationsMap, position, layer })
+  constructor(layer, { animationsMap, position }) {
+    super(layer, /* actableObjectConfig */ { animationsMap, position })
 
     this.addAction([this.willMove, this.move])
 

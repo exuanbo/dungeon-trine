@@ -1,12 +1,12 @@
 export class BaseObject {
   /**
+   * @param {import('../../layer').Layer} layer
    * @param {{
    *    animation: import('../animation').Animation
    *    position: import('../../math/vector').Vector
-   *    layer: import('../../layer').Layer
-   * }} baseObjectMeta
+   * }} baseObjectConfig
    */
-  constructor({ animation, position, layer }) {
+  constructor(layer, { animation, position }) {
     /**
      * If `renderSprite` has been called.
      *
