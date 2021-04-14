@@ -21,5 +21,10 @@ export class Knight extends AttackerCharacter {
     )
 
     super({ animationsMap, position, layer })
+
+    /**
+     * @override
+     */
+    this.speed = 2
   }
 }
