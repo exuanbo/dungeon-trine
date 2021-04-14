@@ -4,10 +4,13 @@ import { GameLayer } from './gameLayer.js'
 import { data } from '../../data.js'
 
 export class GameScene extends Scene {
-  constructor() {
+  /**
+   * @param {import('../../engine/game').Game} game
+   */
+  constructor(game) {
     const { width, height } = data.config
 
-    super({ sceneName: 'game', width, height })
+    super(game, /* sceneConfig */ { sceneName: 'game', width, height })
 
     this.layers
       .set('background', new BackgroundLayer(/* scene */ this))

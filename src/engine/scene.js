@@ -3,13 +3,14 @@ import { initScene } from './dom.js'
 
 export class Scene {
   /**
+   * @param {import('./game').Game} game
    * @param {{
    *    sceneName: string
    *    width: number
    *    height: number
-   * }} sceneMeta
+   * }} sceneConfig
    */
-  constructor({ sceneName, width, height }) {
+  constructor(game, { sceneName, width, height }) {
     /**
      * If `layers` canvas element has been appended to DOM by `initScene`.
      *
@@ -32,6 +33,13 @@ export class Scene {
      * @type {Map<string, import('./layer').Layer>}
      */
     this.layers = new Map()
+
+    /**
+     * Reference to the `Game` instance.
+     *
+     * @public
+     */
+    this.game = game
 
     /**
      * The name of the scene.
@@ -85,7 +93,7 @@ export class Scene {
   }
 
   /**
-   * Clear `timer` and delete the reference to the `layers`.
+   * Clear `timer` and delete the references to `layers` and `game`.
    *
    * @public
    */
@@ -96,5 +104,7 @@ export class Scene {
       layer.destroy()
     }
     this.layers.clear()
+
+    this.game = null
   }
 }
