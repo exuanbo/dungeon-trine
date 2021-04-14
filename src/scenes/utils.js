@@ -16,41 +16,37 @@ import { vector } from '../engine/math/vector.js'
  *        duration?: number
  *      }>
  *    }
- * >} AnimationEntries
+ * >} AnimationDetailsMap
  */
 
 /**
  * Create `<animationName, Animation>` map from provided animation entries.
  *
  * @param {Object<string, HTMLImageElement | HTMLCanvasElement> } spriteSheets
- * @param {AnimationEntries} animationEntries
+ * @param {AnimationDetailsMap} animationDetailsMap
  */
-export const createAnimationsMap = (spriteSheets, animationEntries) => {
+export const createAnimationsMap = (spriteSheets, animationDetailsMap) => {
   /** @type {import('../engine/gameObjects/animation').AnimationsMap} */
   const animationsMap = {}
 
-  for (const animationName in animationEntries) {
-    const animationEntry = animationEntries[animationName]
+  for (const [animationName, animationDetails] of Object.entries(
+    animationDetailsMap
+  )) {
+    const spriteSheet = spriteSheets[animationDetails.spriteSheet]
 
-    const spriteSheet = spriteSheets[animationEntry.spriteSheet]
+    const animationFrames = animationDetails.frames.map(frame => {
+      const sprite = new Sprite(spriteSheet, ...frame.sprite)
 
-    const animationFrames = animationEntry.frames.map(frame => {
       /** @type {Box | undefined} */
       let box
 
       if (frame.box !== undefined) {
-        const [boxOffsetX, boxOffsetY, boxWidth, boxHeight] = frame.box
+        const [x, y, width, height] = frame.box
 
-        box = new Box(boxWidth, boxHeight, {
-          offset: vector(boxOffsetX, boxOffsetY)
-        })
+        box = new Box(width, height, /* boxPosition */ { offset: vector(x, y) })
       }
 
-      return new AnimationFrame({
-        sprite: new Sprite(spriteSheet, ...frame.sprite),
-        box,
-        duration: frame.duration
-      })
+      return new AnimationFrame({ sprite, box, duration: frame.duration })
     })
 
     animationsMap[animationName] = new Animation(animationFrames)

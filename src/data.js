@@ -7,7 +7,7 @@
  *    animations: {
  *      characters: Object<
  *        string,
- *        import('./scenes/utils').AnimationEntries
+ *        import('./scenes/utils').AnimationDetailsMap
  *      >
  *    }
  * }} Data
