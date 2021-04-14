@@ -66,7 +66,7 @@ export class Controller {
   async init() {
     await this.loadData()
 
-    this.game = new Game(/* initialScene */ new GameScene())
+    this.game = new Game(/* initialScene */ new GameScene(/* game */ this.game))
 
     this.gameRenderer = new GameRenderer()
     this.gameRenderer.render(/* game */ this.game)
