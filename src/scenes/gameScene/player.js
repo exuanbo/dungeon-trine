@@ -9,7 +9,7 @@ export class Knight extends AttackerCharacter {
    */
   constructor(layer) {
     const animationsMap = createAnimationsMap(
-      data.assets.spriteSheets,
+      data.assets.images,
       data.animations.characters.knight
     )
     const position = vector(

@@ -12,7 +12,7 @@ export class Tile {
    * @param {number} dy
    */
   constructor(sx, sy, sWidth, sHeight, dx, dy) {
-    const spriteSheet = data.assets.spriteSheets['0x72_DungeonTilesetII_v1.3']
+    const spriteSheet = data.assets.images['0x72_DungeonTilesetII_v1.3']
 
     /**
      * @public

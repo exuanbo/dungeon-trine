@@ -2,7 +2,7 @@
  * @typedef {{
  *    config: Object<string, any>
  *    assets: {
- *      spriteSheets: Object<string, HTMLCanvasElement>
+ *      images: Object<string, HTMLCanvasElement>
  *    }
  *    animations: {
  *      characters: Object<
