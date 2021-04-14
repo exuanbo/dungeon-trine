@@ -7,9 +7,9 @@ import { createLayerCanvasContext } from './dom.js'
 export class Layer {
   /**
    * @param {import('./scene').Scene} scene
-   * @param {number=} zIndex
+   * @param {{ zIndex?: number }=} layerConfig
    */
-  constructor(scene, zIndex) {
+  constructor(scene, { zIndex } = {}) {
     /**
      * If the layer has changed state.
      *

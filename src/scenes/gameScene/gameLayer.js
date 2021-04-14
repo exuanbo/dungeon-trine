@@ -6,7 +6,7 @@ export class GameLayer extends Layer {
    * @param {import('../../engine/scene').Scene} scene
    */
   constructor(scene) {
-    super(scene, /* zIndex */ 1)
+    super(scene, /* layerConfig */ { zIndex: 1 })
 
     /**
      * User controlled character. Default is `Knight`.
