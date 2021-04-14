@@ -10,19 +10,21 @@ export class BackgroundLayer extends Layer {
    * @static
    */
   static getTiles() {
-    const { config } = data
-
     const tiles = []
+
+    const { config } = data
 
     const tilesPerRow = config.width / config.tileSize
     const tilesPerColumn = config.height / config.tileSize
 
     for (let col = 0; col < tilesPerRow; col++) {
       const columnOfTiles = []
+
       const dx = col * config.tileSize
 
       for (let row = 0; row < tilesPerColumn; row++) {
         let tile
+
         const dy = row * config.tileSize
 
         // left or right side wall
@@ -37,7 +39,7 @@ export class BackgroundLayer extends Layer {
               /* sHeight */ config.tileSize,
               dx,
               dy
-            ) // wall_side_top_left || wall_side_top_right
+            )
           } else if (row === tilesPerColumn - 1) {
             tile = new Tile(
               sx,
@@ -46,7 +48,7 @@ export class BackgroundLayer extends Layer {
               /* sHeight */ config.tileSize,
               dx,
               dy
-            ) // wall_side_front_left || wall_side_front_right
+            )
           } else {
             tile = new Tile(
               sx,
@@ -55,7 +57,7 @@ export class BackgroundLayer extends Layer {
               /* sHeight */ config.tileSize,
               dx,
               dy
-            ) // wall_side_mid_left || wall_side_mid_left
+            )
           }
         }
 
@@ -68,7 +70,7 @@ export class BackgroundLayer extends Layer {
             /* sHeight */ config.tileSize,
             dx,
             dy
-          ) // wall_top_mid || wall_mid
+          )
         }
 
         // bottom side wall

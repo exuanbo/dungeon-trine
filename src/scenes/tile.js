@@ -44,6 +44,6 @@ export class Floor extends Tile {
       /* sHeight */ tileSize,
       dx,
       dy
-    ) // floor_1
+    )
   }
 }
