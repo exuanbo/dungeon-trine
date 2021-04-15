@@ -1,4 +1,4 @@
-import { Layer } from '../../engine/layer.js'
+import { Layer } from '../../engine/index.js'
 import { Tile, Floor } from '../tile.js'
 import { data } from '../../data.js'
 

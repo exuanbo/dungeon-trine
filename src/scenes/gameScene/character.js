@@ -1,4 +1,4 @@
-import { MovableObject } from '../../engine/gameObjects/models/movableObject.js'
+import { MovableObject } from '../../engine/index.js'
 import { data } from '../../data.js'
 
 export class Character extends MovableObject {

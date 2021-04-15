@@ -1,4 +1,4 @@
-import { Layer } from '../../engine/layer.js'
+import { Layer } from '../../engine/index.js'
 import { Knight } from './player.js'
 
 export class GameLayer extends Layer {

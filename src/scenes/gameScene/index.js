@@ -1,4 +1,4 @@
-import { Scene } from '../../engine/scene.js'
+import { Scene } from '../../engine/index.js'
 import { BackgroundLayer } from './backgroundLayer.js'
 import { GameLayer } from './gameLayer.js'
 import { data } from '../../data.js'

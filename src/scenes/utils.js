@@ -1,7 +1,10 @@
-import { Animation, AnimationFrame } from '../engine/gameObjects/animation.js'
-import { Sprite } from '../engine/gameObjects/sprite.js'
-import { Box } from '../engine/math/box.js'
-import { vector } from '../engine/math/vector.js'
+import {
+  Sprite,
+  Animation,
+  AnimationFrame,
+  vector,
+  Box
+} from '../engine/index.js'
 
 /**
  * Animation entries object from `data`.
