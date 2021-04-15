@@ -41,12 +41,15 @@ export class GameRenderer {
       this.render(game)
     )
 
-    for (
-      let delta = performance.now() - this.lastRenderTime;
-      delta > 0;
-      delta -= this.timeStep
-    ) {
+    let delta = performance.now() - this.lastRenderTime
+
+    if (delta < this.timeStep) {
+      return
+    }
+
+    while (delta > 0) {
       game.update()
+      delta -= this.timeStep
     }
 
     this.lastRenderTime = performance.now()
