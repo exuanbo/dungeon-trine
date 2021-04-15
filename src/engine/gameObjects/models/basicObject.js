@@ -24,6 +24,13 @@ export class BaseObject {
     this.face = 'Right'
 
     /**
+     * Reference to the layer.
+     *
+     * @protected
+     */
+    this.layer = layer
+
+    /**
      * The animation of the game object.
      *
      * @protected
@@ -36,13 +43,6 @@ export class BaseObject {
      * @protected
      */
     this.position = position
-
-    /**
-     * Reference to the layer.
-     *
-     * @protected
-     */
-    this.layer = layer
   }
 
   /**
