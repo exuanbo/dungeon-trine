@@ -78,7 +78,7 @@ export class AttackerCharacter extends Character {
      *
      * @private
      */
-    this.attackInterval = 50
+    this.attackInterval = 45
 
     /**
      * The scene timer task id for the last attack.
