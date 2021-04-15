@@ -83,7 +83,10 @@ export class Scene {
    */
   render() {
     if (!this.isInitialized) {
-      initScene(this)
+      initScene(
+        /* scene */ this,
+        /* containerSelector */ this.game.containerSelector
+      )
       this.isInitialized = true
     }
 

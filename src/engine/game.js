@@ -1,8 +1,9 @@
 export class Game {
   /**
    * @param {import('./scene').Scene} initialScene
+   * @param {{ containerSelector?: string }=} gameConfig
    */
-  constructor(initialScene) {
+  constructor(initialScene, { containerSelector = '#game' } = {}) {
     /**
      * The scenes of the game.
      *
@@ -16,6 +17,13 @@ export class Game {
      * @public
      */
     this.scene = initialScene
+
+    /**
+     * CSS selector of the container DOM element. Default to `'#game'`.
+     *
+     * @public
+     */
+    this.containerSelector = containerSelector
   }
 
   /**

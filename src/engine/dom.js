@@ -47,14 +47,19 @@ export const createLayerCanvasContext = (width, height, zIndex = 0) => {
  * Initialize `Scene` by appending the canvas elements of its layers to `#game`.
  *
  * @param {import('./scene').Scene} scene
+ * @param {string} containerSelector
  */
-export const initScene = scene => {
-  const gameContainer = document.getElementById('game')
+export const initScene = (scene, containerSelector) => {
+  const container =
+    /**
+     * @type {HTMLElement}
+     */
+    (document.querySelector(containerSelector))
 
-  gameContainer.innerHTML = ''
-  gameContainer.style.cssText = `width: ${scene.width}; height: ${scene.height}`
+  container.innerHTML = ''
+  container.style.cssText = `width: ${scene.width}; height: ${scene.height}`
 
   for (const layer of scene.layers.values()) {
-    gameContainer.appendChild(layer.ctx.canvas)
+    container.appendChild(layer.ctx.canvas)
   }
 }
