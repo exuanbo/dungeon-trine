@@ -3,20 +3,21 @@ import { initScene } from './dom.js'
 
 export class Scene {
   /**
-   * @param {import('./game').Game} game
    * @param {{
    *    sceneName: string
    *    width: number
    *    height: number
    * }} sceneConfig
    */
-  constructor(game, { sceneName, width, height }) {
+  constructor({ sceneName, width, height }) {
     /**
-     * If `layers` canvas element has been appended to DOM by `initScene`.
+     * Reference to the `Game` instance. Set by `Game.addScene`.
      *
-     * @private
+     * @public
+     *
+     * @type {import('./game').Game}
      */
-    this.isInitialized = false
+    this.game = undefined
 
     /**
      * The timer instance for the scene.
@@ -26,6 +27,13 @@ export class Scene {
     this.timer = new Timer()
 
     /**
+     * If `layers` canvas element has been appended to DOM by `initScene`.
+     *
+     * @private
+     */
+    this.isInitialized = false
+
+    /**
      * The layers of the scene.
      *
      * @public
@@ -33,13 +41,6 @@ export class Scene {
      * @type {Map<string, import('./layer').Layer>}
      */
     this.layers = new Map()
-
-    /**
-     * Reference to the `Game` instance.
-     *
-     * @public
-     */
-    this.game = game
 
     /**
      * The name of the scene.

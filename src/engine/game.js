@@ -8,8 +8,12 @@ export class Game {
      * The scenes of the game.
      *
      * @private
+     *
+     * @type {Map<string, import('./scene').Scene>}
      */
-    this.scenes = new Map([[initialScene.name, initialScene]])
+    this.scenes = new Map()
+
+    this.addScene(/* scene */ initialScene)
 
     /**
      * The current scene of the game.
@@ -32,15 +36,15 @@ export class Game {
    *
    * @public
    *
-   * @param {string} sceneName
    * @param {import('./scene').Scene} scene
    */
-  addScene(sceneName, scene) {
-    if (this.scenes.has(sceneName)) {
-      throw new Error(`Scene '${sceneName}' already exists.`)
+  addScene(scene) {
+    if (this.scenes.has(scene.name)) {
+      throw new Error(`Scene '${scene.name}' already exists.`)
     }
 
-    this.scenes.set(sceneName, scene)
+    scene.game = this
+    this.scenes.set(scene.name, scene)
   }
 
   /**
