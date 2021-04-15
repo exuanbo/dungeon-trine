@@ -36,7 +36,7 @@ export class Scene {
     this.layers = new Map()
 
     /**
-     * If the canvas elements of `layer` in `layers` have been appended to container DOM element by `appendLayersCanvas`.
+     * If `init` has been called.
      *
      * @private
      */
@@ -111,21 +111,32 @@ export class Scene {
   }
 
   /**
+   * Append the canvas elements of `layer` in `layers` to the container DOM element by `appendLayersCanvas`.
+   *
+   * Change `isInitialized` to `true`.
+   *
+   * @private
+   */
+  init() {
+    appendLayersCanvas(
+      /* layers */ this.layers,
+      /* target */ {
+        containerSelector: this.game.containerSelector,
+        width: this.width,
+        height: this.height
+      }
+    )
+    this.isInitialized = true
+  }
+
+  /**
    * Render `layers`.
    *
    * @public
    */
   render() {
     if (!this.isInitialized) {
-      appendLayersCanvas(
-        /* layers */ this.layers,
-        /* target */ {
-          containerSelector: this.game.containerSelector,
-          width: this.width,
-          height: this.height
-        }
-      )
-      this.isInitialized = true
+      this.init()
     }
 
     for (const layer of this.layers.values()) {
