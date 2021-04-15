@@ -44,12 +44,19 @@ export const createLayerCanvasContext = (width, height, zIndex = 0) => {
 }
 
 /**
- * Initialize `Scene` by appending the canvas elements of its layers to `#game`.
+ * Appending the canvas elements of the layers to `containerSelector`.
  *
- * @param {import('./scene').Scene} scene
- * @param {string} containerSelector
+ * @param {Map<string, import('./layer').Layer>} layers
+ * @param {{
+ *    containerSelector: string
+ *    width: number
+ *    height: number
+ * }} target
  */
-export const initScene = (scene, containerSelector) => {
+export const appendLayersCanvas = (
+  layers,
+  { containerSelector, width, height }
+) => {
   const container =
     /**
      * @type {HTMLElement}
@@ -57,9 +64,9 @@ export const initScene = (scene, containerSelector) => {
     (document.querySelector(containerSelector))
 
   container.innerHTML = ''
-  container.style.cssText = `width: ${scene.width}; height: ${scene.height}`
+  container.style.cssText = `width: ${width}; height: ${height};`
 
-  for (const layer of scene.layers.values()) {
+  for (const layer of layers.values()) {
     container.appendChild(layer.ctx.canvas)
   }
 }

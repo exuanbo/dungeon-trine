@@ -1,5 +1,5 @@
 import { Timer } from './timer.js'
-import { initScene } from './dom.js'
+import { appendLayersCanvas } from './dom.js'
 
 export class Scene {
   /**
@@ -36,7 +36,7 @@ export class Scene {
     this.layers = new Map()
 
     /**
-     * If `layers` canvas element has been appended to DOM by `initScene`.
+     * If the canvas elements of `layer` in `layers` have been appended to container DOM element by `appendLayersCanvas`.
      *
      * @private
      */
@@ -117,9 +117,13 @@ export class Scene {
    */
   render() {
     if (!this.isInitialized) {
-      initScene(
-        /* scene */ this,
-        /* containerSelector */ this.game.containerSelector
+      appendLayersCanvas(
+        /* layers */ this.layers,
+        /* target */ {
+          containerSelector: this.game.containerSelector,
+          width: this.width,
+          height: this.height
+        }
       )
       this.isInitialized = true
     }
