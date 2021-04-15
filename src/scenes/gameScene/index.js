@@ -9,8 +9,7 @@ export class GameScene extends Scene {
 
     super(/* sceneConfig */ { sceneName: 'game', width, height })
 
-    this.layers
-      .set('background', new BackgroundLayer(/* scene */ this))
-      .set('game', new GameLayer(/* scene */ this))
+    this.addLayer('background', new BackgroundLayer(/* scene */ this))
+    this.addLayer('game', new GameLayer(/* scene */ this))
   }
 }

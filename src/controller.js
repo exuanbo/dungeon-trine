@@ -85,7 +85,7 @@ export class Controller {
               /**
                * @type {import('./scenes/gameScene/gameLayer').GameLayer}
                */
-              (this.game.scene.layers.get('game'))
+              (this.game.scene.getLayer('game'))
 
             switch (key) {
               case 'ArrowUp':

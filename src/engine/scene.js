@@ -27,20 +27,20 @@ export class Scene {
     this.timer = new Timer()
 
     /**
+     * The layers of the scene.
+     *
+     * @private
+     *
+     * @type {Map<string, import('./layer').Layer>}
+     */
+    this.layers = new Map()
+
+    /**
      * If `layers` canvas element has been appended to DOM by `initScene`.
      *
      * @private
      */
     this.isInitialized = false
-
-    /**
-     * The layers of the scene.
-     *
-     * @public
-     *
-     * @type {Map<string, import('./layer').Layer>}
-     */
-    this.layers = new Map()
 
     /**
      * The name of the scene.
@@ -62,6 +62,39 @@ export class Scene {
      * @public
      */
     this.height = height
+  }
+
+  /**
+   * Add a layer to the scene.
+   * Throw an error if layer name already exists.
+   *
+   * @public
+   *
+   * @param {string} layerName
+   * @param {import('./layer').Layer} layer
+   */
+  addLayer(layerName, layer) {
+    if (this.layers.has(layerName)) {
+      throw new Error(`Layer '${layerName}' already exists.`)
+    }
+
+    this.layers.set(layerName, layer)
+  }
+
+  /**
+   * Get the layer with the passed layer name.
+   * Throw an error if passed layer name does not exist.
+   *
+   * @public
+   *
+   * @param {string} layerName
+   */
+  getLayer(layerName) {
+    if (!this.layers.has(layerName)) {
+      throw new Error(`Layer '${layerName}' does not exist.`)
+    }
+
+    return this.layers.get(layerName)
   }
 
   /**
