@@ -50,12 +50,12 @@ export class AttackerCharacter extends Character {
   constructor(layer, attackerCharacterConfig) {
     super(layer, /* actableObjectConfig */ attackerCharacterConfig)
 
+    this.prioritizedAnimationNames.add('attack')
+
     this.addAction([
       /* predicate */ () => this.willAttack,
       /* action */ this.attack
     ])
-
-    this.prioritizedAnimationNames.add('attack')
 
     /**
      * If the character will attack at next `update`.
