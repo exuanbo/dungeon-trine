@@ -46,37 +46,37 @@ export class Keyboard {
      * @private
      */
     this.listenerId = 0
+  }
 
-    /**
-     * Keyboard event handler function.
-     *
-     * @private
-     *
-     * @param {KeyboardEvent} e
-     */
-    this.handleEvent = e => {
-      const isKeydown = e.type === 'keydown'
+  /**
+   * Keyboard event handler function.
+   *
+   * @private
+   *
+   * @param {KeyboardEvent} e
+   */
+  handleEvent(e) {
+    const isKeydown = e.type === 'keydown'
 
-      if (this.keysMap.get(e.code) === isKeydown) {
-        return
-      }
+    if (this.keysMap.get(e.code) === isKeydown) {
+      return
+    }
 
-      this.keysMap.set(e.code, isKeydown)
+    this.keysMap.set(e.code, isKeydown)
 
-      for (const [
-        keyboardEventCode,
-        keyboardEventType,
-        cb
-      ] of this.listeners.values()) {
-        if (
-          (keyboardEventCode === e.code ||
-            (Array.isArray(keyboardEventCode) &&
-              keyboardEventCode.includes(e.code))) &&
-          ((keyboardEventType === 'keydown') === isKeydown ||
-            keyboardEventType === 'both')
-        ) {
-          cb(e.code, isKeydown)
-        }
+    for (const [
+      keyboardEventCode,
+      keyboardEventType,
+      cb
+    ] of this.listeners.values()) {
+      if (
+        (keyboardEventCode === e.code ||
+          (Array.isArray(keyboardEventCode) &&
+            keyboardEventCode.includes(e.code))) &&
+        ((keyboardEventType === 'keydown') === isKeydown ||
+          keyboardEventType === 'both')
+      ) {
+        cb(e.code, isKeydown)
       }
     }
   }
@@ -87,14 +87,14 @@ export class Keyboard {
    * @public
    */
   init() {
-    window.addEventListener('keydown', this.handleEvent, false)
-    window.addEventListener('keyup', this.handleEvent, false)
+    window.addEventListener('keydown', e => this.handleEvent(e), false)
+    window.addEventListener('keyup', e => this.handleEvent(e), false)
 
     this.isInitialized = true
   }
 
   /**
-   * Test if there is at least one keyboard key is down.
+   * Check if there is at least one keyboard key is down.
    *
    * @public
    */
