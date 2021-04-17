@@ -41,10 +41,10 @@ export class Character extends MovableObject {
  */
 export class AttackerCharacter extends Character {
   /**
-   * @param {import('../../engine/layer').Layer} layer
+   * @param {import('../../engine').Layer} layer
    * @param {{
-   *    animationsMap: import('../../engine/gameObjects/animation').AnimationsMap
-   *    position: import('../../engine/math/vector').Vector
+   *    animationsMap: import('../../engine').AnimationsMap
+   *    position: import('../../engine').Vector
    * }} attackerCharacterConfig
    */
   constructor(layer, attackerCharacterConfig) {

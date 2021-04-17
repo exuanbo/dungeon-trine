@@ -91,7 +91,7 @@ export class Controller {
               case 'ArrowLeft':
                 gameLayer.player.directions.set(
                   /**
-                   * @type {import('./engine/gameObjects/models/movableObject').Direction}
+                   * @type {import('./engine').Direction}
                    *
                    * @example
                    * 'Right'

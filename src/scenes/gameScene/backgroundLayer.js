@@ -100,7 +100,7 @@ export class BackgroundLayer extends Layer {
   }
 
   /**
-   * @param {import('../../engine/scene').Scene} scene
+   * @param {import('../../engine').Scene} scene
    */
   constructor(scene) {
     super(scene)

@@ -29,7 +29,7 @@ import {
  * @param {AnimationDetailsMap} animationDetailsMap
  */
 export const createAnimationsMap = (spriteSheets, animationDetailsMap) => {
-  /** @type {import('../engine/gameObjects/animation').AnimationsMap} */
+  /** @type {import('../engine').AnimationsMap} */
   const animationsMap = {}
 
   for (const [animationName, animationDetails] of Object.entries(
