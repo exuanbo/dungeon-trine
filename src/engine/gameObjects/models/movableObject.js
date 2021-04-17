@@ -1,7 +1,9 @@
 import { ActableObject } from './actableObject.js'
 
 /**
- * @typedef {import('./actableObject').ActableObjectConfig} MovableObjectConfig
+ * @typedef {import('./actableObject').ActableObjectConfig & {
+ *    speed?: number
+ * }} MovableObjectConfig
  */
 
 /**
@@ -13,8 +15,8 @@ export class MovableObject extends ActableObject {
    * @param {import('../../layer').Layer} layer
    * @param {MovableObjectConfig} movableObjectConfig
    */
-  constructor(layer, movableObjectConfig) {
-    super(layer, /* actableObjectConfig */ movableObjectConfig)
+  constructor(layer, { speed = 1, ...actableObjectConfig }) {
+    super(layer, actableObjectConfig)
 
     this.addAction([this.willMove, this.move])
 
@@ -33,11 +35,11 @@ export class MovableObject extends ActableObject {
     ])
 
     /**
-     * Default moving speed. Pixels per `update`.
+     * How many pixels will the object move on each `update`. Default to `1`.
      *
      * @protected
      */
-    this.speed = 1
+    this.speed = speed
   }
 
   /**
