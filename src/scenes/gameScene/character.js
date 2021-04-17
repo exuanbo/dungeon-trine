@@ -1,7 +1,36 @@
 import { MovableObject } from '../../engine/index.js'
 import { data } from '../../data.js'
 
+/**
+ * @typedef {import('../../engine').MovableObjectConfig & {
+ *    totalHealth?: number
+ *    health?: number
+ * }} CharacterConfig
+ */
+
 export class Character extends MovableObject {
+  /**
+   * @param {import('./gameLayer').GameLayer} layer
+   * @param {CharacterConfig} characterConfig
+   */
+  constructor(layer, { totalHealth = 5, health, ...movableObjectConfig }) {
+    super(layer, movableObjectConfig)
+
+    /**
+     * The total health of the character.
+     *
+     * @public
+     */
+    this.totalHealth = totalHealth
+
+    /**
+     * The current health of the character. Default to `totalHealth`.
+     *
+     * @public
+     */
+    this.health = health || totalHealth
+  }
+
   /**
    * Move action.
    *
@@ -34,21 +63,37 @@ export class Character extends MovableObject {
       this.position.set(originalX, originalY)
     }
   }
+
+  /**
+   * Reduce `health` of the character by the passed damage value.
+   *
+   * @public
+   *
+   * @param {number} damage
+   */
+  takeDamage(damage) {
+    this.health -= damage
+
+    if (this.health <= 0) {
+      throw new Error('Not implemented.')
+    }
+  }
 }
 
 /**
- * Charactor that can attack.
+ * @typedef {CharacterConfig} AttackerCharacterConfig
+ */
+
+/**
+ * `Character` that can attack.
  */
 export class AttackerCharacter extends Character {
   /**
-   * @param {import('../../engine').Layer} layer
-   * @param {{
-   *    animationsMap: import('../../engine').AnimationsMap
-   *    position: import('../../engine').Vector
-   * }} attackerCharacterConfig
+   * @param {import('./gameLayer').GameLayer} layer
+   * @param {AttackerCharacterConfig} attackerCharacterConfig
    */
   constructor(layer, attackerCharacterConfig) {
-    super(layer, /* actableObjectConfig */ attackerCharacterConfig)
+    super(layer, /* characterConfig */ attackerCharacterConfig)
 
     this.prioritizedAnimationNames.add('attack')
 
