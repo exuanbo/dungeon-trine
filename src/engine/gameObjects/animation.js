@@ -6,7 +6,7 @@ export class AnimationFrame {
    *    sprite: import('./sprite').Sprite
    *    box?: Box
    *    duration?: number
-   * }} animationFrameMeta
+   * }} animationFrameConfig
    */
   constructor({ sprite, box, duration = 15 }) {
     /**

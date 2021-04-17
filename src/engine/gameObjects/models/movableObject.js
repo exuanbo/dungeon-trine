@@ -1,17 +1,17 @@
 import { ActableObject } from './actableObject.js'
 
 /**
+ * @typedef {import('./actableObject').ActableObjectConfig} MovableObjectConfig
+ */
+
+/**
  * @typedef {'Up' | 'Right' | 'Down' | 'Left'} Direction
  */
 
 export class MovableObject extends ActableObject {
   /**
    * @param {import('../../layer').Layer} layer
-   * @param {{
-   *    animationsMap: import('../animation').AnimationsMap
-   *    defaultAnimationName?: string
-   *    position: import('../../math/vector').Vector
-   * }} movableObjectConfig
+   * @param {MovableObjectConfig} movableObjectConfig
    */
   constructor(layer, movableObjectConfig) {
     super(layer, /* actableObjectConfig */ movableObjectConfig)

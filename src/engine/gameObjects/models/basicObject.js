@@ -1,10 +1,14 @@
+/**
+ * @typedef {{
+ *    animation: import('../animation').Animation
+ *    position: import('../../math/vector').Vector
+ * }} BaseObjectConfig
+ */
+
 export class BaseObject {
   /**
    * @param {import('../../layer').Layer} layer
-   * @param {{
-   *    animation: import('../animation').Animation
-   *    position: import('../../math/vector').Vector
-   * }} baseObjectConfig
+   * @param {BaseObjectConfig} baseObjectConfig
    */
   constructor(layer, { animation, position }) {
     /**

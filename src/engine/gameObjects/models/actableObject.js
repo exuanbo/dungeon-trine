@@ -1,17 +1,21 @@
 import { BaseObject } from './basicObject.js'
 
 /**
+ * @typedef {{
+ *    animationsMap: import('../animation').AnimationsMap
+ *    defaultAnimationName?: string
+ *    position: import('../../math/vector').Vector
+ * }} ActableObjectConfig
+ */
+
+/**
  * @typedef {[predicate: () => boolean, action: () => void]} PredicateActionPair
  */
 
 export class ActableObject extends BaseObject {
   /**
    * @param {import('../../layer').Layer} layer
-   * @param {{
-   *    animationsMap: import('../animation').AnimationsMap
-   *    defaultAnimationName?: string
-   *    position: import('../../math/vector').Vector
-   * }} actableObjectConfig
+   * @param {ActableObjectConfig} actableObjectConfig
    */
   constructor(
     layer,

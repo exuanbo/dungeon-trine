@@ -1,13 +1,17 @@
 import { Timer } from './timer.js'
 import { appendLayersCanvas } from './dom.js'
 
+/**
+ * @typedef {{
+ *    sceneName: string
+ *    width: number
+ *    height: number
+ * }} SceneConfig
+ */
+
 export class Scene {
   /**
-   * @param {{
-   *    sceneName: string
-   *    width: number
-   *    height: number
-   * }} sceneConfig
+   * @param {SceneConfig} sceneConfig
    */
   constructor({ sceneName, width, height }) {
     /**

@@ -1,13 +1,17 @@
 import { createLayerCanvasContext } from './dom.js'
 
 /**
+ * @typedef {{ zIndex?: number }} LayerConfig
+ */
+
+/**
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#use_multiple_layered_canvases_for_complex_scenes
  * |Use multiple layered canvases for complex scenes}
  */
 export class Layer {
   /**
    * @param {import('./scene').Scene} scene
-   * @param {{ zIndex?: number }=} layerConfig
+   * @param {LayerConfig=} layerConfig
    */
   constructor(scene, { zIndex } = {}) {
     /**
