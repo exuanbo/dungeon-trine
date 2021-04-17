@@ -3,7 +3,7 @@ import { Knight } from './player.js'
 
 export class GameLayer extends Layer {
   /**
-   * @param {import('../../engine').Scene} scene
+   * @param {import('.').GameScene} scene
    */
   constructor(scene) {
     super(scene, /* layerConfig */ { zIndex: 1 })
