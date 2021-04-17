@@ -1,4 +1,4 @@
-export * from './basicObject.js'
+export * from './baseObject.js'
 
 export * from './actableObject.js'
 

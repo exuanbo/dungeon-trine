@@ -1,4 +1,4 @@
-import { BaseObject } from './basicObject.js'
+import { BaseObject } from './baseObject.js'
 
 /**
  * @typedef {{
