@@ -3,7 +3,6 @@ import { appendLayersCanvas } from './dom.js'
 
 /**
  * @typedef {{
- *    sceneName: string
  *    width: number
  *    height: number
  * }} SceneConfig
@@ -11,9 +10,10 @@ import { appendLayersCanvas } from './dom.js'
 
 export class Scene {
   /**
+   * @param {string} sceneName
    * @param {SceneConfig} sceneConfig
    */
-  constructor({ sceneName, width, height }) {
+  constructor(sceneName, { width, height }) {
     /**
      * Reference to the `Game` instance. Set by `Game.addScene`.
      *

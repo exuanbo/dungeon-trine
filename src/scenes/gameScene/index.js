@@ -7,7 +7,7 @@ export class GameScene extends Scene {
   constructor() {
     const { width, height } = data.config
 
-    super(/* sceneConfig */ { sceneName: 'game', width, height })
+    super(/* sceneName */ 'game', /* sceneConfig */ { width, height })
 
     this.addLayer('background', new BackgroundLayer(/* scene */ this))
     this.addLayer('game', new GameLayer(/* scene */ this))
