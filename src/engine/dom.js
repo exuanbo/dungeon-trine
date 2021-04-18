@@ -39,7 +39,7 @@ export const createLayerCanvasContext = (width, height, zIndex = 0) => {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
-  canvas.style.zIndex = zIndex.toString()
+  canvas.style.cssText = `position: absolute; zIndex: ${zIndex}; max-width: 100%; max-height: 100%;`
   return canvas.getContext('2d')
 }
 
@@ -64,7 +64,7 @@ export const appendLayersCanvas = (
     (document.querySelector(containerSelector))
 
   container.innerHTML = ''
-  container.style.cssText = `width: ${width}; height: ${height};`
+  container.style.cssText = `width: ${width}; max-width: 100%; height: ${height}; max-height: 100%;`
 
   for (const layer of layers.values()) {
     container.appendChild(layer.ctx.canvas)
