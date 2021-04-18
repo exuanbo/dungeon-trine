@@ -150,12 +150,25 @@ export class ActableObject extends BaseObject {
   }
 
   /**
+   * Call each `action` in `actions` if `predicate` returns `true`.
+   *
+   * @protected
+   */
+  takeActions() {
+    Array.from(this.actions)
+      .reverse()
+      .forEach(([predicate, action]) => {
+        if (predicate()) {
+          action()
+        }
+      })
+  }
+
+  /**
    * Clear the current animation frame sprite from the current layer
    * and update the current animation frame index.
    *
-   * Call `stop` and early return if `willStop` is true.
-   *
-   * Call the actions if their predicates are fulfilled.
+   * Call `stop` if `willStop` is `true` else call `takeActions`.
    *
    * @override
    * @public
@@ -169,16 +182,9 @@ export class ActableObject extends BaseObject {
 
     if (this.willStop) {
       this.stop()
-      return
+    } else {
+      this.takeActions()
     }
-
-    Array.from(this.actions)
-      .reverse()
-      .forEach(([predicate, action]) => {
-        if (predicate()) {
-          action()
-        }
-      })
   }
 
   /**
