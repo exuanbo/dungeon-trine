@@ -188,11 +188,13 @@ export class AttackerCharacter extends Character {
   }
 
   /**
-   * Override `Character.stop`.
-   *
-   * Early return if the animation is not finished.
+   * Early return if `hasAttacked` is `true` and `animation.isAllFramesDone` is `false`.
    *
    * Change `hasAttacked` back to `false`.
+   *
+   * Set animation to `idle`.
+   *
+   * Change `willStop` back to `false` if succeed.
    *
    * @override
    * @protected
@@ -202,7 +204,7 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    super.stop()
     this.hasAttacked = false
+    super.stop()
   }
 }
