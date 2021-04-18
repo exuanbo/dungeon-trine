@@ -1,6 +1,9 @@
 import { Layer } from '../../engine/index.js'
 import { Knight } from './player.js'
 
+/**
+ * @extends {Layer<import('.').GameScene>}
+ */
 export class GameLayer extends Layer {
   /**
    * @param {import('.').GameScene} scene
