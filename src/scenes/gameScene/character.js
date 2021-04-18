@@ -86,6 +86,7 @@ export class Character extends MovableObject {
 /**
  * @typedef {CharacterConfig & {
  *    attackInterval?: number
+ *    damage?: number
  * }} AttackerCharacterConfig
  */
 
@@ -97,7 +98,7 @@ export class AttackerCharacter extends Character {
    * @param {import('./gameLayer').GameLayer} layer
    * @param {AttackerCharacterConfig} attackerCharacterConfig
    */
-  constructor(layer, { attackInterval = 60, ...characterConfig }) {
+  constructor(layer, { attackInterval = 60, damage = 1, ...characterConfig }) {
     super(layer, characterConfig)
 
     this.prioritizedAnimationNames.add('attack')
@@ -124,16 +125,8 @@ export class AttackerCharacter extends Character {
     this.hasAttacked = false
 
     /**
-     * Attack interval.
-     *
-     * The unit is how many times `update` is called. Default to `60`.
-     *
-     * @private
-     */
-    this.attackInterval = attackInterval
-
-    /**
      * `Scene.timer` timeout task id for the last attack.
+     *
      * Used for checking if enough time had passed since the last attack.
      *
      * @private
@@ -141,6 +134,24 @@ export class AttackerCharacter extends Character {
      * @type {number}
      */
     this.attackTimeoutTaskId = undefined
+
+    /**
+     * The number of `health` would the attacker cause other to reduce.
+     *
+     * Default to `1`.
+     *
+     * @private
+     */
+    this.damage = damage
+
+    /**
+     * Attack interval.
+     *
+     * The unit is how many times `update` is called. Default to `60`.
+     *
+     * @private
+     */
+    this.attackInterval = attackInterval
   }
 
   /**
