@@ -129,21 +129,37 @@ export class AttackerCharacter extends Character {
     this.attackInterval = 45
 
     /**
-     * The scene timer task id for the last attack.
-     * Used for deciding if enough time had passed since the last attack.
+     * `Scene.timer` timeout task id for the last attack.
+     * Used for checking if enough time had passed since the last attack.
      *
      * @private
      *
      * @type {number}
      */
-    this.attackTaskId = undefined
+    this.attackTimeoutTaskId = undefined
+  }
+
+  /**
+   * whether the frames interval between two attacks is less than `attackInterval`
+   * by checking if the task with `attackTimeoutTaskId` is done.
+   *
+   * @private
+   */
+  isReadyForNextAttack() {
+    if (this.attackTimeoutTaskId === undefined) {
+      return true
+    }
+
+    return this.layer.scene.timer.isTaskDone(
+      /* taskId */ this.attackTimeoutTaskId
+    )
   }
 
   /**
    * Attack action.
    *
    * Early return if the character has already attacked before `stop`
-   * or the frames interval between two attacks is less than `attackInterval`.
+   * or `isReadyForNextAttack()` returns `false`.
    *
    * Change `hasAttacked` to `true`.
    *
@@ -155,14 +171,14 @@ export class AttackerCharacter extends Character {
       return
     }
 
-    if (!this.layer.scene.timer.isTaskDone(/* taskId */ this.attackTaskId)) {
+    if (!this.isReadyForNextAttack()) {
       return
     }
 
     this.setAnimation('attack')
 
     this.hasAttacked = true
-    this.attackTaskId = this.layer.scene.timer.setTimeout(
+    this.attackTimeoutTaskId = this.layer.scene.timer.setTimeout(
       /* delay */ this.attackInterval
     )
   }
