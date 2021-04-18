@@ -112,7 +112,7 @@ export class Timer {
 
   /**
    * Test if the task with the passed `taskId` is done
-   * by checking wheather the task id is still in `tasks`.
+   * by checking whether the task id is still in `tasks`.
    *
    * @public
    *
@@ -149,7 +149,7 @@ export class Timer {
   /**
    * Reset the counter of the timeout task with the passed `taskId`.
    *
-   * Return wheather the task has been successfully reset.
+   * Return whether the task has been successfully reset.
    *
    * @public
    *
@@ -170,7 +170,7 @@ export class Timer {
   /**
    * Cancel the timeout task with the passed `taskId` and delete it from `tasks`.
    *
-   * Return wheather the task has been successfully canceled.
+   * Return whether the task has been successfully canceled.
    *
    * @public
    *
@@ -208,7 +208,7 @@ export class Timer {
   /**
    * Reset the counter of the repeating task with the passed `taskId`.
    *
-   * Return wheather the task has been successfully reset.
+   * Return whether the task has been successfully reset.
    *
    * @public
    *
@@ -222,7 +222,7 @@ export class Timer {
   /**
    * Cancel the repeating task with the passed `taskId` and delete it from `tasks`.
    *
-   * Return wheather the task has been successfully canceled.
+   * Return whether the task has been successfully canceled.
    *
    * @public
    *
