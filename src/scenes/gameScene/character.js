@@ -8,6 +8,9 @@ import { data } from '../../data.js'
  * }} CharacterConfig
  */
 
+/**
+ * @extends {MovableObject<import('./gameLayer').GameLayer>}
+ */
 export class Character extends MovableObject {
   /**
    * @param {import('./gameLayer').GameLayer} layer

@@ -5,9 +5,12 @@
  * }} BaseObjectConfig
  */
 
+/**
+ * @template {import('../../layer').Layer} L
+ */
 export class BaseObject {
   /**
-   * @param {import('../../layer').Layer} layer
+   * @param {L} layer
    * @param {BaseObjectConfig} baseObjectConfig
    */
   constructor(layer, { animation, position }) {

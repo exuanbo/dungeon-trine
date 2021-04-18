@@ -10,9 +10,13 @@ import { ActableObject } from './actableObject.js'
  * @typedef {'Up' | 'Right' | 'Down' | 'Left'} Direction
  */
 
+/**
+ * @template {import('../../layer').Layer} L
+ * @extends {ActableObject<L>}
+ */
 export class MovableObject extends ActableObject {
   /**
-   * @param {import('../../layer').Layer} layer
+   * @param {L} layer
    * @param {MovableObjectConfig} movableObjectConfig
    */
   constructor(layer, { speed = 1, ...actableObjectConfig }) {

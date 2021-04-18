@@ -12,9 +12,13 @@ import { BaseObject } from './baseObject.js'
  * @typedef {[predicate: () => boolean, action: () => void]} PredicateActionPair
  */
 
+/**
+ * @template {import('../../layer').Layer} L
+ * @extends {BaseObject<L>}
+ */
 export class ActableObject extends BaseObject {
   /**
-   * @param {import('../../layer').Layer} layer
+   * @param {L} layer
    * @param {ActableObjectConfig} actableObjectConfig
    */
   constructor(
