@@ -9,7 +9,7 @@ import {
 import { data } from '../data.js'
 
 /**
- * Animation entries object from `data`.
+ * Animation details map from `data`.
  *
  * @typedef {Object<
  *    string,
@@ -25,19 +25,18 @@ import { data } from '../data.js'
  */
 
 /**
- * Create `<animationName, Animation>` map from provided animation entries.
+ * Create `<animationName, Animation>` map from passed animation details map.
  *
- * @param {Object<string, HTMLImageElement | HTMLCanvasElement> } spriteSheets
  * @param {AnimationDetailsMap} animationDetailsMap
  */
-export const createAnimationsMap = (spriteSheets, animationDetailsMap) => {
+export const createAnimationsMap = animationDetailsMap => {
   /** @type {import('../engine').AnimationsMap} */
   const animationsMap = {}
 
   for (const [animationName, animationDetails] of Object.entries(
     animationDetailsMap
   )) {
-    const spriteSheet = spriteSheets[animationDetails.spriteSheet]
+    const spriteSheet = data.assets.images[animationDetails.spriteSheet]
 
     const animationFrames = animationDetails.frames.map(frame => {
       const sprite = new Sprite(spriteSheet, ...frame.sprite)

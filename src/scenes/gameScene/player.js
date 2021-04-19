@@ -8,8 +8,7 @@ export class Knight extends AttackerCharacter {
    */
   constructor(layer) {
     const animationsMap = createAnimationsMap(
-      /* spriteSheets */ data.assets.images,
-      /* animationEntries */ data.animations.characters.knight
+      /* animationDetailsMap */ data.animations.characters.knight
     )
 
     const position = randomPosition(/* offsetX */ 96, /* offsetY */ 56)
