@@ -70,13 +70,13 @@ export class Box {
    * @public
    */
   isPointInBox(point) {
-    const position = this.getActualPosition()
+    const actualPosition = this.getActualPosition()
 
     return (
-      position.x <= point.x &&
-      point.x <= position.x + this.width &&
-      position.y <= point.y &&
-      point.y <= position.y + this.height
+      actualPosition.x <= point.x &&
+      point.x <= actualPosition.x + this.width &&
+      actualPosition.y <= point.y &&
+      point.y <= actualPosition.y + this.height
     )
   }
 
