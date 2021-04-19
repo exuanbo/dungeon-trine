@@ -19,21 +19,17 @@ export class TinyZombie extends AttackerCharacter {
    * @param {import('./gameLayer').GameLayer} layer
    */
   constructor(layer) {
-    const animationsMap = createAnimationsMap(
-      /* animationDetailsMap */ data.animations.characters.tinyZombie
-    )
-
-    const position = randomPosition(
-      /* horizontalOffset */ 32,
-      /* verticalOffset */ 32
-    )
-
     super(
       layer,
       /* attackerCharacterConfig */ {
-        animationsMap,
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.tinyZombie
+        ),
         defaultAnimationName: 'move',
-        position,
+        position: randomPosition(
+          /* horizontalOffset */ 32,
+          /* verticalOffset */ 32
+        ),
         speed: 1
       }
     )

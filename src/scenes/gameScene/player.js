@@ -7,18 +7,18 @@ export class Knight extends AttackerCharacter {
    * @param {import('./gameLayer').GameLayer} layer
    */
   constructor(layer) {
-    const animationsMap = createAnimationsMap(
-      /* animationDetailsMap */ data.animations.characters.knight
-    )
-
-    const position = randomPosition(
-      /* horizontalOffset */ 96,
-      /* verticalOffset */ 56
-    )
-
     super(
       layer,
-      /* attackerCharacterConfig */ { animationsMap, position, speed: 2 }
+      /* attackerCharacterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.knight
+        ),
+        position: randomPosition(
+          /* horizontalOffset */ 96,
+          /* verticalOffset */ 56
+        ),
+        speed: 2
+      }
     )
 
     /**
