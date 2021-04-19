@@ -1,3 +1,7 @@
 {
-  "images": ["assets/0x72_DungeonTilesetII_v1.3.png", "assets/knight.png"]
+  "images": [
+    "assets/0x72_DungeonTilesetII_v1.3.png",
+    "assets/knight.png",
+    "assets/wizard.png"
+  ]
 }
