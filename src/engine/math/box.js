@@ -81,13 +81,13 @@ export class Box {
   }
 
   /**
-   * Test if the two boxes collide.
+   * Check whether the two boxes collide.
    *
    * @param {Box} other
    *
    * @public
    */
-  isCollidedWith(other) {
+  isCollidingWith(other) {
     for (const getOtherVertex of other.vertices.values()) {
       if (this.isPointInBox(getOtherVertex())) {
         return true
