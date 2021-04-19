@@ -11,7 +11,10 @@ export class Knight extends AttackerCharacter {
       /* animationDetailsMap */ data.animations.characters.knight
     )
 
-    const position = randomPosition(/* offsetX */ 96, /* offsetY */ 56)
+    const position = randomPosition(
+      /* horizontalOffset */ 96,
+      /* verticalOffset */ 56
+    )
 
     super(
       layer,

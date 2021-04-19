@@ -62,20 +62,20 @@ export const createAnimationsMap = animationDetailsMap => {
 /**
  * Create a random position `Vector`.
  *
- * @param {number} offsetX
- * @param {number} offsetY
+ * @param {number} horizontalOffset
+ * @param {number} verticalOffset
  */
-export const randomPosition = (offsetX, offsetY) => {
+export const randomPosition = (horizontalOffset, verticalOffset) => {
   const { width, height, tileSize } = data.config
 
   return vector(
     /* x */ randomInt(
-      /* min */ tileSize + offsetX,
-      /* max */ width - tileSize - offsetX
+      /* min */ tileSize + horizontalOffset,
+      /* max */ width - tileSize - horizontalOffset
     ),
     /* y */ randomInt(
-      /* min */ tileSize * 2 + offsetY,
-      /* max */ height - tileSize - 8 - offsetY
+      /* min */ tileSize * 2 + verticalOffset,
+      /* max */ height - tileSize - 8 - verticalOffset
     )
   )
 }

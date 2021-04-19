@@ -23,7 +23,10 @@ export class TinyZombie extends AttackerCharacter {
       /* animationDetailsMap */ data.animations.characters.tinyZombie
     )
 
-    const position = randomPosition(/* offsetX */ 32, /* offsetY */ 32)
+    const position = randomPosition(
+      /* horizontalOffset */ 32,
+      /* verticalOffset */ 32
+    )
 
     super(
       layer,
