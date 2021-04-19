@@ -13,13 +13,13 @@ export class GameRenderer {
     this.animationFrameRequestId = undefined
 
     /**
-     * The last time `game` is rendered.
+     * The last time `Game.update` is called.
      *
      * @private
      *
      * @type {number}
      */
-    this.lastRenderTime = undefined
+    this.lastUpdateTime = undefined
 
     /**
      * Milliseconds between two updates.
@@ -41,7 +41,7 @@ export class GameRenderer {
       this.render(game)
     )
 
-    let delta = performance.now() - this.lastRenderTime
+    let delta = performance.now() - this.lastUpdateTime
 
     if (delta < this.timeStep) {
       return
@@ -52,7 +52,7 @@ export class GameRenderer {
       delta -= this.timeStep
     }
 
-    this.lastRenderTime = performance.now()
+    this.lastUpdateTime = performance.now()
     game.render()
   }
 
