@@ -20,6 +20,15 @@ export class Character extends MovableObject {
     super(layer, movableObjectConfig)
 
     /**
+     * Whether the character is user controlled player.
+     *
+     * Default to `false`.
+     *
+     * @public
+     */
+    this.isPlayer = false
+
+    /**
      * The total health of the character.
      *
      * @public
