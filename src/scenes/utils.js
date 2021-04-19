@@ -3,8 +3,10 @@ import {
   Animation,
   AnimationFrame,
   vector,
-  Box
+  Box,
+  randomInt
 } from '../engine/index.js'
+import { data } from '../data.js'
 
 /**
  * Animation entries object from `data`.
@@ -56,4 +58,25 @@ export const createAnimationsMap = (spriteSheets, animationDetailsMap) => {
   }
 
   return animationsMap
+}
+
+/**
+ * Create a random position `Vector`.
+ *
+ * @param {number} offsetX
+ * @param {number} offsetY
+ */
+export const randomPosition = (offsetX, offsetY) => {
+  const { width, height, tileSize } = data.config
+
+  return vector(
+    /* x */ randomInt(
+      /* min */ tileSize + offsetX,
+      /* max */ width - tileSize - offsetX
+    ),
+    /* y */ randomInt(
+      /* min */ tileSize * 2 + offsetY,
+      /* max */ height - tileSize - 8 - offsetY
+    )
+  )
 }

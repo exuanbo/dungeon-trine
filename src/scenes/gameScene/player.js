@@ -1,7 +1,6 @@
 import { AttackerCharacter } from './character.js'
-import { createAnimationsMap } from '../utils.js'
+import { createAnimationsMap, randomPosition } from '../utils.js'
 import { data } from '../../data.js'
-import { vector } from '../../engine/index.js'
 
 export class Knight extends AttackerCharacter {
   /**
@@ -13,18 +12,11 @@ export class Knight extends AttackerCharacter {
       /* animationEntries */ data.animations.characters.knight
     )
 
-    const { width, height, tileSize } = data.config
+    const position = randomPosition(/* offsetX */ 96, /* offsetY */ 56)
 
-    const position = vector(
-      /* x */ width / 2 - tileSize / 2,
-      /* y */ height / 2 - tileSize / 2
+    super(
+      layer,
+      /* attackerCharacterConfig */ { animationsMap, position, speed: 2 }
     )
-
-    super(layer, /* attackerCharacterConfig */ { animationsMap, position })
-
-    /**
-     * @override
-     */
-    this.speed = 2
   }
 }
