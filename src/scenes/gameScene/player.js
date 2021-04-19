@@ -43,7 +43,6 @@ export class Wizard extends AttackerCharacter {
           /* horizontalOffset */ 64,
           /* verticalOffset */ 64
         ),
-        speed: 1,
         attackInterval: 120
       }
     )
