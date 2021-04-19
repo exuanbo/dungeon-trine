@@ -2,7 +2,22 @@ import { AttackerCharacter } from './character.js'
 import { createAnimationsMap, randomPosition } from '../utils.js'
 import { data } from '../../data.js'
 
-export class Knight extends AttackerCharacter {
+export class Player extends AttackerCharacter {
+  /**
+   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./character').AttackerCharacterConfig} attackerCharacterConfig
+   */
+  constructor(layer, attackerCharacterConfig) {
+    super(layer, attackerCharacterConfig)
+
+    /**
+     * @public
+     */
+    this.isPlayer = true
+  }
+}
+
+export class Knight extends Player {
   /**
    * @param {import('./gameLayer').GameLayer} layer
    */
