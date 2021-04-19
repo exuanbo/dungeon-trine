@@ -1,5 +1,5 @@
 import { MovableObject } from '../../engine/index.js'
-import { data } from '../../data.js'
+import { handleCollisionWithWall } from '../utils.js'
 
 /**
  * @typedef {import('../../engine').MovableObjectConfig & {
@@ -58,22 +58,15 @@ export class Character extends MovableObject {
 
     super.move()
 
-    const currentAnimationFrame = this.animation.getCurrentFrame()
-
-    const hitbox = currentAnimationFrame.getBox(this.position)
-    const hitboxActualPosition = hitbox.getActualPosition()
-
-    const { config } = data
-
-    if (
-      hitboxActualPosition.x <= config.tileSize ||
-      hitboxActualPosition.x + hitbox.width >= config.width - config.tileSize ||
-      this.position.y <= config.tileSize ||
-      this.position.y + currentAnimationFrame.sprite.height >=
-        config.height - config.tileSize - 4
-    ) {
-      this.position.set(originalX, originalY)
-    }
+    handleCollisionWithWall(
+      /* cb */ () => {
+        this.position.set(originalX, originalY)
+      },
+      /* gameObjectConfig */ {
+        animationFrame: this.animation.getCurrentFrame(),
+        position: this.position
+      }
+    )
   }
 
   /**

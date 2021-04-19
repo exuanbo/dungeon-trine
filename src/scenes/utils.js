@@ -9,6 +9,32 @@ import {
 import { data } from '../data.js'
 
 /**
+ * Callback if the game object is colliding with wall.
+ *
+ * @param {() => void} cb
+ * @param {{
+ *    animationFrame: AnimationFrame
+ *    position: import('../engine').Vector
+ * }} gameObjectConfig
+ */
+export const handleCollisionWithWall = (cb, { animationFrame, position }) => {
+  const hitbox = animationFrame.getBox(position)
+  const hitboxActualPosition = hitbox.getActualPosition()
+
+  const { config } = data
+
+  if (
+    hitboxActualPosition.x <= config.tileSize ||
+    hitboxActualPosition.x + hitbox.width >= config.width - config.tileSize ||
+    position.y <= config.tileSize ||
+    position.y + animationFrame.sprite.height >=
+      config.height - config.tileSize - 4
+  ) {
+    cb()
+  }
+}
+
+/**
  * Animation details map from `data`.
  *
  * @typedef {Object<
