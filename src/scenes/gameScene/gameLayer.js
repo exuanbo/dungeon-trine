@@ -1,5 +1,6 @@
 import { Layer } from '../../engine/index.js'
 import { Knight } from './player.js'
+import { randomMonsters } from './monster.js'
 
 /**
  * @extends {Layer<import('.').GameScene>}
@@ -17,15 +18,28 @@ export class GameLayer extends Layer {
      * @public
      */
     this.player = new Knight(/* layer */ this)
+
+    /**
+     * The monsters on the layer.
+     *
+     * @private
+     */
+    this.monsters = new Set(
+      randomMonsters(/* layer */ this, /* options */ { maxAmount: 5 })
+    )
   }
 
   /**
-   * Update every game object.
+   * Update each game object.
    *
    * @override
    * @public
    */
   update() {
+    this.monsters.forEach(monster => {
+      monster.update()
+    })
+
     this.player.update()
   }
 
@@ -36,6 +50,10 @@ export class GameLayer extends Layer {
    * @public
    */
   render() {
+    this.monsters.forEach(monster => {
+      monster.render()
+    })
+
     this.player.render()
   }
 
@@ -48,6 +66,12 @@ export class GameLayer extends Layer {
   destroy() {
     this.player.destroy()
     this.player = null
+
+    this.monsters.forEach(monster => {
+      monster.destroy()
+    })
+    this.monsters.clear()
+
     super.destroy()
   }
 }
