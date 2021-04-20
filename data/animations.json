@@ -121,6 +121,15 @@
       }
     },
     "tinyZombie": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [800, 32, 32, 32],
+            "boundingBox": [8, 16, 18, 16]
+          }
+        ]
+      },
       "move": {
         "spriteSheet": "0x72_DungeonTilesetII_v1.3",
         "frames": [
