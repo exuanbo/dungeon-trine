@@ -37,8 +37,8 @@ export class Floor extends Tile {
     const { tileSize } = data.config
 
     super(
-      /* sx */ 32,
-      /* sy */ 128,
+      /* sx */ 64,
+      /* sy */ 256,
       /* sWidth */ tileSize,
       /* sHeight */ tileSize,
       dx,

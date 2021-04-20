@@ -5,20 +5,20 @@
         "spriteSheet": "knight",
         "frames": [
           {
-            "sprite": [0, 0, 96, 56],
-            "boundingBox": [36, 24, 24, 32]
+            "sprite": [0, 0, 192, 112],
+            "boundingBox": [72, 48, 48, 64]
           },
           {
-            "sprite": [96, 0, 96, 56],
-            "boundingBox": [36, 26, 24, 30]
+            "sprite": [192, 0, 192, 112],
+            "boundingBox": [72, 52, 48, 60]
           },
           {
-            "sprite": [192, 0, 96, 56],
-            "boundingBox": [36, 28, 24, 32]
+            "sprite": [384, 0, 192, 112],
+            "boundingBox": [72, 56, 48, 64]
           },
           {
-            "sprite": [288, 0, 96, 56],
-            "boundingBox": [36, 26, 24, 30]
+            "sprite": [576, 0, 192, 112],
+            "boundingBox": [72, 52, 48, 60]
           }
         ]
       },
@@ -26,20 +26,20 @@
         "spriteSheet": "knight",
         "frames": [
           {
-            "sprite": [0, 56, 96, 56],
-            "boundingBox": [36, 22, 24, 32]
+            "sprite": [0, 112, 192, 112],
+            "boundingBox": [72, 44, 48, 64]
           },
           {
-            "sprite": [96, 56, 96, 56],
-            "boundingBox": [36, 20, 24, 32]
+            "sprite": [192, 112, 192, 112],
+            "boundingBox": [72, 40, 48, 64]
           },
           {
-            "sprite": [192, 56, 96, 56],
-            "boundingBox": [36, 22, 24, 32]
+            "sprite": [384, 112, 192, 112],
+            "boundingBox": [72, 44, 48, 64]
           },
           {
-            "sprite": [288, 56, 96, 56],
-            "boundingBox": [36, 24, 24, 32]
+            "sprite": [576, 112, 192, 112],
+            "boundingBox": [72, 48, 48, 64]
           }
         ]
       },
@@ -47,13 +47,13 @@
         "spriteSheet": "knight",
         "frames": [
           {
-            "sprite": [0, 112, 96, 56],
-            "boundingBox": [36, 26, 24, 30],
+            "sprite": [0, 224, 192, 112],
+            "boundingBox": [72, 52, 48, 60],
             "duration": 10
           },
           {
-            "sprite": [96, 112, 96, 56],
-            "boundingBox": [36, 26, 24, 30],
+            "sprite": [192, 224, 192, 112],
+            "boundingBox": [72, 52, 48, 60],
             "duration": 10
           }
         ]
@@ -64,20 +64,20 @@
         "spriteSheet": "wizard",
         "frames": [
           {
-            "sprite": [0, 0, 64, 64],
-            "boundingBox": [20, 30, 24, 34]
+            "sprite": [0, 0, 128, 128],
+            "boundingBox": [40, 60, 48, 68]
           },
           {
-            "sprite": [64, 0, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [128, 0, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           },
           {
-            "sprite": [128, 0, 64, 64],
-            "boundingBox": [20, 34, 24, 30]
+            "sprite": [256, 0, 128, 128],
+            "boundingBox": [40, 68, 48, 60]
           },
           {
-            "sprite": [192, 0, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [384, 0, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           }
         ]
       },
@@ -85,20 +85,20 @@
         "spriteSheet": "wizard",
         "frames": [
           {
-            "sprite": [0, 64, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [0, 128, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           },
           {
-            "sprite": [64, 64, 64, 64],
-            "boundingBox": [20, 28, 24, 36]
+            "sprite": [128, 128, 128, 128],
+            "boundingBox": [40, 56, 48, 72]
           },
           {
-            "sprite": [128, 64, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [256, 128, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           },
           {
-            "sprite": [192, 64, 64, 64],
-            "boundingBox": [20, 34, 24, 30]
+            "sprite": [384, 128, 128, 128],
+            "boundingBox": [40, 68, 48, 60]
           }
         ]
       },
@@ -106,16 +106,16 @@
         "spriteSheet": "wizard",
         "frames": [
           {
-            "sprite": [0, 128, 64, 64],
-            "boundingBox": [20, 30, 24, 34]
+            "sprite": [0, 256, 128, 128],
+            "boundingBox": [40, 60, 48, 68]
           },
           {
-            "sprite": [64, 128, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [128, 256, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           },
           {
-            "sprite": [128, 128, 64, 64],
-            "boundingBox": [20, 32, 24, 32]
+            "sprite": [256, 256, 128, 128],
+            "boundingBox": [40, 64, 48, 64]
           }
         ]
       }
@@ -125,8 +125,8 @@
         "spriteSheet": "0x72_DungeonTilesetII_v1.3",
         "frames": [
           {
-            "sprite": [800, 32, 32, 32],
-            "boundingBox": [8, 16, 18, 16]
+            "sprite": [1600, 64, 64, 64],
+            "boundingBox": [16, 32, 36, 32]
           }
         ]
       },
@@ -134,20 +134,20 @@
         "spriteSheet": "0x72_DungeonTilesetII_v1.3",
         "frames": [
           {
-            "sprite": [864, 32, 32, 32],
-            "boundingBox": [8, 10, 18, 20]
+            "sprite": [1728, 64, 64, 64],
+            "boundingBox": [16, 20, 36, 40]
           },
           {
-            "sprite": [896, 32, 32, 32],
-            "boundingBox": [8, 8, 18, 18]
+            "sprite": [1792, 64, 64, 64],
+            "boundingBox": [16, 16, 36, 36]
           },
           {
-            "sprite": [928, 32, 32, 32],
-            "boundingBox": [8, 10, 18, 18]
+            "sprite": [1856, 64, 64, 64],
+            "boundingBox": [16, 20, 36, 36]
           },
           {
-            "sprite": [960, 32, 32, 32],
-            "boundingBox": [8, 12, 18, 18]
+            "sprite": [1920, 64, 64, 64],
+            "boundingBox": [16, 24, 36, 36]
           }
         ]
       }

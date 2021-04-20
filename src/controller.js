@@ -36,7 +36,7 @@ export class Controller {
         await this.dataLoader.loadImage(
           /* src */ assets.images,
           /* options */ {
-            scale: 2,
+            scale: 4,
             key: 'images',
             target: data.assets
           }

@@ -57,8 +57,8 @@ export class Knight extends Player {
           /* animationDetailsMap */ data.animations.characters.knight
         ),
         position: randomPosition(
-          /* horizontalOffset */ 96,
-          /* verticalOffset */ 56
+          /* horizontalOffset */ 192,
+          /* verticalOffset */ 112
         ),
         speed: 2
       }
@@ -77,11 +77,11 @@ export class Knight extends Player {
         const effectPosition =
           this.face === 'Left'
             ? this.position
-            : this.position.clone().add(/* x */ 30, /* y */ 0)
+            : this.position.clone().add(/* x */ 60, /* y */ 0)
 
         this.layer.effects.add(
           new Effect(this.layer, {
-            animation: createEmptyAnimation(/* width */ 66, /* height */ 56),
+            animation: createEmptyAnimation(/* width */ 132, /* height */ 112),
             position: effectPosition,
             sender: this,
             damage: 2,
@@ -105,8 +105,8 @@ export class Wizard extends Player {
           /* animationDetailsMap */ data.animations.characters.wizard
         ),
         position: randomPosition(
-          /* horizontalOffset */ 64,
-          /* verticalOffset */ 64
+          /* horizontalOffset */ 128,
+          /* verticalOffset */ 128
         ),
         attackInterval: 120
       }

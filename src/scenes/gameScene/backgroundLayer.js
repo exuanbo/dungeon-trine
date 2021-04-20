@@ -32,12 +32,12 @@ export class BackgroundLayer extends Layer {
 
         // left or right side wall
         if (col === 0 || col === tilesPerRow - 1) {
-          const sx = col === 0 ? 0 : 32
+          const sx = col === 0 ? 0 : 64
 
           if (row === 0) {
             tile = new Tile(
               sx,
-              /* sy */ 224,
+              /* sy */ 448,
               /* sWidth */ config.tileSize,
               /* sHeight */ config.tileSize,
               dx,
@@ -46,7 +46,7 @@ export class BackgroundLayer extends Layer {
           } else if (row === tilesPerColumn - 1) {
             tile = new Tile(
               sx,
-              /* sy */ 288,
+              /* sy */ 576,
               /* sWidth */ config.tileSize,
               /* sHeight */ config.tileSize,
               dx,
@@ -55,7 +55,7 @@ export class BackgroundLayer extends Layer {
           } else {
             tile = new Tile(
               sx,
-              /* sy */ 256,
+              /* sy */ 512,
               /* sWidth */ config.tileSize,
               /* sHeight */ config.tileSize,
               dx,
@@ -67,8 +67,8 @@ export class BackgroundLayer extends Layer {
         // top side wall
         else if (row === 0 || row === 1) {
           tile = new Tile(
-            /* sx */ 64,
-            /* sy */ row === 0 ? 0 : 32,
+            /* sx */ 128,
+            /* sy */ row === 0 ? 0 : 64,
             /* sWidth */ config.tileSize,
             /* sHeight */ config.tileSize,
             dx,
@@ -79,12 +79,12 @@ export class BackgroundLayer extends Layer {
         // bottom side wall
         else if (row === tilesPerColumn - 1) {
           tile = new Tile(
-            /* sx */ 64,
-            /* sy */ 24,
+            /* sx */ 128,
+            /* sy */ 48,
             /* sWidth */ config.tileSize,
-            /* sHeight */ config.tileSize + 8,
+            /* sHeight */ config.tileSize + 16,
             dx,
-            dy - 8
+            dy - 16
           )
         }
 

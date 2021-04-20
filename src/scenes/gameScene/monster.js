@@ -27,8 +27,8 @@ export class TinyZombie extends AttackerCharacter {
         ),
         defaultAnimationName: 'move',
         position: randomPosition(
-          /* horizontalOffset */ 32,
-          /* verticalOffset */ 32
+          /* horizontalOffset */ 64,
+          /* verticalOffset */ 64
         ),
         speed: 1
       }
