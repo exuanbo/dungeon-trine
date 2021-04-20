@@ -2,7 +2,7 @@ export class GameRenderer {
   /**
    * @param {number=} timeStep
    */
-  constructor(timeStep = 10) {
+  constructor(timeStep = 1000 / 90) {
     /**
      * Used in `stop` for cancelling `window.requestAnimationFrame`.
      *
