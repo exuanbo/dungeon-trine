@@ -1,9 +1,30 @@
+import { Sprite } from './sprite.js'
 import { Box } from '../math/box.js'
+
+/**
+ * Create an empty animation with passed `width` and `height`.
+ *
+ * @param {number} width
+ * @param {number} height
+ */
+export const createEmptyAnimation = (width, height) =>
+  new Animation([
+    new AnimationFrame({
+      sprite: new Sprite(
+        /* spriteSheet */ new Image(),
+        /* x */ 0,
+        /* y */ 0,
+        width,
+        height
+      ),
+      duration: Infinity
+    })
+  ])
 
 export class AnimationFrame {
   /**
    * @param {{
-   *    sprite: import('./sprite').Sprite
+   *    sprite: Sprite
    *    box?: Box
    *    duration?: number
    * }} animationFrameConfig
