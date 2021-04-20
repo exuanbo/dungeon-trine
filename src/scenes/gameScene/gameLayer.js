@@ -27,6 +27,46 @@ export class GameLayer extends Layer {
     this.monsters = new Set(
       randomMonsters(/* layer */ this, /* options */ { maxAmount: 5 })
     )
+
+    /**
+     * Effects on the layer.
+     *
+     * @public
+     *
+     * @type {Set<import('./effect').Effect>}
+     */
+    this.effects = new Set()
+  }
+
+  /**
+   * Handle the collision of the game objects.
+   *
+   * @private
+   */
+  handleCollision() {
+    this.effects.forEach(effect => {
+      const hurtBox = effect.getBoundingBox()
+
+      if (effect.sender.isPlayer) {
+        this.monsters.forEach(monster => {
+          if (monster.getBoundingBox().isCollidingWith(hurtBox)) {
+            effect.takeEffect(monster)
+          }
+        })
+      } else {
+        if (this.player.getBoundingBox().isCollidingWith(hurtBox)) {
+          effect.takeEffect(this.player)
+        }
+      }
+    })
+
+    this.monsters.forEach(monster => {
+      if (
+        monster.getBoundingBox().isCollidingWith(this.player.getBoundingBox())
+      ) {
+        this.player.takeDamage(1)
+      }
+    })
   }
 
   /**
@@ -36,11 +76,23 @@ export class GameLayer extends Layer {
    * @public
    */
   update() {
+    Array.from(this.effects).forEach(effect => {
+      if (effect.isExpired()) {
+        effect.destroy()
+        this.effects.delete(effect)
+        return
+      }
+
+      effect.update()
+    })
+
     this.monsters.forEach(monster => {
       monster.update()
     })
 
     this.player.update()
+
+    this.handleCollision()
   }
 
   /**
@@ -50,6 +102,10 @@ export class GameLayer extends Layer {
    * @public
    */
   render() {
+    this.effects.forEach(effect => {
+      effect.render()
+    })
+
     this.monsters.forEach(monster => {
       monster.render()
     })
@@ -71,6 +127,11 @@ export class GameLayer extends Layer {
       monster.destroy()
     })
     this.monsters.clear()
+
+    this.effects.forEach(effect => {
+      effect.destroy()
+    })
+    this.effects.clear()
 
     super.destroy()
   }
