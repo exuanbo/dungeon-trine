@@ -75,11 +75,11 @@ export class BaseObject {
    * @protected
    */
   renderSprite() {
-    const spriteRenderMethod = this.face === 'Left' ? 'renderFlipped' : 'render'
+    const spriteMethodName = this.face === 'Left' ? 'renderFlipped' : 'render'
 
     this.animation
       .getCurrentFrame()
-      .sprite[spriteRenderMethod](
+      .sprite[spriteMethodName](
         this.layer.ctx,
         this.position.x,
         this.position.y
