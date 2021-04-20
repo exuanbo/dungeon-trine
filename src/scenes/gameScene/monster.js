@@ -14,7 +14,38 @@ export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
     .fill(undefined)
     .map(_ => new [TinyZombie][randomInt(/* min */ 0, /* max */ 1)](layer))
 
-export class TinyZombie extends AttackerCharacter {
+class Monster extends AttackerCharacter {
+  /**
+   * Turn willStop to `true`
+   * and reduce `health` of the character by the passed damage value.
+   *
+   * Call `destroy` and remove itself from `GameLayer.monsters` if `health` is less than `0`.
+   *
+   * @override
+   * @public
+   *
+   * @param {number} damage
+   */
+  takeDamage(damage) {
+    super.takeDamage(damage, /* cb */ () => this.destroy())
+  }
+
+  /**
+   * Delete the monster from `GameLayer.monsters`.
+   *
+   * Clear actions and delete the reference to the current layer.
+   *
+   * @override
+   * @public
+   */
+  destroy() {
+    this.layer.monsters.delete(this)
+
+    super.destroy()
+  }
+}
+
+export class TinyZombie extends Monster {
   /**
    * @param {import('./gameLayer').GameLayer} layer
    */
@@ -29,8 +60,7 @@ export class TinyZombie extends AttackerCharacter {
         position: randomPosition(
           /* horizontalOffset */ 64,
           /* verticalOffset */ 64
-        ),
-        speed: 1
+        )
       }
     )
   }

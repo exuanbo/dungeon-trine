@@ -41,7 +41,12 @@ class Player extends AttackerCharacter {
       /* y */ 0
     )
 
-    super.takeDamage(damage)
+    super.takeDamage(
+      damage,
+      /* cb */ () => {
+        throw new Error('Not implemented.')
+      }
+    )
   }
 }
 

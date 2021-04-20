@@ -26,6 +26,13 @@ export class Effect extends BaseObject {
     super(layer, baseObjectConfig)
 
     /**
+     * Whether the effect is expired according to constructor argument `EffectConfig.duration`.
+     *
+     * @public
+     */
+    this.isExpired = false
+
+    /**
      * The sender of the effect.
      *
      * @public
@@ -59,9 +66,13 @@ export class Effect extends BaseObject {
      *
      * @private
      *
-     * @type {number | undefined}
+     * @type {number}
      */
     this.effectTimeoutTaskId = this.layer.scene.timer.setTimeout(
+      /* cb */ () => {
+        this.isExpired = true
+        this.destroy()
+      },
       /* delay */ duration
     )
   }
@@ -83,21 +94,6 @@ export class Effect extends BaseObject {
     }
 
     this.destroy()
-  }
-
-  /**
-   * Whether the effect is expired according to constructor argument `EffectConfig.duration`.
-   *
-   * @public
-   */
-  isExpired() {
-    if (this.layer === null) {
-      return true
-    }
-
-    return this.layer.scene.timer.isTaskDone(
-      /* taskId */ this.effectTimeoutTaskId
-    )
   }
 
   /**
@@ -156,15 +152,19 @@ export class Effect extends BaseObject {
   /**
    * Cancel the timeout task if `isExpired()` returns `false`.
    *
+   * Delete the effect from `GameLayer.effects`.
+   *
    * Delete the reference to `sender`, `callback` and `layer`.
    *
    * @override
    * @public
    */
   destroy() {
-    if (!this.isExpired()) {
+    if (!this.isExpired) {
       this.layer.scene.timer.clearTimeout(/* taskId */ this.effectTimeoutTaskId)
     }
+
+    this.layer.effects.delete(this)
 
     this.sender = null
     this.callback = null

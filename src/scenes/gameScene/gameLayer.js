@@ -22,7 +22,7 @@ export class GameLayer extends Layer {
     /**
      * The monsters on the layer.
      *
-     * @private
+     * @public
      */
     this.monsters = new Set(
       randomMonsters(/* layer */ this, /* options */ { maxAmount: 5 })
@@ -76,13 +76,7 @@ export class GameLayer extends Layer {
    * @public
    */
   update() {
-    Array.from(this.effects).forEach(effect => {
-      if (effect.isExpired()) {
-        effect.destroy()
-        this.effects.delete(effect)
-        return
-      }
-
+    this.effects.forEach(effect => {
       effect.update()
     })
 
@@ -126,12 +120,10 @@ export class GameLayer extends Layer {
     this.monsters.forEach(monster => {
       monster.destroy()
     })
-    this.monsters.clear()
 
     this.effects.forEach(effect => {
       effect.destroy()
     })
-    this.effects.clear()
 
     super.destroy()
   }
