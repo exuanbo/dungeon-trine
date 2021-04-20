@@ -1,6 +1,6 @@
 export * from './vector.js'
 
-export * from './box.js'
+export * from './boundingBox.js'
 
 /**
  * {@link https://stackoverflow.com/a/1527820/13346012

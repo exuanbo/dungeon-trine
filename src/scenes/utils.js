@@ -3,7 +3,7 @@ import {
   Animation,
   AnimationFrame,
   vector,
-  Box,
+  BoundingBox,
   randomInt
 } from '../engine/index.js'
 import { data } from '../data.js'
@@ -18,7 +18,7 @@ import { data } from '../data.js'
  * }} gameObjectConfig
  */
 export const handleCollisionWithWall = (cb, { animationFrame, position }) => {
-  const hitbox = animationFrame.getBox(position)
+  const hitbox = animationFrame.getBoundingBox(position)
   const hitboxActualPosition = hitbox.getActualPosition()
 
   const { config } = data
@@ -43,7 +43,12 @@ export const handleCollisionWithWall = (cb, { animationFrame, position }) => {
  *      spriteSheet: string
  *      frames: Array<{
  *        sprite: [x: number, y: number, width: number, height: number]
- *        box?: [offsetX: number, offsetY: number, width: number, height: number]
+ *        boundingBox?: [
+ *          offsetX: number,
+ *          offsetY: number,
+ *          width: number,
+ *          height: number
+ *        ]
  *        duration?: number
  *      }>
  *    }
@@ -67,16 +72,24 @@ export const createAnimationsMap = animationDetailsMap => {
     const animationFrames = animationDetails.frames.map(frame => {
       const sprite = new Sprite(spriteSheet, ...frame.sprite)
 
-      /** @type {Box | undefined} */
-      let box
+      /** @type {BoundingBox | undefined} */
+      let boundingBox
 
-      if (frame.box !== undefined) {
-        const [x, y, width, height] = frame.box
+      if (frame.boundingBox !== undefined) {
+        const [x, y, width, height] = frame.boundingBox
 
-        box = new Box(width, height, /* boxPosition */ { offset: vector(x, y) })
+        boundingBox = new BoundingBox(
+          width,
+          height,
+          /* boxPosition */ { offset: vector(x, y) }
+        )
       }
 
-      return new AnimationFrame({ sprite, box, duration: frame.duration })
+      return new AnimationFrame({
+        sprite,
+        boundingBox,
+        duration: frame.duration
+      })
     })
 
     animationsMap[animationName] = new Animation(animationFrames)

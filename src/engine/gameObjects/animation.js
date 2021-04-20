@@ -1,5 +1,5 @@
 import { Sprite } from './sprite.js'
-import { Box } from '../math/box.js'
+import { BoundingBox } from '../math/boundingBox.js'
 
 /**
  * Create an empty animation with passed `width` and `height`.
@@ -25,11 +25,11 @@ export class AnimationFrame {
   /**
    * @param {{
    *    sprite: Sprite
-   *    box?: Box
+   *    boundingBox?: BoundingBox
    *    duration?: number
    * }} animationFrameConfig
    */
-  constructor({ sprite, box, duration = 15 }) {
+  constructor({ sprite, boundingBox, duration = 15 }) {
     /**
      * The sprite of the animation frame.
      *
@@ -38,15 +38,18 @@ export class AnimationFrame {
     this.sprite = sprite
 
     /**
-     * The hitbox or hurtbox of the animation frame.
+     * The bounding box of the animation frame.
      *
-     * {@link AnimationFrame#getBox}
+     * {@link AnimationFrame#getBoundingBox}
      *
      * @private
      */
-    this._box =
-      box ||
-      new Box(/* width */ this.sprite.width, /* height */ this.sprite.height)
+    this._boundingBox =
+      boundingBox ||
+      new BoundingBox(
+        /* width */ this.sprite.width,
+        /* height */ this.sprite.height
+      )
 
     /**
      * The duration of the animation frame.
@@ -58,15 +61,15 @@ export class AnimationFrame {
   }
 
   /**
-   * Get the hitbox or hurtbox of the frame according to the passed position.
+   * Get the bounding box of the frame according to the passed position.
    *
    * @public
    *
    * @param {import('../math/vector').Vector} pos
    */
-  getBox(pos) {
-    this._box.position.copy(pos)
-    return this._box
+  getBoundingBox(pos) {
+    this._boundingBox.position.copy(pos)
+    return this._boundingBox
   }
 }
 

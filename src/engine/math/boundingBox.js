@@ -1,6 +1,6 @@
 import { vector } from './vector.js'
 
-export class Box {
+export class BoundingBox {
   /**
    * @param {number} width
    * @param {number} height
@@ -11,28 +11,28 @@ export class Box {
    */
   constructor(width, height, { position = vector(), offset = vector() } = {}) {
     /**
-     * The width of the box.
+     * The width of the bounding box.
      *
      * @public
      */
     this.width = width
 
     /**
-     * The height of the box.
+     * The height of the bounding box.
      *
      * @public
      */
     this.height = height
 
     /**
-     * The position of the box, not counting `offset`.
+     * The position of the bounding box, not counting `offset`.
      *
      * @public
      */
     this.position = position
 
     /**
-     * The offset position of the box.
+     * The offset position of the bounding box.
      *
      * @public
      */
@@ -63,7 +63,7 @@ export class Box {
   }
 
   /**
-   * Test if the given point is inside the box or on the one of the edges of the box.
+   * Check if the given point is inside the bounding box or on the edge.
    *
    * @param {import('./vector').Vector} point
    *
@@ -81,9 +81,9 @@ export class Box {
   }
 
   /**
-   * Check whether the two boxes collide.
+   * Check whether the two bounding boxes collide.
    *
-   * @param {Box} other
+   * @param {BoundingBox} other
    *
    * @public
    */
