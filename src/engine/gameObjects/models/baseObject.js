@@ -53,6 +53,15 @@ export class BaseObject {
   }
 
   /**
+   * Get the bounding box of the current animation frame.
+   *
+   * @public
+   */
+  getBoundingBox() {
+    return this.animation.getCurrentFrame().getBoundingBox(this.position)
+  }
+
+  /**
    * Clear the current animation frame sprite from the layer.
    *
    * Change `isRendered` back to `false`.
