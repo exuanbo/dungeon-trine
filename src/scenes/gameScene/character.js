@@ -70,13 +70,16 @@ export class Character extends MovableObject {
   }
 
   /**
-   * Reduce `health` of the character by the passed damage value.
+   * Turn `willStop` to `true`
+   * and reduce `health` of the character by the passed damage value.
    *
    * @public
    *
    * @param {number} damage
    */
   takeDamage(damage) {
+    this.willStop = true
+
     this.health -= damage
 
     if (this.health <= 0) {
