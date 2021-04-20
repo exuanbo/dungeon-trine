@@ -184,8 +184,10 @@ export class AttackerCharacter extends Character {
    * Change `hasAttacked` to `true`.
    *
    * @protected
+   *
+   * @param {(() => void)=} cb
    */
-  attack() {
+  attack(cb) {
     if (this.hasAttacked) {
       this.willStop = true
       return
@@ -196,6 +198,10 @@ export class AttackerCharacter extends Character {
     }
 
     this.setAnimation('attack')
+
+    if (cb !== undefined) {
+      cb()
+    }
 
     this.hasAttacked = true
     this.attackTimeoutTaskId = this.layer.scene.timer.setTimeout(
