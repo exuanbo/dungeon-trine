@@ -14,7 +14,7 @@ export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
     .fill(undefined)
     .map(_ => new [TinyZombie][randomInt(/* min */ 0, /* max */ 1)](layer))
 
-class Monster extends AttackerCharacter {
+export class Monster extends AttackerCharacter {
   /**
    * Turn willStop to `true`
    * and reduce `health` of the character by the passed damage value.

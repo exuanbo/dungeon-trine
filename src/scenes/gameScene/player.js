@@ -8,7 +8,7 @@ import { data } from '../../data.js'
  * @typedef {import('./character').AttackerCharacterConfig} PlayerConfig
  */
 
-class Player extends AttackerCharacter {
+export class Player extends AttackerCharacter {
   /**
    * @param {import('./gameLayer').GameLayer} layer
    * @param {PlayerConfig} playerConfig

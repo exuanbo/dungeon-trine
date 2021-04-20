@@ -82,7 +82,7 @@ export class Effect extends BaseObject {
    *
    * @public
    *
-   * @param {import('./character').Character} target
+   * @param {import('./player').Player | import('./monster').Monster} target
    */
   takeEffect(target) {
     if (this.damage > 0) {
