@@ -14,20 +14,23 @@ import { data } from '../data.js'
  * @param {() => void} cb
  * @param {{
  *    animationFrame: AnimationFrame
- *    position: import('../engine').Vector
+ *    boundingBox: BoundingBox
  * }} gameObjectConfig
  */
-export const handleCollisionWithWall = (cb, { animationFrame, position }) => {
-  const hitbox = animationFrame.getBoundingBox(position)
-  const hitboxActualPosition = hitbox.getActualPosition()
+export const handleCollisionWithWall = (
+  cb,
+  { animationFrame, boundingBox }
+) => {
+  const boundingBoxActualPosition = boundingBox.getActualPosition()
 
   const { config } = data
 
   if (
-    hitboxActualPosition.x <= config.tileSize ||
-    hitboxActualPosition.x + hitbox.width >= config.width - config.tileSize ||
-    position.y <= config.tileSize ||
-    position.y + animationFrame.sprite.height >=
+    boundingBoxActualPosition.x <= config.tileSize ||
+    boundingBoxActualPosition.x + boundingBox.width >=
+      config.width - config.tileSize ||
+    boundingBox.position.y <= config.tileSize ||
+    boundingBox.position.y + animationFrame.sprite.height >=
       config.height - config.tileSize - 4
   ) {
     cb()

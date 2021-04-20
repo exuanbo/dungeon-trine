@@ -58,14 +58,14 @@ export class Character extends MovableObject {
 
     super.move()
 
+    const animationFrame = this.animation.getCurrentFrame()
+    const boundingBox = animationFrame.getBoundingBox(this.position)
+
     handleCollisionWithWall(
       /* cb */ () => {
         this.position.set(originalX, originalY)
       },
-      /* gameObjectConfig */ {
-        animationFrame: this.animation.getCurrentFrame(),
-        position: this.position
-      }
+      /* gameObjectConfig */ { animationFrame, boundingBox }
     )
   }
 
