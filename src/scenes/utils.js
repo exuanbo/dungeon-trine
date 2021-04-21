@@ -31,7 +31,7 @@ export const handleCollisionWithWall = (
       config.width - config.tileSize ||
     boundingBox.position.y <= config.tileSize ||
     boundingBox.position.y + animationFrame.sprite.height >=
-      config.height - config.tileSize - 4
+      config.height - config.tileSize - 16
   ) {
     cb()
   }
