@@ -90,7 +90,8 @@ export class Knight extends Player {
             position: effectPosition,
             sender: this,
             damage: 2,
-            duration: 20
+            once: false,
+            duration: 1
           })
         )
       }
