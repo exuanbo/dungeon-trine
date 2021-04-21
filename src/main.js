@@ -1,3 +1,3 @@
-import { Controller } from './controller.js'
+import { GameController } from './gameController.js'
 
-new Controller().init()
+new GameController().init()

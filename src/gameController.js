@@ -2,7 +2,7 @@ import { DataLoader, Keyboard, Game, GameRenderer } from './engine/index.js'
 import { data } from './data.js'
 import { GameScene } from './scenes/gameScene/index.js'
 
-export class Controller {
+export class GameController {
   constructor() {
     /**
      * Initialize a new `DataLoader`.
