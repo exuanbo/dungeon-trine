@@ -25,6 +25,15 @@ export class MovableObject extends ActableObject {
     this.addAction([this.willMove, this.move])
 
     /**
+     * The last position of the game object.
+     *
+     * @protected
+     *
+     * @type {import('../../math').Vector | undefined}
+     */
+    this.lastPosition = undefined
+
+    /**
      * Four directions to move.
      *
      * @public
@@ -77,6 +86,8 @@ export class MovableObject extends ActableObject {
         return
       }
     }
+
+    this.lastPosition = this.position.clone()
 
     this.directions.forEach((isDirection, direction) => {
       if (isDirection) {
