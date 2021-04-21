@@ -117,7 +117,7 @@ export const randomPosition = (horizontalOffset, verticalOffset) => {
     ),
     /* y */ randomInt(
       /* min */ tileSize * 2 + verticalOffset,
-      /* max */ height - tileSize - 8 - verticalOffset
+      /* max */ height - tileSize - 16 - verticalOffset
     )
   )
 }
