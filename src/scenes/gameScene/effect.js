@@ -6,6 +6,7 @@ import { handleCollisionWithWall } from '../utils.js'
  *    sender: import('./character').Character
  *    damage?: number
  *    callback?: (target: import('./character').Character) => void
+ *    once?: boolean
  *    speed?: number
  *    duration: number
  * }} EffectConfig
@@ -21,14 +22,22 @@ export class Effect extends BaseObject {
    */
   constructor(
     layer,
-    { sender, damage = 0, callback, speed = 0, duration, ...baseObjectConfig }
+    {
+      sender,
+      damage = 0,
+      callback,
+      once = true,
+      speed = 0,
+      duration,
+      ...baseObjectConfig
+    }
   ) {
     super(layer, baseObjectConfig)
 
     /**
      * Whether the effect is expired according to constructor argument `EffectConfig.duration`.
      *
-     * @public
+     * @private
      */
     this.isExpired = false
 
@@ -54,6 +63,13 @@ export class Effect extends BaseObject {
     this.callback = callback
 
     /**
+     * Whether the effect should be taken only once.
+     *
+     * @private
+     */
+    this.once = once
+
+    /**
      * How many pixels will the effect move on each `update`. Default to `0`.
      *
      * @private
@@ -73,7 +89,7 @@ export class Effect extends BaseObject {
         this.isExpired = true
         this.destroy()
       },
-      /* delay */ duration
+      /* delay */ duration - 1
     )
   }
 
@@ -85,6 +101,10 @@ export class Effect extends BaseObject {
    * @param {import('./player').Player | import('./monster').Monster} target
    */
   takeEffect(target) {
+    if (this.isExpired) {
+      return
+    }
+
     if (this.damage > 0) {
       target.takeDamage(this.damage)
     }
@@ -93,7 +113,9 @@ export class Effect extends BaseObject {
       this.callback(target)
     }
 
-    this.destroy()
+    if (this.once) {
+      this.destroy()
+    }
   }
 
   /**
@@ -162,6 +184,7 @@ export class Effect extends BaseObject {
   destroy() {
     if (!this.isExpired) {
       this.layer.scene.timer.clearTimeout(/* taskId */ this.effectTimeoutTaskId)
+      this.isExpired = true
     }
 
     this.layer.effects.delete(this)
