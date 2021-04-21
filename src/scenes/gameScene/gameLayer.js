@@ -44,11 +44,11 @@ export class GameLayer extends Layer {
    * @private
    */
   handleCollision() {
-    this.effects.forEach(effect => {
+    Array.from(this.effects).forEach(effect => {
       const hurtBox = effect.getBoundingBox()
 
       if (effect.sender.isPlayer) {
-        this.monsters.forEach(monster => {
+        Array.from(this.monsters).forEach(monster => {
           if (monster.getBoundingBox().isCollidingWith(hurtBox)) {
             effect.takeEffect(monster)
           }
