@@ -27,7 +27,7 @@ export class MovableObject extends ActableObject {
     /**
      * The last position of the game object.
      *
-     * @protected
+     * @private
      *
      * @type {import('../../math').Vector | undefined}
      */
@@ -53,6 +53,17 @@ export class MovableObject extends ActableObject {
      * @protected
      */
     this.speed = speed
+  }
+
+  /**
+   * Restore `position` to the last position.
+   *
+   * @public
+   */
+  restoreToLastPosition() {
+    if (this.lastPosition !== undefined) {
+      this.position.copy(this.lastPosition)
+    }
   }
 
   /**
