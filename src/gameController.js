@@ -1,6 +1,6 @@
 import { DataLoader, Keyboard, Game, GameRenderer } from './engine/index.js'
 import { data } from './data.js'
-import { GameScene } from './scenes/gameScene/index.js'
+import { GameScene } from './scenes/index.js'
 
 export class GameController {
   constructor() {
