@@ -1,6 +1,6 @@
-import { DataLoader, Keyboard, Game, GameRenderer } from './engine/index.js'
+import { DataLoader, Keyboard, GameRenderer } from './engine/index.js'
 import { data } from './data.js'
-import { GameScene } from './scenes/index.js'
+import { Game } from './game.js'
 
 export class GameController {
   constructor() {
@@ -63,7 +63,7 @@ export class GameController {
   async init() {
     await this.loadData()
 
-    this.game = new Game(/* initialScene */ new GameScene())
+    this.game = new Game()
 
     this.gameRenderer = new GameRenderer()
     this.gameRenderer.render(/* game */ this.game)
