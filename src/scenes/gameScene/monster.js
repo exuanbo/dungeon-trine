@@ -118,7 +118,7 @@ export class Monster extends AttackerCharacter {
     }
 
     this.chasePlayerTimeoutTaskId = this.layer.scene.timer.setTimeout(
-      /* delay */ randomInt(30, 120)
+      /* delay */ randomInt(0, 90)
     )
 
     const playerHitbox = this.layer.player.getBoundingBox()
