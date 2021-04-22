@@ -64,7 +64,7 @@ export class GameLayer extends Layer {
       if (
         monster.getBoundingBox().isCollidingWith(this.player.getBoundingBox())
       ) {
-        this.player.takeDamage(1)
+        this.player.takeDamage(0.5)
       }
     })
   }
