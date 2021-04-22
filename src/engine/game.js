@@ -64,11 +64,26 @@ export class Game {
   }
 
   /**
+   * Throw an error if `scene` is `undefined` or `null`.
+   *
+   * @private
+   *
+   * @returns {void | never}
+   */
+  checkScene() {
+    if (this.scene === undefined) {
+      throw new Error('There must be at least one scene.')
+    }
+  }
+
+  /**
    * Update the current scene.
    *
    * @public
    */
   update() {
+    this.checkScene()
+
     this.scene.update()
   }
 
@@ -78,6 +93,8 @@ export class Game {
    * @public
    */
   render() {
+    this.checkScene()
+
     this.scene.render()
   }
 
