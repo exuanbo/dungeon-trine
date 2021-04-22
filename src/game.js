@@ -3,6 +3,8 @@ import { GameScene } from './scenes/index.js'
 
 export class Game extends BaseGame {
   constructor() {
-    super(/* initialScene */ new GameScene())
+    super()
+
+    this.addScene(new GameScene(/* game */ this))
   }
 }

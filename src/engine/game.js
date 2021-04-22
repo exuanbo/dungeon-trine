@@ -1,9 +1,8 @@
 export class Game {
   /**
-   * @param {import('./scene').Scene} initialScene
    * @param {{ containerSelector?: string }=} gameConfig
    */
-  constructor(initialScene, { containerSelector = '#game' } = {}) {
+  constructor({ containerSelector = '#game' } = {}) {
     /**
      * The scenes of the game.
      *
@@ -13,14 +12,14 @@ export class Game {
      */
     this.scenes = new Map()
 
-    this.addScene(/* scene */ initialScene)
-
     /**
      * The current scene of the game.
      *
      * @public
+     *
+     * @type {import('./scene').Scene | undefined}
      */
-    this.scene = initialScene
+    this.scene = undefined
 
     /**
      * CSS selector of the container DOM element. Default to `'#game'`.
@@ -43,8 +42,11 @@ export class Game {
       throw new Error(`Scene '${scene.name}' already exists.`)
     }
 
-    scene.game = this
     this.scenes.set(scene.name, scene)
+
+    if (this.scenes.size === 1) {
+      this.changeScene(scene.name)
+    }
   }
 
   /**

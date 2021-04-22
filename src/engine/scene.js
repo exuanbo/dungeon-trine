@@ -3,6 +3,7 @@ import { appendLayersCanvas } from './dom.js'
 
 /**
  * @typedef {{
+ *    name: string
  *    width: number
  *    height: number
  * }} SceneConfig
@@ -10,19 +11,10 @@ import { appendLayersCanvas } from './dom.js'
 
 export class Scene {
   /**
-   * @param {string} sceneName
+   * @param {import('./game').Game} game
    * @param {SceneConfig} sceneConfig
    */
-  constructor(sceneName, { width, height }) {
-    /**
-     * Reference to the `Game` instance. Set by `Game.addScene`.
-     *
-     * @public
-     *
-     * @type {import('./game').Game}
-     */
-    this.game = undefined
-
+  constructor(game, { name, width, height }) {
     /**
      * The timer instance for the scene.
      *
@@ -47,11 +39,18 @@ export class Scene {
     this.isInitialized = false
 
     /**
+     * Reference to the `Game` instance. Set by `Game.addScene`.
+     *
+     * @public
+     */
+    this.game = game
+
+    /**
      * The name of the scene.
      *
      * @public
      */
-    this.name = sceneName
+    this.name = name
 
     /**
      * The width of the scene.
