@@ -135,8 +135,9 @@ export class DataLoader {
    * @public
    *
    * @param {string | string[]} src
+   * @param {{ format: string }} options
    */
-  async loadFont(src) {
+  async loadFont(src, { format }) {
     if (typeof src === 'string') {
       src = [src]
     }
@@ -156,7 +157,7 @@ export class DataLoader {
             styleTag.innerHTML += `
               @font-face {
                 font-family: "${DataLoader.getFileNameFrom(url)}";
-                src: url("${fontUrl}") format("ttf");
+                src: url("${fontUrl}") format("${format}");
               }
             `
             resolve()

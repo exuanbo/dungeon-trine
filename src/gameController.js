@@ -35,7 +35,10 @@ export class GameController {
         const assets = await DataLoader.fetchJson(/* url */ 'data/assets.json')
 
         await Promise.all([
-          this.dataLoader.loadFont(/* src */ assets.fonts),
+          this.dataLoader.loadFont(
+            /* src */ assets.fonts,
+            /* options */ { format: 'truetype' }
+          ),
           this.dataLoader.loadImage(
             /* src */ assets.images,
             /* options */ {
