@@ -17,7 +17,7 @@ export class Game {
      *
      * @public
      *
-     * @type {import('./scene').Scene | undefined}
+     * @type {import('./scene').Scene | undefined | null}
      */
     this.scene = undefined
 
