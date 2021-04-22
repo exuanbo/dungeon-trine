@@ -153,13 +153,13 @@ export class Scene {
    * @public
    */
   destroy() {
-    this.game = null
-
     this.timer.clearAll()
 
     for (const layer of this.layers.values()) {
       layer.destroy()
     }
     this.layers.clear()
+
+    this.game = null
   }
 }
