@@ -1,7 +1,11 @@
 import { AttackerCharacter } from './character.js'
 import { Effect } from './effect.js'
 import { createEmptyAnimation } from '../../engine/index.js'
-import { createAnimationsMap, randomPosition } from '../utils.js'
+import {
+  handleCollisionWithWall,
+  createAnimationsMap,
+  randomPosition
+} from '../utils.js'
 import { data } from '../../data.js'
 
 /**
@@ -37,9 +41,21 @@ export class Player extends AttackerCharacter {
   takeDamage(damage, sourceDirection) {
     const vectorMethodName = sourceDirection === 'Left' ? 'add' : 'substract'
 
+    const { x: lastX, y: lastY } = this.position
+
     this.position[vectorMethodName](
       /* x */ this.getBoundingBox().width,
       /* y */ 0
+    )
+
+    const animationFrame = this.animation.getCurrentFrame()
+    const boundingBox = animationFrame.getBoundingBox(this.position)
+
+    handleCollisionWithWall(
+      /* cb */ () => {
+        this.position.set(/* x */ lastX, /* y */ lastY)
+      },
+      /* gameObjectConfig */ { animationFrame, boundingBox }
     )
 
     super.takeDamage(damage)
