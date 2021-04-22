@@ -64,6 +64,7 @@ export class Monster extends AttackerCharacter {
    * @private
    */
   setRandomDirection() {
+    const animationFrame = this.animation.getCurrentFrame()
     const hitbox = this.getBoundingBox()
     const hitboxActualPosition = hitbox.getActualPosition()
 
@@ -75,10 +76,10 @@ export class Monster extends AttackerCharacter {
     let directionsPair
 
     if (!this.directions.get('Up') && !this.directions.get('Down')) {
-      if (hitboxActualPosition.y <= config.tileSize * 2) {
+      if (hitbox.position.y <= config.tileSize * 2) {
         directionsPair = ['Down']
       } else if (
-        hitboxActualPosition.y + hitbox.height >=
+        hitbox.position.y + animationFrame.sprite.height >=
         config.height - config.tileSize * 2 - 16
       ) {
         directionsPair = ['Up']
