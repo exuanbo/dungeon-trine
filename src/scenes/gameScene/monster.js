@@ -64,19 +64,45 @@ export class Monster extends AttackerCharacter {
    * @private
    */
   setRandomDirection() {
+    const hitbox = this.getBoundingBox()
+    const hitboxActualPosition = hitbox.getActualPosition()
+
+    const { config } = data
+
     /**
      * @type {import('../../engine').Direction[] | undefined}
      */
     let directionsPair
 
     if (!this.directions.get('Up') && !this.directions.get('Down')) {
-      directionsPair = ['Up', 'Down']
+      if (hitboxActualPosition.y <= config.tileSize * 2) {
+        directionsPair = ['Down']
+      } else if (
+        hitboxActualPosition.y + hitbox.height >=
+        config.height - config.tileSize * 2 - 16
+      ) {
+        directionsPair = ['Up']
+      } else {
+        directionsPair = ['Up', 'Down']
+      }
     } else if (!this.directions.get('Left') && !this.directions.get('Right')) {
-      directionsPair = ['Left', 'Right']
+      if (hitboxActualPosition.x <= config.tileSize * 2) {
+        directionsPair = ['Right']
+      } else if (
+        hitboxActualPosition.x + hitbox.width >=
+        config.width - config.tileSize * 2
+      ) {
+        directionsPair = ['Left']
+      } else {
+        directionsPair = ['Left', 'Right']
+      }
     }
 
     if (directionsPair !== undefined) {
-      this.directions.set(directionsPair[randomInt(0, 2)], true)
+      this.directions.set(
+        directionsPair[randomInt(0, directionsPair.length)],
+        true
+      )
     }
   }
 
