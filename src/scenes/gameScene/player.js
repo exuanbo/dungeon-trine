@@ -32,21 +32,17 @@ export class Player extends AttackerCharacter {
    * @public
    *
    * @param {number} damage
+   * @param {('Left' | 'Right')=} sourceDirection
    */
-  takeDamage(damage) {
-    const vectorMethodName = this.face === 'Left' ? 'add' : 'substract'
+  takeDamage(damage, sourceDirection) {
+    const vectorMethodName = sourceDirection === 'Left' ? 'add' : 'substract'
 
     this.position[vectorMethodName](
       /* x */ this.getBoundingBox().width,
       /* y */ 0
     )
 
-    super.takeDamage(
-      damage,
-      /* cb */ () => {
-        throw new Error('Not implemented.')
-      }
-    )
+    super.takeDamage(damage)
   }
 }
 

@@ -99,14 +99,15 @@ export class Effect extends BaseObject {
    * @public
    *
    * @param {import('./player').Player | import('./monster').Monster} target
+   * @param {('Left' | 'Right')=} sourceDirection
    */
-  takeEffect(target) {
+  takeEffect(target, sourceDirection) {
     if (this.isExpired) {
       return
     }
 
     if (this.damage > 0) {
-      target.takeDamage(this.damage)
+      target.takeDamage(/* damage */ this.damage, sourceDirection)
     }
 
     if (this.callback !== undefined) {

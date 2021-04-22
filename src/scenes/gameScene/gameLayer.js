@@ -50,12 +50,22 @@ export class GameLayer extends Layer {
       if (effect.sender.isPlayer) {
         Array.from(this.monsters).forEach(monster => {
           if (monster.getBoundingBox().isCollidingWith(hurtBox)) {
-            effect.takeEffect(monster)
+            effect.takeEffect(/* target */ monster)
           }
         })
       } else {
-        if (this.player.getBoundingBox().isCollidingWith(hurtBox)) {
-          effect.takeEffect(this.player)
+        const playerHitbox = this.player.getBoundingBox()
+
+        if (playerHitbox.isCollidingWith(hurtBox)) {
+          const effectSourceDirection =
+            playerHitbox.getActualPosition().x < hurtBox.getActualPosition().x
+              ? 'Right'
+              : 'Left'
+
+          effect.takeEffect(
+            /* target */ this.player,
+            /* sourceDirection */ effectSourceDirection
+          )
         }
       }
     })
@@ -64,7 +74,10 @@ export class GameLayer extends Layer {
       if (
         monster.getBoundingBox().isCollidingWith(this.player.getBoundingBox())
       ) {
-        this.player.takeDamage(0.5)
+        this.player.takeDamage(
+          /* damage */ 0.5,
+          /* sourceDirection */ monster.face === 'Left' ? 'Right' : 'Left'
+        )
       }
     })
   }

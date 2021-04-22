@@ -137,7 +137,11 @@ export class Monster extends AttackerCharacter {
    * @param {number} damage
    */
   takeDamage(damage) {
-    super.takeDamage(damage, /* cb */ () => this.destroy())
+    super.takeDamage(damage)
+
+    if (this.health <= 0) {
+      this.destroy()
+    }
   }
 
   /**
