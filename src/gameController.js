@@ -30,17 +30,21 @@ export class GameController {
       /* options */ { key: 'config' }
     )
 
-    const loadSpriteSheets = new Promise(resolve => {
+    const loadAssets = new Promise(resolve => {
       ;(async () => {
         const assets = await DataLoader.fetchJson(/* url */ 'data/assets.json')
-        await this.dataLoader.loadImage(
-          /* src */ assets.images,
-          /* options */ {
-            scale: 4,
-            key: 'images',
-            target: data.assets
-          }
-        )
+
+        await Promise.all([
+          this.dataLoader.loadFont(/* src */ assets.fonts),
+          this.dataLoader.loadImage(
+            /* src */ assets.images,
+            /* options */ {
+              scale: 4,
+              key: 'images',
+              target: data.assets
+            }
+          )
+        ])
         resolve()
       })()
     })
@@ -50,7 +54,7 @@ export class GameController {
       /* options */ { key: 'animations' }
     )
 
-    await Promise.all([loadConfig, loadSpriteSheets, loadAnimations])
+    await Promise.all([loadConfig, loadAssets, loadAnimations])
   }
 
   /**

@@ -2,8 +2,6 @@ import { createOffscreenCanvas } from './dom.js'
 
 export class DataLoader {
   /**
-   * Helper method using `fetch` API.
-   *
    * @public
    * @static
    *
@@ -12,6 +10,28 @@ export class DataLoader {
   static async fetchJson(url) {
     const response = await fetch(url)
     return await response.json()
+  }
+
+  /**
+   * @public
+   * @static
+   *
+   * @param {string} url
+   */
+  static async fetchBlob(url) {
+    const response = await fetch(url)
+    const blob = await response.blob()
+    return URL.createObjectURL(blob)
+  }
+
+  /**
+   * @public
+   * @static
+   *
+   * @param {string} url
+   */
+  static getFileNameFrom(url) {
+    return url.split('/').slice(-1)[0].split('.').slice(0, -1).join('.')
   }
 
   /**
@@ -88,18 +108,7 @@ export class DataLoader {
 
           image.onload = () => {
             const offscreenCanvas = createOffscreenCanvas(image, scale)
-
-            /**
-             * @example
-             * '0x72_DungeonTilesetII_v1.3'
-             * // url: 'assets/0x72_DungeonTilesetII_v1.3.png'
-             */
-            const imageName = url
-              .split('/')
-              .slice(-1)[0]
-              .split('.')
-              .slice(0, -1)
-              .join('.')
+            const imageName = DataLoader.getFileNameFrom(url)
 
             if (key === undefined) {
               target[imageName] = offscreenCanvas
@@ -113,6 +122,45 @@ export class DataLoader {
             image.onload = null
             resolve()
           }
+        })
+    )
+
+    await Promise.all(loading)
+  }
+
+  /**
+   * Load web font.
+   * Add `@font-face` to style tag in `document.head`.
+   *
+   * @public
+   *
+   * @param {string | string[]} src
+   */
+  async loadFont(src) {
+    if (typeof src === 'string') {
+      src = [src]
+    }
+
+    const loading = src.map(
+      url =>
+        new Promise(resolve => {
+          ;(async () => {
+            const fontUrl = await DataLoader.fetchBlob(url)
+
+            let styleTag = document.querySelector('style')
+            if (styleTag === null) {
+              styleTag = document.createElement('style')
+              document.head.appendChild(styleTag)
+            }
+
+            styleTag.innerHTML += `
+              @font-face {
+                font-family: "${DataLoader.getFileNameFrom(url)}";
+                src: url("${fontUrl}") format("ttf");
+              }
+            `
+            resolve()
+          })()
         })
     )
 

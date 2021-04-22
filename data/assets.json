@@ -1,4 +1,5 @@
 {
+  "fonts": ["assets/m5x7.ttf"],
   "images": [
     "assets/0x72_DungeonTilesetII_v1.3.png",
     "assets/knight.png",
