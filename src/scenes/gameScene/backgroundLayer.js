@@ -140,13 +140,7 @@ export class BackgroundLayer extends Layer {
       /* h */ this.scene.height
     )
 
-    this.tiles.forEach(tile => {
-      tile.sprite.render(
-        /* ctx */ this.ctx,
-        /* dx */ tile.position.x,
-        /* dy */ tile.position.y
-      )
-    })
+    this.tiles.forEach(tile => tile.render(/* ctx */ this.ctx))
 
     this.isDirty = false
   }

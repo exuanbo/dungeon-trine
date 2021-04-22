@@ -14,14 +14,29 @@ export class Tile {
     const spriteSheet = data.assets.images['0x72_DungeonTilesetII_v1.3']
 
     /**
-     * @public
+     * The sprite of the Tile.
+     *
+     * @private
      */
     this.sprite = new Sprite(spriteSheet, sx, sy, sWidth, sHeight)
 
     /**
-     * @public
+     * The position of the tile on the canvas.
+     *
+     * @private
      */
     this.position = vector(dx, dy)
+  }
+
+  /**
+   * Render the tile using the passed canvas 2D context.
+   *
+   * @public
+   *
+   * @param {CanvasRenderingContext2D} ctx
+   */
+  render(ctx) {
+    this.sprite.render(ctx, /* dx */ this.position.x, /* dy */ this.position.y)
   }
 }
 
