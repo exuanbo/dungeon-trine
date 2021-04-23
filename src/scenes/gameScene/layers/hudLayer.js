@@ -46,8 +46,23 @@ export class HUDLayer extends Layer {
      * The score of the game. From `GameScene.score`.
      *
      * @private
+     *
+     * @type {number}
      */
-    this.score = this.scene.score
+    this.score = undefined
+
+    this.setScore()
+
+    /**
+     * The level number.
+     *
+     * @private
+     *
+     * @type {number}
+     */
+    this.levelIndex = undefined
+
+    this.setLevelIndex()
   }
 
   /**
@@ -76,6 +91,15 @@ export class HUDLayer extends Layer {
   }
 
   /**
+   * Set `levelIndex` from `GameScene.level`.
+   *
+   * @private
+   */
+  setLevelIndex() {
+    this.levelIndex = this.scene.level.index
+  }
+
+  /**
    * Update the HUD layer.
    *
    * @override
@@ -84,6 +108,7 @@ export class HUDLayer extends Layer {
   update() {
     this.setPlayerHealth()
     this.setScore()
+    this.setLevelIndex()
   }
 
   /**
@@ -126,10 +151,10 @@ export class HUDLayer extends Layer {
    *
    * @private
    */
-  renderScore() {
+  renderScoreAndLevelIndex() {
     this.ctx.font = '300 64px m5x7'
 
-    const text = `SCORE: ${this.scene.score}`
+    const text = `SCORE: ${this.score}  Level: ${this.levelIndex}`
 
     const x = 66 + this.totalHealth * 64 + 24
     const y = 110
@@ -154,6 +179,6 @@ export class HUDLayer extends Layer {
     this.ctx.clearRect(0, 0, width, height)
 
     this.renderHearts()
-    this.renderScore()
+    this.renderScoreAndLevelIndex()
   }
 }
