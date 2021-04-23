@@ -101,6 +101,22 @@ export class Scene {
   }
 
   /**
+   * Remove the layer with the passed layer name.
+   * Throw an error if passed layer name does not exist.
+   *
+   * @public
+   *
+   * @param {string} layerName
+   */
+  removeLayer(layerName) {
+    if (!this.layers.has(layerName)) {
+      throw new Error(`Layer '${layerName}' does not exist.`)
+    }
+
+    this.layers.delete(layerName)
+  }
+
+  /**
    * Update `timer` and `layers`.
    *
    * @public
