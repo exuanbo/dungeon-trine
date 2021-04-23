@@ -112,8 +112,10 @@ export class BackgroundLayer extends Layer {
      * The generated tiles.
      *
      * @private
+     *
+     * @type {Tile[]}
      */
-    this.tiles = BackgroundLayer.getTiles()
+    this.tiles = undefined
 
     /**
      * The 'exit' tile to next level.
@@ -123,43 +125,8 @@ export class BackgroundLayer extends Layer {
      * @type {Tile}
      */
     this.exitTile = undefined
-  }
 
-  /**
-   * Call `GameScene.nextLevel` and re-generate tiles if `GameLayer` has no monsters
-   * and player collides with `exitTile`.
-   *
-   * @override
-   * @public
-   */
-  update() {
-    if (this.exitTile === undefined) {
-      return
-    }
-
-    const gameLayer =
-      /**
-       * @type {import('./gameLayer').GameLayer}
-       */
-      (this.scene.getLayer('game'))
-
-    if (
-      gameLayer.monsters.size === 0 &&
-      gameLayer.player
-        .getBoundingBox()
-        .isCollidingWith(
-          new BoundingBox(
-            /* width */ this.exitTile.sprite.width,
-            /* height */ this.exitTile.sprite.height,
-            /* boxPosition */ { position: this.exitTile.position }
-          )
-        )
-    ) {
-      this.scene.nextLevel()
-
-      this.tiles = BackgroundLayer.getTiles()
-      this.isDirty = true
-    }
+    this.reset()
   }
 
   /**
@@ -172,22 +139,12 @@ export class BackgroundLayer extends Layer {
   }
 
   /**
-   * Render tiles to the layer canvas once.
+   * Reset `tiles` and `exitTile`.
    *
-   * @override
    * @public
    */
-  render() {
-    if (!this.isDirty) {
-      return
-    }
-
-    this.ctx.clearRect(
-      /* x */ 0,
-      /* y */ 0,
-      /* w */ this.scene.width,
-      /* h */ this.scene.height
-    )
+  reset() {
+    this.tiles = BackgroundLayer.getTiles()
 
     let exitTileIndex = this.randomTileIndex()
 
@@ -208,6 +165,59 @@ export class BackgroundLayer extends Layer {
 
     this.tiles[exitTileIndex] = exitTile
     this.exitTile = exitTile
+
+    this.isDirty = true
+  }
+
+  /**
+   * Call `GameScene.nextLevel` and re-generate tiles if `GameLayer` has no monsters
+   * and player collides with `exitTile`.
+   *
+   * @override
+   * @public
+   */
+  update() {
+    const gameLayer =
+      /**
+       * @type {import('./gameLayer').GameLayer}
+       */
+      (this.scene.getLayer('game'))
+
+    if (
+      gameLayer.monsters.size === 0 &&
+      gameLayer.player
+        .getBoundingBox()
+        .isCollidingWith(
+          new BoundingBox(
+            /* width */ this.exitTile.sprite.width,
+            /* height */ this.exitTile.sprite.height,
+            /* boxPosition */ { position: this.exitTile.position }
+          )
+        )
+    ) {
+      this.scene.nextLevel()
+
+      this.reset()
+    }
+  }
+
+  /**
+   * Render tiles to the layer canvas once.
+   *
+   * @override
+   * @public
+   */
+  render() {
+    if (!this.isDirty) {
+      return
+    }
+
+    this.ctx.clearRect(
+      /* x */ 0,
+      /* y */ 0,
+      /* w */ this.scene.width,
+      /* h */ this.scene.height
+    )
 
     this.tiles.forEach(tile => tile.render(/* ctx */ this.ctx))
 
