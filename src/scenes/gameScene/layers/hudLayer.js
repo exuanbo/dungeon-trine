@@ -36,10 +36,10 @@ export class HUDLayer extends Layer {
     /**
      * @private
      */
-    this.sprites = new Map([
-      ['heartFull', new Sprite(spriteSheet, 1152, 1024, 64, 64)],
-      ['heartHalf', new Sprite(spriteSheet, 1216, 1024, 64, 64)],
-      ['heartEmpty', new Sprite(spriteSheet, 1280, 1024, 64, 64)]
+    this.heartSprites = new Map([
+      ['full', new Sprite(spriteSheet, 1152, 1024, 64, 64)],
+      ['half', new Sprite(spriteSheet, 1216, 1024, 64, 64)],
+      ['empty', new Sprite(spriteSheet, 1280, 1024, 64, 64)]
     ])
 
     /**
@@ -125,24 +125,24 @@ export class HUDLayer extends Layer {
 
     for (let heartIndex = 0; heartIndex < this.totalHealth; heartIndex++) {
       /**
-       * @type {'heartFull' | 'heartHalf' | 'heartEmpty'}
+       * @type {'full' | 'half' | 'empty'}
        */
       let heartType
 
       const dx = 66 + heartIndex * 64
 
       if (heartFullCount > 0) {
-        heartType = 'heartFull'
+        heartType = 'full'
         heartFullCount--
       } else if (heartHalfCount > 0) {
-        heartType = 'heartHalf'
+        heartType = 'half'
         heartHalfCount--
       } else if (heartEmptyCount > 0) {
-        heartType = 'heartEmpty'
+        heartType = 'empty'
         heartEmptyCount--
       }
 
-      this.sprites.get(heartType).render(/* ctx */ this.ctx, dx, dy)
+      this.heartSprites.get(heartType).render(/* ctx */ this.ctx, dx, dy)
     }
   }
 
