@@ -98,7 +98,7 @@ export class HUDLayer extends Layer {
 
     const dy = 62
 
-    for (let heartIndex = 0; heartIndex < 5; heartIndex++) {
+    for (let heartIndex = 0; heartIndex < this.totalHealth; heartIndex++) {
       /**
        * @type {'heartFull' | 'heartHalf' | 'heartEmpty'}
        */
@@ -131,12 +131,15 @@ export class HUDLayer extends Layer {
 
     const text = `SCORE: ${this.scene.score}`
 
+    const x = 66 + this.totalHealth * 64 + 24
+    const y = 110
+
     this.ctx.strokeStyle = 'black'
     this.ctx.lineWidth = 8
-    this.ctx.strokeText(text, 406, 110)
+    this.ctx.strokeText(text, x, y)
 
     this.ctx.fillStyle = '#FDF7ED'
-    this.ctx.fillText(text, 406, 110)
+    this.ctx.fillText(text, x, y)
   }
 
   /**
