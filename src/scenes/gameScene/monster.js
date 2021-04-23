@@ -15,7 +15,10 @@ export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
     .map(_ => new [TinyZombie][randomInt(/* min */ 0, /* max */ 1)](layer))
 
 /**
- * @typedef {import('./character').AttackerCharacterConfig & {
+ * @typedef {Omit<
+ *    import('./character').AttackerCharacterConfig,
+ *    'defaultAnimationName' | 'position'
+ * > & {
  *    score?: number
  *    collisionDamage?: number
  * }} MonsterConfig
@@ -30,7 +33,14 @@ export class Monster extends AttackerCharacter {
     layer,
     { score = 10, collisionDamage = 0.5, ...attackerCharacterConfig }
   ) {
-    super(layer, attackerCharacterConfig)
+    super(
+      layer,
+      /* attackerCharacterConfig */ {
+        defaultAnimationName: 'move',
+        position: randomPosition(),
+        ...attackerCharacterConfig
+      }
+    )
 
     // Prioritize `idle` for stopping the monster if hit.
     this.prioritizedAnimationNames.add('idle')
@@ -214,14 +224,9 @@ export class TinyZombie extends Monster {
   constructor(layer) {
     super(
       layer,
-      /* attackerCharacterConfig */ {
+      /* MonsterConfig */ {
         animationsMap: createAnimationsMap(
           /* animationDetailsMap */ data.animations.characters.tinyZombie
-        ),
-        defaultAnimationName: 'move',
-        position: randomPosition(
-          /* horizontalOffset */ 64,
-          /* verticalOffset */ 64
         )
       }
     )
