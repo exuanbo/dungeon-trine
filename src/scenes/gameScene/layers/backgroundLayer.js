@@ -221,6 +221,17 @@ export class BackgroundLayer extends Layer {
 
     this.tiles.forEach(tile => tile.render(/* ctx */ this.ctx))
 
-    this.isDirty = false
+    if (this.scene.level.index === 0) {
+      this.ctx.font = '700 112px m5x7'
+      this.ctx.fillStyle = '#c5bab9'
+
+      this.ctx.fillText(
+        'Press arrow keys to move, key X to attack.',
+        /* x */ 128,
+        /* y */ this.scene.height / 2
+      )
+    } else {
+      this.isDirty = false
+    }
   }
 }
