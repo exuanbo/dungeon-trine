@@ -1,6 +1,6 @@
 # Dungeon Trine
 
-A game in vanilla JavaScript.
+A game written in vanilla JavaScript.
 
 ## Credits
 
