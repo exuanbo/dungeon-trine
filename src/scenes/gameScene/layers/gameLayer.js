@@ -1,6 +1,6 @@
-import { Layer } from '../../../engine/index.js'
+import { Layer, randomInt } from '../../../engine/index.js'
 import { Knight } from '../player.js'
-import { randomMonsters } from '../monster.js'
+import { randomMinions, randomElite, randomBoss } from '../monster.js'
 
 /**
  * @extends {Layer<import('..').GameScene>}
@@ -23,10 +23,10 @@ export class GameLayer extends Layer {
      * The monsters on the layer.
      *
      * @public
+     *
+     * @type {Set<import('../monster').Monster>}
      */
-    this.monsters = new Set(
-      randomMonsters(/* layer */ this, /* options */ { maxAmount: 5 })
-    )
+    this.monsters = new Set()
 
     /**
      * Effects on the layer.
@@ -36,6 +36,41 @@ export class GameLayer extends Layer {
      * @type {Set<import('../effect').Effect>}
      */
     this.effects = new Set()
+  }
+
+  /**
+   * Add monsters according to `GameScene.levelConfig`.
+   *
+   * @public
+   *
+   * @param {{
+   *    minCount: number
+   *    maxCount: number
+   *    eliteCount: number
+   *    bossCount: number
+   * }} options
+   */
+  addMonsters({ minCount, maxCount, eliteCount, bossCount }) {
+    const minionsCount =
+      randomInt(minCount, maxCount + 1) - eliteCount - bossCount
+
+    if (minionsCount > 0) {
+      randomMinions(/* layer */ this, /* count */ minionsCount).forEach(
+        minion => {
+          this.monsters.add(minion)
+        }
+      )
+    }
+
+    if (eliteCount > 0) {
+      randomElite(/* layer */ this, /* count */ eliteCount).forEach(elite => {
+        this.monsters.add(elite)
+      })
+    }
+
+    if (bossCount > 0) {
+      this.monsters.add(randomBoss(/* layer */ this))
+    }
   }
 
   /**

@@ -16,14 +16,14 @@ export class Tile {
     /**
      * The sprite of the Tile.
      *
-     * @private
+     * @public
      */
     this.sprite = new Sprite(spriteSheet, sx, sy, sWidth, sHeight)
 
     /**
      * The position of the tile on the canvas.
      *
-     * @private
+     * @public
      */
     this.position = vector(dx, dy)
   }

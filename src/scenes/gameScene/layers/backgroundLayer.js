@@ -1,4 +1,4 @@
-import { Layer } from '../../../engine/index.js'
+import { Layer, BoundingBox, randomInt } from '../../../engine/index.js'
 import { Tile, Floor } from '../../tile.js'
 import { data } from '../../../data.js'
 
@@ -114,13 +114,62 @@ export class BackgroundLayer extends Layer {
      * @private
      */
     this.tiles = BackgroundLayer.getTiles()
+
+    /**
+     * The 'exit' tile to next level.
+     *
+     * @private
+     *
+     * @type {Tile}
+     */
+    this.exitTile = undefined
   }
 
   /**
+   * Call `GameScene.nextLevel` and re-generate tiles if `GameLayer` has no monsters
+   * and player collides with `exitTile`.
+   *
    * @override
    * @public
    */
-  update() {}
+  update() {
+    if (this.exitTile === undefined) {
+      return
+    }
+
+    const gameLayer =
+      /**
+       * @type {import('./gameLayer').GameLayer}
+       */
+      (this.scene.getLayer('game'))
+
+    if (
+      gameLayer.monsters.size === 0 &&
+      gameLayer.player
+        .getBoundingBox()
+        .isCollidingWith(
+          new BoundingBox(
+            /* width */ this.exitTile.sprite.width,
+            /* height */ this.exitTile.sprite.height,
+            /* boxPosition */ { position: this.exitTile.position }
+          )
+        )
+    ) {
+      this.scene.nextLevel()
+
+      this.tiles = BackgroundLayer.getTiles()
+      this.isDirty = true
+    }
+  }
+
+  /**
+   * Generate a random tile index in `tiles`.
+   *
+   * @private
+   */
+  randomTileIndex() {
+    return randomInt(0, this.tiles.length)
+  }
 
   /**
    * Render tiles to the layer canvas once.
@@ -139,6 +188,26 @@ export class BackgroundLayer extends Layer {
       /* w */ this.scene.width,
       /* h */ this.scene.height
     )
+
+    let exitTileIndex = this.randomTileIndex()
+
+    while (!(this.tiles[exitTileIndex] instanceof Floor)) {
+      exitTileIndex = this.randomTileIndex()
+    }
+
+    const originalTile = this.tiles[exitTileIndex]
+
+    const exitTile = new Tile(
+      /* sx */ 192,
+      /* sy */ 384,
+      /* sWidth */ 64,
+      /* sHeight */ 64,
+      /* dx */ originalTile.position.x,
+      /* dy */ originalTile.position.y
+    )
+
+    this.tiles[exitTileIndex] = exitTile
+    this.exitTile = exitTile
 
     this.tiles.forEach(tile => tile.render(/* ctx */ this.ctx))
 

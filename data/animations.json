@@ -152,6 +152,268 @@
           }
         ]
       }
+    },
+    "goblin": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1600, 128, 64, 64],
+            "boundingBox": [16, 32, 40, 32],
+            "duration": 30
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1728, 128, 64, 64],
+            "boundingBox": [16, 20, 40, 36]
+          },
+          {
+            "sprite": [1792, 128, 64, 64],
+            "boundingBox": [16, 16, 40, 36]
+          },
+          {
+            "sprite": [1856, 128, 64, 64],
+            "boundingBox": [16, 20, 40, 36]
+          },
+          {
+            "sprite": [1920, 128, 64, 64],
+            "boundingBox": [16, 36, 40, 32]
+          }
+        ]
+      }
+    },
+    "imp": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1600, 192, 64, 64],
+            "boundingBox": [16, 24, 40, 40],
+            "duration": 45
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1728, 192, 64, 64],
+            "boundingBox": [16, 12, 40, 44]
+          },
+          {
+            "sprite": [1792, 192, 64, 64],
+            "boundingBox": [16, 8, 40, 44]
+          },
+          {
+            "sprite": [1856, 192, 64, 64],
+            "boundingBox": [16, 12, 40, 44]
+          },
+          {
+            "sprite": [1920, 192, 64, 64],
+            "boundingBox": [16, 12, 40, 48]
+          }
+        ]
+      }
+    },
+    "skeleton": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1600, 320, 64, 64],
+            "boundingBox": [12, 20, 40, 44],
+            "duration": 30
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1728, 320, 64, 64],
+            "boundingBox": [12, 4, 40, 52]
+          },
+          {
+            "sprite": [1792, 320, 64, 64],
+            "boundingBox": [12, 0, 40, 52]
+          },
+          {
+            "sprite": [1856, 320, 64, 64],
+            "boundingBox": [12, 0, 40, 56]
+          },
+          {
+            "sprite": [1920, 320, 64, 64],
+            "boundingBox": [12, 8, 40, 56]
+          }
+        ]
+      }
+    },
+    "maskedOrc": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1600, 688, 64, 80],
+            "boundingBox": [16, 20, 40, 44]
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1728, 688, 64, 80],
+            "boundingBox": [16, 12, 44, 60]
+          },
+          {
+            "sprite": [1792, 688, 64, 80],
+            "boundingBox": [16, 8, 44, 60]
+          },
+          {
+            "sprite": [1856, 688, 64, 80],
+            "boundingBox": [16, 12, 44, 60]
+          },
+          {
+            "sprite": [1920, 688, 64, 80],
+            "boundingBox": [16, 16, 44, 60]
+          }
+        ]
+      }
+    },
+    "chort": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1600, 1312, 64, 96],
+            "boundingBox": [12, 36, 44, 60],
+            "duration": 30
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [1728, 1312, 64, 96],
+            "boundingBox": [12, 12, 44, 76]
+          },
+          {
+            "sprite": [1792, 1312, 64, 96],
+            "boundingBox": [12, 4, 44, 80]
+          },
+          {
+            "sprite": [1856, 1312, 64, 96],
+            "boundingBox": [12, 20, 44, 72]
+          },
+          {
+            "sprite": [1920, 1312, 64, 96],
+            "boundingBox": [12, 32, 44, 60]
+          }
+        ]
+      }
+    },
+    "bigZombie": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [192, 1080, 128, 136],
+            "boundingBox": [24, 60, 80, 76],
+            "duration": 30
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [576, 1080, 128, 136],
+            "boundingBox": [28, 32, 72, 96]
+          },
+          {
+            "sprite": [704, 1080, 128, 136],
+            "boundingBox": [28, 16, 76, 100]
+          },
+          {
+            "sprite": [832, 1080, 128, 136],
+            "boundingBox": [28, 36, 72, 100]
+          },
+          {
+            "sprite": [960, 1080, 128, 136],
+            "boundingBox": [24, 52, 80, 84]
+          }
+        ]
+      }
+    },
+    "ogre": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [192, 1280, 128, 128],
+            "boundingBox": [20, 28, 88, 100]
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [576, 1280, 128, 128],
+            "boundingBox": [24, 24, 80, 104]
+          },
+          {
+            "sprite": [704, 1280, 128, 128],
+            "boundingBox": [24, 20, 80, 100]
+          },
+          {
+            "sprite": [832, 1280, 128, 128],
+            "boundingBox": [24, 16, 80, 104]
+          },
+          {
+            "sprite": [960, 1280, 128, 128],
+            "boundingBox": [20, 24, 88, 104]
+          }
+        ]
+      }
+    },
+    "bigDemon": {
+      "idle": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [192, 1456, 128, 144],
+            "boundingBox": [20, 28, 88, 116],
+            "duration": 30
+          }
+        ]
+      },
+      "move": {
+        "spriteSheet": "0x72_DungeonTilesetII_v1.3",
+        "frames": [
+          {
+            "sprite": [576, 1456, 128, 144],
+            "boundingBox": [16, 36, 88, 92]
+          },
+          {
+            "sprite": [704, 1456, 128, 144],
+            "boundingBox": [16, 24, 88, 104]
+          },
+          {
+            "sprite": [832, 1456, 128, 144],
+            "boundingBox": [16, 16, 88, 128]
+          },
+          {
+            "sprite": [960, 1456, 128, 144],
+            "boundingBox": [16, 44, 92, 100]
+          }
+        ]
+      }
     }
   }
 }

@@ -4,17 +4,6 @@ import { createAnimationsMap, randomPosition } from '../utils.js'
 import { data } from '../../data.js'
 
 /**
- * Generate an array of `Monster`.
- *
- * @param {import('./layers').GameLayer} layer
- * @param {{ minAmount?: number, maxAmount: number }} options
- */
-export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
-  Array(randomInt(/* min */ minAmount, /* max */ maxAmount + 1))
-    .fill(undefined)
-    .map(_ => new [TinyZombie][randomInt(/* min */ 0, /* max */ 1)](layer))
-
-/**
  * @typedef {Omit<
  *    import('./character').AttackerCharacterConfig,
  *    'defaultAnimationName' | 'position'
@@ -217,6 +206,36 @@ export class Monster extends AttackerCharacter {
   }
 }
 
+/**
+ * Generate random `Monster` minions from `TinyZombie`, `Goblin` and `Imp`.
+ *
+ * @param {import('./layers').GameLayer} layer
+ * @param {number} count
+ */
+export const randomMinions = (layer, count) =>
+  Array(count)
+    .fill(undefined)
+    .map(_ => new [TinyZombie, Goblin, Imp][randomInt(0, 3)](layer))
+
+/**
+ * Generate random `Monster` elites from `Skeleton`, `MaskedOrc`, `Chort`.
+ *
+ * @param {import('./layers').GameLayer} layer
+ * @param {number} count
+ */
+export const randomElite = (layer, count) =>
+  Array(count)
+    .fill(undefined)
+    .map(_ => new [Skeleton, MaskedOrc, Chort][randomInt(0, 3)](layer))
+
+/**
+ * Generate a random `Monster` boss from `BigZombie`, `Ogre` and `BigDemon`.
+ *
+ * @param {import('./layers').GameLayer} layer
+ */
+export const randomBoss = layer =>
+  new [BigZombie, Ogre, BigDemon][randomInt(0, 3)](layer)
+
 export class TinyZombie extends Monster {
   /**
    * @param {import('./layers').GameLayer} layer
@@ -228,6 +247,151 @@ export class TinyZombie extends Monster {
         animationsMap: createAnimationsMap(
           /* animationDetailsMap */ data.animations.characters.tinyZombie
         )
+      }
+    )
+  }
+}
+
+export class Goblin extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.goblin
+        ),
+        score: 15
+      }
+    )
+  }
+}
+
+export class Imp extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.imp
+        )
+      }
+    )
+  }
+}
+
+export class Skeleton extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.skeleton
+        ),
+        health: 7,
+        score: 20,
+        collisionDamage: 1
+      }
+    )
+  }
+}
+
+export class MaskedOrc extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.maskedOrc
+        ),
+        score: 25,
+        collisionDamage: 1
+      }
+    )
+  }
+}
+
+export class Chort extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.chort
+        ),
+        score: 25,
+        collisionDamage: 1.5
+      }
+    )
+  }
+}
+
+export class BigZombie extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.bigZombie
+        ),
+        health: 9,
+        score: 30,
+        collisionDamage: 1.5
+      }
+    )
+  }
+}
+
+export class Ogre extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.ogre
+        ),
+        health: 7,
+        score: 30,
+        collisionDamage: 1.5
+      }
+    )
+  }
+}
+
+export class BigDemon extends Monster {
+  /**
+   * @param {import('./layers').GameLayer} layer
+   */
+  constructor(layer) {
+    super(
+      layer,
+      /* MonsterConfig */ {
+        animationsMap: createAnimationsMap(
+          /* animationDetailsMap */ data.animations.characters.bigDemon
+        ),
+        health: 7,
+        score: 30,
+        collisionDamage: 2
       }
     )
   }
