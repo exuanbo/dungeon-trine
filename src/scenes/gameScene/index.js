@@ -16,5 +16,12 @@ export class GameScene extends Scene {
     this.addLayer('background', new BackgroundLayer(/* scene */ this))
     this.addLayer('game', new GameLayer(/* scene */ this))
     this.addLayer('hud', new HUDLayer(/* scene */ this))
+
+    /**
+     * The current score of the game.
+     *
+     * @public
+     */
+    this.score = 0
   }
 }

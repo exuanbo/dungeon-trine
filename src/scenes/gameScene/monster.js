@@ -156,7 +156,7 @@ export class Monster extends AttackerCharacter {
    * Turn willStop to `true`
    * and reduce `health` of the character by the passed damage value.
    *
-   * Call `destroy` and remove itself from `GameLayer.monsters` if `health` is less than `0`.
+   * Increase `GameScene.score` by `10` and call `destroy` if `health` is less than `0`.
    *
    * @override
    * @public
@@ -167,6 +167,7 @@ export class Monster extends AttackerCharacter {
     super.takeDamage(damage)
 
     if (this.health <= 0) {
+      this.layer.scene.score += 10
       this.destroy()
     }
   }
