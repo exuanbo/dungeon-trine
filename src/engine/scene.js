@@ -1,15 +1,6 @@
 import { Timer } from './timer.js'
 import { appendLayersCanvas } from './dom.js'
 
-class LayerNotExistError extends Error {
-  /**
-   * @param {string} layerName
-   */
-  constructor(layerName) {
-    super(`Layer '${layerName}' already exists.`)
-  }
-}
-
 /**
  * @typedef {{
  *    name: string
@@ -87,7 +78,7 @@ export class Scene {
    */
   addLayer(layerName, layer) {
     if (this.layers.has(layerName)) {
-      throw new LayerNotExistError(layerName)
+      throw new Error(`Layer '${layerName}' already exists.`)
     }
 
     this.layers.set(layerName, layer)
@@ -103,7 +94,7 @@ export class Scene {
    */
   getLayer(layerName) {
     if (!this.layers.has(layerName)) {
-      throw new LayerNotExistError(layerName)
+      throw new Error(`Layer '${layerName}' does not exist.`)
     }
 
     return this.layers.get(layerName)
