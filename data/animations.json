@@ -126,7 +126,8 @@
         "frames": [
           {
             "sprite": [1600, 64, 64, 64],
-            "boundingBox": [16, 32, 36, 32]
+            "boundingBox": [16, 32, 36, 32],
+            "duration": 45
           }
         ]
       },
