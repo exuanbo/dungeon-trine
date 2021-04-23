@@ -100,20 +100,11 @@ export class HUDLayer extends Layer {
   }
 
   /**
-   * Render the HUD to the layer canvas.
+   * Render the hearts representing player's `health`.
    *
-   * @override
-   * @public
+   * @private
    */
-  render() {
-    if (!this.isDirty) {
-      return
-    }
-
-    const { width, height } = data.config
-
-    this.ctx.clearRect(0, 0, width, height)
-
+  renderHearts() {
     let heartFullCount = Math.floor(this.health)
     let heartHalfCount = (this.health / 0.5) % 2 === 0 ? 0 : 1
     let heartEmptyCount = this.totalHealth - heartFullCount - heartHalfCount
@@ -141,7 +132,14 @@ export class HUDLayer extends Layer {
 
       this.sprites.get(heartType).render(/* ctx */ this.ctx, dx, dy)
     }
+  }
 
+  /**
+   * Render the game score.
+   *
+   * @private
+   */
+  renderScore() {
     this.ctx.font = '300 64px m5x7'
 
     const text = `SCORE: ${this.scene.score}`
@@ -152,6 +150,25 @@ export class HUDLayer extends Layer {
 
     this.ctx.fillStyle = '#FDF7ED'
     this.ctx.fillText(text, 406, 110)
+  }
+
+  /**
+   * Render the HUD to the layer canvas.
+   *
+   * @override
+   * @public
+   */
+  render() {
+    if (!this.isDirty) {
+      return
+    }
+
+    const { width, height } = data.config
+
+    this.ctx.clearRect(0, 0, width, height)
+
+    this.renderHearts()
+    this.renderScore()
 
     this.isDirty = false
   }
