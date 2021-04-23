@@ -95,7 +95,7 @@ export class AttackerCharacter extends Character {
    * @param {import('./layers').GameLayer} layer
    * @param {AttackerCharacterConfig} attackerCharacterConfig
    */
-  constructor(layer, { attackInterval = 60, damage = 1, ...characterConfig }) {
+  constructor(layer, { attackInterval = 45, damage = 1, ...characterConfig }) {
     super(layer, characterConfig)
 
     this.prioritizedAnimationNames.add('attack')
