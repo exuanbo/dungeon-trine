@@ -110,4 +110,37 @@ export class GameScene extends Scene {
       player.health = player.totalHealth
     }
   }
+
+  /**
+   * Restart the game scene.
+   *
+   * @public
+   */
+  restart() {
+    this.resetLevel()
+
+    const backgroundLayer =
+      /**
+       * @type {import('./layers').BackgroundLayer}
+       */
+      (this.getLayer('background'))
+
+    backgroundLayer.reset()
+
+    const gameLayer =
+      /**
+       * @type {import('./layers').GameLayer}
+       */
+      (this.getLayer('game'))
+
+    gameLayer.player.health = gameLayer.player.totalHealth = 5
+
+    gameLayer.monsters.forEach(monster => {
+      monster.destroy()
+    })
+
+    gameLayer.effects.forEach(effect => {
+      effect.destroy()
+    })
+  }
 }

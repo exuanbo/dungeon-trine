@@ -59,6 +59,10 @@ export class Player extends AttackerCharacter {
     )
 
     super.takeDamage(damage)
+
+    if (this.health <= 0) {
+      this.layer.scene.restart()
+    }
   }
 }
 
