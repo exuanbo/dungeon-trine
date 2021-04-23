@@ -104,10 +104,13 @@ export const createAnimationsMap = animationDetailsMap => {
 /**
  * Create a random position `Vector`.
  *
- * @param {number} horizontalOffset
- * @param {number} verticalOffset
+ * @param {number=} horizontalOffset
+ * @param {number=} verticalOffset
  */
-export const randomPosition = (horizontalOffset, verticalOffset) => {
+export const randomPosition = (
+  horizontalOffset = 128,
+  verticalOffset = 128
+) => {
   const { width, height, tileSize } = data.config
 
   return vector(
