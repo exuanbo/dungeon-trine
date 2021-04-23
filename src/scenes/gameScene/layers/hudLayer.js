@@ -31,13 +31,6 @@ export class HUDLayer extends Layer {
 
     this.setPlayerHealth()
 
-    /**
-     * The score of the game. From `GameScene.score`.
-     *
-     * @private
-     */
-    this.score = this.scene.score
-
     const spriteSheet = data.assets.images['0x72_DungeonTilesetII_v1.3']
 
     /**
@@ -48,6 +41,13 @@ export class HUDLayer extends Layer {
       ['heartHalf', new Sprite(spriteSheet, 1216, 1024, 64, 64)],
       ['heartEmpty', new Sprite(spriteSheet, 1280, 1024, 64, 64)]
     ])
+
+    /**
+     * The score of the game. From `GameScene.score`.
+     *
+     * @private
+     */
+    this.score = this.scene.score
   }
 
   /**
@@ -62,15 +62,8 @@ export class HUDLayer extends Layer {
        */
       (this.scene.getLayer('game'))
 
-    if (
-      this.health !== player.health ||
-      this.totalHealth !== player.totalHealth
-    ) {
-      this.totalHealth = player.totalHealth
-      this.health = player.health > 0 ? player.health : 0
-
-      this.isDirty = true
-    }
+    this.totalHealth = player.totalHealth
+    this.health = player.health > 0 ? player.health : 0
   }
 
   /**
@@ -79,13 +72,7 @@ export class HUDLayer extends Layer {
    * @private
    */
   setScore() {
-    const newScore = this.scene.score
-
-    if (newScore !== this.score) {
-      this.score = newScore
-
-      this.isDirty = true
-    }
+    this.score = this.scene.score
   }
 
   /**
@@ -159,17 +146,11 @@ export class HUDLayer extends Layer {
    * @public
    */
   render() {
-    if (!this.isDirty) {
-      return
-    }
-
     const { width, height } = data.config
 
     this.ctx.clearRect(0, 0, width, height)
 
     this.renderHearts()
     this.renderScore()
-
-    this.isDirty = false
   }
 }
