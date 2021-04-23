@@ -1,5 +1,6 @@
 import { Scene, randomInt } from '../../engine/index.js'
 import { BackgroundLayer, GameLayer, HUDLayer } from './layers/index.js'
+import { Knight } from './player.js'
 import { data } from '../../data.js'
 
 /**
@@ -133,7 +134,12 @@ export class GameScene extends Scene {
        */
       (this.getLayer('game'))
 
-    gameLayer.player.health = gameLayer.player.totalHealth = 5
+    gameLayer.player = new Knight(
+      /**
+       * @type {import('./layers').GameLayer}
+       */
+      (this.getLayer('game'))
+    )
 
     gameLayer.monsters.forEach(monster => {
       monster.destroy()
