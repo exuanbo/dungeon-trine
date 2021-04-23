@@ -148,10 +148,10 @@ export class HUDLayer extends Layer {
 
     this.ctx.strokeStyle = 'black'
     this.ctx.lineWidth = 8
-    this.ctx.strokeText(text, 406, 106)
+    this.ctx.strokeText(text, 406, 110)
 
     this.ctx.fillStyle = '#FDF7ED'
-    this.ctx.fillText(text, 406, 106)
+    this.ctx.fillText(text, 406, 110)
 
     this.isDirty = false
   }
