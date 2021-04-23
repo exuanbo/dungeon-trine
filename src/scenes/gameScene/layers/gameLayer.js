@@ -75,7 +75,7 @@ export class GameLayer extends Layer {
         monster.getBoundingBox().isCollidingWith(this.player.getBoundingBox())
       ) {
         this.player.takeDamage(
-          /* damage */ 0.5,
+          /* damage */ monster.collisionDamage,
           /* sourceDirection */ monster.face === 'Left' ? 'Right' : 'Left'
         )
       }

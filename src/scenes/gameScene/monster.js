@@ -15,7 +15,10 @@ export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
     .map(_ => new [TinyZombie][randomInt(/* min */ 0, /* max */ 1)](layer))
 
 /**
- * @typedef {import('./character').AttackerCharacterConfig} MonsterConfig
+ * @typedef {import('./character').AttackerCharacterConfig & {
+ *    score?: number
+ *    collisionDamage?: number
+ * }} MonsterConfig
  */
 
 export class Monster extends AttackerCharacter {
@@ -23,8 +26,11 @@ export class Monster extends AttackerCharacter {
    * @param {import('./layers').GameLayer} layer
    * @param {MonsterConfig} monsterConfig
    */
-  constructor(layer, monsterConfig) {
-    super(layer, /* attackerCharacterConfig */ monsterConfig)
+  constructor(
+    layer,
+    { score = 10, collisionDamage = 0.5, ...attackerCharacterConfig }
+  ) {
+    super(layer, attackerCharacterConfig)
 
     // Prioritize `idle` for stopping the monster if hit.
     this.prioritizedAnimationNames.add('idle')
@@ -41,6 +47,20 @@ export class Monster extends AttackerCharacter {
      * @type {number}
      */
     this.chasePlayerTimeoutTaskId = undefined
+
+    /**
+     * How many scores will the player gain if the monster is killed.
+     *
+     * @public
+     */
+    this.score = score
+
+    /**
+     * How many damage will the monster cause if it collides with the player.
+     *
+     * @public
+     */
+    this.collisionDamage = collisionDamage
   }
 
   /**
@@ -167,7 +187,7 @@ export class Monster extends AttackerCharacter {
     super.takeDamage(damage)
 
     if (this.health <= 0) {
-      this.layer.scene.score += 10
+      this.layer.scene.score += this.score
       this.destroy()
     }
   }
