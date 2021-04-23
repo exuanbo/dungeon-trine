@@ -9,11 +9,11 @@ import { handleCollisionWithWall } from '../utils.js'
  */
 
 /**
- * @extends {MovableObject<import('./gameLayer').GameLayer>}
+ * @extends {MovableObject<import('./layers').GameLayer>}
  */
 export class Character extends MovableObject {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    * @param {CharacterConfig} characterConfig
    */
   constructor(layer, { totalHealth = 5, health, ...movableObjectConfig }) {
@@ -92,7 +92,7 @@ export class Character extends MovableObject {
  */
 export class AttackerCharacter extends Character {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    * @param {AttackerCharacterConfig} attackerCharacterConfig
    */
   constructor(layer, { attackInterval = 60, damage = 1, ...characterConfig }) {

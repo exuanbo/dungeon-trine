@@ -14,7 +14,7 @@ import { data } from '../../data.js'
 
 export class Player extends AttackerCharacter {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    * @param {PlayerConfig} playerConfig
    */
   constructor(layer, playerConfig) {
@@ -64,7 +64,7 @@ export class Player extends AttackerCharacter {
 
 export class Knight extends Player {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    */
   constructor(layer) {
     super(
@@ -113,7 +113,7 @@ export class Knight extends Player {
 
 export class Wizard extends Player {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    */
   constructor(layer) {
     super(

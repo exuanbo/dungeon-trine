@@ -1,13 +1,13 @@
-import { Layer } from '../../engine/index.js'
-import { Knight } from './player.js'
-import { randomMonsters } from './monster.js'
+import { Layer } from '../../../engine/index.js'
+import { Knight } from '../player.js'
+import { randomMonsters } from '../monster.js'
 
 /**
- * @extends {Layer<import('.').GameScene>}
+ * @extends {Layer<import('..').GameScene>}
  */
 export class GameLayer extends Layer {
   /**
-   * @param {import('.').GameScene} scene
+   * @param {import('..').GameScene} scene
    */
   constructor(scene) {
     super(scene, /* layerConfig */ { zIndex: 1 })
@@ -33,7 +33,7 @@ export class GameLayer extends Layer {
      *
      * @public
      *
-     * @type {Set<import('./effect').Effect>}
+     * @type {Set<import('../effect').Effect>}
      */
     this.effects = new Set()
   }

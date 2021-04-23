@@ -1,12 +1,12 @@
-import { Sprite, Layer } from '../../engine/index.js'
-import { data } from '../../data.js'
+import { Sprite, Layer } from '../../../engine/index.js'
+import { data } from '../../../data.js'
 
 /**
- * @extends {Layer<import('.').GameScene>}
+ * @extends {Layer<import('..').GameScene>}
  */
 export class HUDLayer extends Layer {
   /**
-   * @param {import('.').GameScene} scene
+   * @param {import('..').GameScene} scene
    */
   constructor(scene) {
     super(scene, /* layerConfig */ { zIndex: 2 })

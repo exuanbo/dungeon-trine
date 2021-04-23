@@ -1,7 +1,6 @@
 import { Scene } from '../../engine/index.js'
-import { BackgroundLayer } from './backgroundLayer.js'
-import { GameLayer } from './gameLayer.js'
-import { HUDLayer } from './hudLayer.js'
+import { BackgroundLayer, GameLayer, HUDLayer } from './layers/index.js'
+
 import { data } from '../../data.js'
 
 export class GameScene extends Scene {

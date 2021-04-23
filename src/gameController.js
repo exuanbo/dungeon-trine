@@ -87,7 +87,7 @@ export class GameController {
           case 'game': {
             const gameLayer =
               /**
-               * @type {import('./scenes/gameScene/gameLayer').GameLayer}
+               * @type {import('./scenes/gameScene/layers').GameLayer}
                */
               (this.game.scene.getLayer('game'))
 

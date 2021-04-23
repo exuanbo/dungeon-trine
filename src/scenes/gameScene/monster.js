@@ -6,7 +6,7 @@ import { data } from '../../data.js'
 /**
  * Generate an array of `Monster`.
  *
- * @param {import('./gameLayer').GameLayer} layer
+ * @param {import('./layers').GameLayer} layer
  * @param {{ minAmount?: number, maxAmount: number }} options
  */
 export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
@@ -20,7 +20,7 @@ export const randomMonsters = (layer, { minAmount = 1, maxAmount }) =>
 
 export class Monster extends AttackerCharacter {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    * @param {MonsterConfig} monsterConfig
    */
   constructor(layer, monsterConfig) {
@@ -189,7 +189,7 @@ export class Monster extends AttackerCharacter {
 
 export class TinyZombie extends Monster {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    */
   constructor(layer) {
     super(

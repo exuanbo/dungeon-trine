@@ -1,9 +1,9 @@
-import { Layer } from '../../engine/index.js'
-import { Tile, Floor } from '../tile.js'
-import { data } from '../../data.js'
+import { Layer } from '../../../engine/index.js'
+import { Tile, Floor } from '../../tile.js'
+import { data } from '../../../data.js'
 
 /**
- * @extends {Layer<import('.').GameScene>}
+ * @extends {Layer<import('..').GameScene>}
  */
 export class BackgroundLayer extends Layer {
   /**
@@ -103,7 +103,7 @@ export class BackgroundLayer extends Layer {
   }
 
   /**
-   * @param {import('.').GameScene} scene
+   * @param {import('..').GameScene} scene
    */
   constructor(scene) {
     super(scene)

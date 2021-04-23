@@ -13,11 +13,11 @@ import { handleCollisionWithWall } from '../utils.js'
  */
 
 /**
- * @extends {BaseObject<import('./gameLayer').GameLayer>}
+ * @extends {BaseObject<import('./layers').GameLayer>}
  */
 export class Effect extends BaseObject {
   /**
-   * @param {import('./gameLayer').GameLayer} layer
+   * @param {import('./layers').GameLayer} layer
    * @param {EffectConfig} effectConfig
    */
   constructor(
