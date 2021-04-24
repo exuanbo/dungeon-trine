@@ -154,7 +154,7 @@ export class HUDLayer extends Layer {
   renderScoreAndLevelIndex() {
     this.ctx.font = '300 64px m5x7'
 
-    const text = `SCORE: ${this.score}  Level: ${this.levelIndex}`
+    const text = `SCORE: ${this.score}  LEVEL: ${this.levelIndex}`
 
     const x = 66 + this.totalHealth * 64 + 24
     const y = 110
