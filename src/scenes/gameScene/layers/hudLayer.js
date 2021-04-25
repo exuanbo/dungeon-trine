@@ -63,6 +63,13 @@ export class HUDLayer extends Layer {
     this.levelIndex = undefined
 
     this.setLevelIndex()
+
+    /**
+     * If the needed font is loaded.
+     *
+     * @private
+     */
+    this.isFontLoaded = false
   }
 
   /**
@@ -77,8 +84,14 @@ export class HUDLayer extends Layer {
        */
       (this.scene.getLayer('game'))
 
-    this.totalHealth = player.totalHealth
-    this.health = player.health > 0 ? player.health : 0
+    if (player.health !== this.health) {
+      if (player.totalHealth !== this.totalHealth) {
+        this.totalHealth = player.totalHealth
+      }
+      this.health = player.health > 0 ? player.health : 0
+
+      this.isDirty = true
+    }
   }
 
   /**
@@ -87,7 +100,11 @@ export class HUDLayer extends Layer {
    * @private
    */
   setScore() {
-    this.score = this.scene.score
+    if (this.scene.score !== this.score) {
+      this.score = this.scene.score
+
+      this.isDirty = true
+    }
   }
 
   /**
@@ -96,7 +113,23 @@ export class HUDLayer extends Layer {
    * @private
    */
   setLevelIndex() {
-    this.levelIndex = this.scene.level.index
+    if (this.scene.level.index !== this.levelIndex) {
+      this.levelIndex = this.scene.level.index
+
+      this.isDirty = true
+    }
+  }
+
+  /**
+   * Check if the needed font is loaded.
+   *
+   * @private
+   */
+  checkFontLoaded() {
+    // @ts-ignore
+    if (document.fonts.check('300 64px m5x7')) {
+      this.isFontLoaded = true
+    }
   }
 
   /**
@@ -109,6 +142,10 @@ export class HUDLayer extends Layer {
     this.setPlayerHealth()
     this.setScore()
     this.setLevelIndex()
+
+    if (!this.isFontLoaded) {
+      this.checkFontLoaded()
+    }
   }
 
   /**
@@ -174,11 +211,17 @@ export class HUDLayer extends Layer {
    * @public
    */
   render() {
+    if (!this.isDirty || !this.isFontLoaded) {
+      return
+    }
+
     const { width, height } = data.config
 
     this.ctx.clearRect(0, 0, width, height)
 
     this.renderHearts()
     this.renderScoreAndLevelIndex()
+
+    this.isDirty = false
   }
 }
