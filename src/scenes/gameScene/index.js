@@ -99,6 +99,10 @@ export class GameScene extends Scene {
 
     gameLayer.addMonsters(this.level.monsters)
 
+    if (this.level.index === 1) {
+      return
+    }
+
     const { player } = gameLayer
 
     player.health += 2
