@@ -138,6 +138,7 @@ export class GameScene extends Scene {
        */
       (this.getLayer('game'))
 
+    gameLayer.player.destroy()
     gameLayer.player = new Knight(
       /**
        * @type {import('./layers').GameLayer}
