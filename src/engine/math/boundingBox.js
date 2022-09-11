@@ -38,19 +38,28 @@ export class BoundingBox {
      */
     this.offset = offset
 
+    const self = this
     /**
      * Functions that return actual position of the corresponding four vertices.
      *
      * @public
      *
-     * @type {Map<'tl' | 'tr' | 'br' | 'bl', () => import('./vector').Vector>}
+     * @type {Record<'tl' | 'tr' | 'br' | 'bl', import('./vector').Vector>}
      */
-    this.vertices = new Map([
-      ['tl', () => this.getActualPosition()],
-      ['tr', () => this.getActualPosition().add(width, 0)],
-      ['br', () => this.getActualPosition().add(width, height)],
-      ['bl', () => this.getActualPosition().add(0, height)]
-    ])
+    this.vertices = {
+      get tl() {
+        return self.getActualPosition()
+      },
+      get tr() {
+        return self.getActualPosition().add(width, 0)
+      },
+      get br() {
+        return self.getActualPosition().add(width, height)
+      },
+      get bl() {
+        return self.getActualPosition().add(0, height)
+      }
+    }
   }
 
   /**
@@ -88,14 +97,14 @@ export class BoundingBox {
    * @public
    */
   isCollidingWith(other) {
-    for (const getOtherVertex of other.vertices.values()) {
-      if (this.isPointInBox(getOtherVertex())) {
+    for (const otherVertex of Object.values(other.vertices)) {
+      if (this.isPointInBox(otherVertex)) {
         return true
       }
     }
 
-    for (const getVertex of this.vertices.values()) {
-      if (other.isPointInBox(getVertex())) {
+    for (const vertex of Object.values(this.vertices)) {
+      if (other.isPointInBox(vertex)) {
         return true
       }
     }
