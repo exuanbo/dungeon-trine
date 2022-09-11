@@ -2,7 +2,7 @@ export class GameRenderer {
   /**
    * @param {number=} timeStep
    */
-  constructor(timeStep = 1000 / 90) {
+  constructor(timeStep = 1000 / 120) {
     /**
      * Used in `stop` for cancelling `window.requestAnimationFrame`.
      *
@@ -41,18 +41,19 @@ export class GameRenderer {
       this.render(game)
     )
 
-    let delta = performance.now() - this.lastUpdateTime
+    const now = performance.now()
+    let delta = now - this.lastUpdateTime || this.timeStep
 
     if (delta < this.timeStep) {
       return
     }
 
-    while (delta > 0) {
+    while (delta >= this.timeStep) {
       game.update()
       delta -= this.timeStep
     }
 
-    this.lastUpdateTime = performance.now()
+    this.lastUpdateTime = now - delta
     game.render()
   }
 
